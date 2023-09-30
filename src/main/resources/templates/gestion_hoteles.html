@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Gestión de Hoteles</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- CSS Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
+
+  <!---- Own CSS ---->
+  <link rel="stylesheet" href="/css/panel_control.css" />
+  <link rel="stylesheet" href="/css/bootstrap_configuration.css" />
+  <link rel="stylesheet" href="/css/tabla_admin.css" />
+  <link rel="stylesheet" href="/css/form_admin.css" />
+
+  <!---- Font Awesome ---->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet" />
+</head>
+
+<body>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
+
+  <!-- Comienza sidebar.  -->
+  <nav id="sidebar" class="bg-danger">
+    <div class="ms-3 me-3 mt-4 mb-1 text-center">
+      <img th:src="@{/img/logo_login.png}" />
+    </div>
+    <ul class="list-unstyled components">
+      <li class="ps-4">
+        <a href="/gestion_usuarios"><i class="fa-solid fa-user"></i><span class="text-white">Gestión de
+            Usuarios</span></a>
+      </li>
+      <li class="ps-4">
+        <a href="/gestion_vuelos"><i class="fa-solid fa-plane"></i><span class="text-white">Gestión de
+            Vuelos</span></a>
+      </li>
+      <li class="ps-4">
+        <a href="/gestion_hoteles"><i class="fa-solid fa-hotel"></i><span class="text-white">Gestión de
+            Hoteles</span></a>
+      </li>
+      <br />
+      <li class="ps-4">
+        <a href="/registro_ventas" class="text-white"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span
+            class="text-white">Registro de Ventas</span></a>
+      </li>
+      <li class="ps-4">
+        <a href="/registro_mejor" class="text-white"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span
+            class="text-white">Mejores Ventas</span></a>
+      </li>
+      <br /><br /><br /><br /><br /><br /><br /><br />
+      <li class="ps-4">
+        <a href="/" class="text-white"><i class="fa fa-window-close" aria-hidden="true"></i><span
+            class="text-white">Salir</span></a>
+      </li>
+      
+    </ul>
+  </nav>
+  <!-- Finaliza sidebar. -->
+
+  <div class="container">
+    <div class="row flex-lg-nowrap">
+      <div class="col-12 col-lg-auto mb-3" style="width: 200px">
+        <div class="card p-3">
+          <div class="e-navlist e-navlist--active-bg">
+            <ul class="nav">
+              <li class="nav-item">
+                <a class="nav-link px-2 active" href="#"><i class="fa fa-fw fa-bar-chart mr-1"></i><span>...</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link px-2" href="#" target="__blank"><i
+                    class="fa fa-fw fa-th mr-1"></i><span>...</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link px-2" href="#" target="__blank"><i
+                    class="fa fa-fw fa-cog mr-1"></i><span>...</span></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Comienza mantenedor. -->
+      <div class="col">
+        <div class="e-tabs mb-3 px-3">
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Hoteles</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="row flex-lg-nowrap">
+          <div class="col mb-3">
+            <div class="e-panel card">
+              <div >
+                <div class="e-table">
+                  <div class="table-responsive table-lg mt-3">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>Nombre</th>
+                          <th>Dirección</th>
+                          <th>Precio</th>
+                          <th>Opciones</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr th:each="v:${user}">
+                          <td class="text-nowrap align-middle" th:text="${v.nombre}"></td>
+                          <td class="text-nowrap align-middle" th:text="${v.ubicacion}"></td>
+                          <td class="text-nowrap align-middle" th:text="${v.precio}"></td>
+                          <td class="d-flex">
+                            
+                            <a class="btn btn-warning me-3" th:href="@{'/hospedaje/editar'+'/'+ ${v.id}}">Editar</a>
+                            <a class="btn btn-danger" th:href="@{'/hospedaje/eliminar'+'/'+ ${v.id}}" >Eliminar</a>
+                            
+                            <!--<button class="btn btn-danger">Eliminar</button>-->
+                          </td>
+                        </tr>
+
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="d-flex justify-content-center">
+                    <ul class="pagination mt-3 mb-0">
+                      <li class="disabled page-item">
+                        <a href="#" class="page-link">‹</a>
+                      </li>
+                      <li class="active page-item">
+                        <a href="#" class="page-link">1</a>
+                      </li>
+                      <li class="page-item">
+                        <a href="#" class="page-link">2</a>
+                      </li>
+                      <li class="page-item">
+                        <a href="#" class="page-link">3</a>
+                      </li>
+                      <li class="page-item">
+                        <a href="#" class="page-link">4</a>
+                      </li>
+                      <li class="page-item">
+                        <a href="#" class="page-link">5</a>
+                      </li>
+                      <li class="page-item">
+                        <a href="#" class="page-link">›</a>
+                      </li>
+                      <li class="page-item">
+                        <a href="#" class="page-link">»</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-lg-3 mb-3">
+          <div class="card">
+            <div class="card-body">
+              <div class="text-center px-xl-3">
+                <button class="btn btn-success btn-block" type="button" data-toggle="modal"
+                  data-target="#user-form-modal">
+                  Nuevo Hotel
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- User Form Modal -->
+        <div class="modal fade" role="dialog" tabindex="-1" id="user-form-modal">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Formulario</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="py-1">
+                  <form class="form" novalidate="" th:action="@{/hospedajeRegistro}" method="post"
+                    th:object="${hospedaje}">
+                    <div class="row">
+                      <div class="col">
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-group">
+                              <label>Nombre</label>
+                              <input class="form-control" type="text" th:field="*{nombre}" />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-group">
+                              <label>Dirección</label>
+                              <input class="form-control" type="text" th:field="*{ubicacion}" />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-group">
+                              <label>Precio</label>
+                              <input class="form-control" id="precio" type="number" step=0.1 th:field="*{precio}" />
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col d-flex justify-content-end">
+                        <button class="btn btn-primary" type="submit">
+                          Guardar
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Finaliza mantenedor. -->
+    </div>
+  </div>
+
+  <!-- Comienza footer. -->
+  <footer class="footer">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6">
+          <nav class="d-flex">
+            <ul class="m-0 p-0">
+              <li>
+                <a href="#"> Inicio </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div class="col-md-6">
+          <p class="copyright d-flex justify-content-end">
+            Copyright 2021 nmviajes All Rights Reserved.
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- Finaliza footer. -->
+
+ <!-- Finaliza footer. -->
+
+<style type="text/css">
+    body {
+      margin-top: 20px;
+      background: #f8f8f8;
+    }
+  </style>
+
+  <script type="text/javascript"></script>
+	<!-- Own Javascript -->
+	<script th:src="@{/js/index.js}"></script>
+
+	<!-- Bootstrap JavaScript -->
+	<script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+	<script th:src="@{/js/popper.min.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script th:src="@{/js/jquery-ui.min.js}"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+</html>

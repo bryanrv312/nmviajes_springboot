@@ -1,0 +1,5 @@
+.container_oficinas {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(/img/oficina.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}

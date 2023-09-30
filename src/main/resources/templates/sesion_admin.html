@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	
+	
+<head>
+<meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NMViajes - Inicio de Sesión</title>
+
+    <!-- Bootstrap CSS -->
+    <!-- Bootstrap CSS -->
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+
+<link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}" />
+
+<!-- Own CSS -->
+<link rel="stylesheet" href="/css/bootstrap_configuration.css" />
+<link rel="stylesheet" href="/css/index.css" />
+<link rel="stylesheet" href="/css/barra_navegacion.css" />
+<link rel="stylesheet" href="/css/hero.css" />
+<link rel="stylesheet" href="/css/anuncios.css" />
+<link rel="stylesheet" href="/css/footer.css" />
+
+
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+</head>
+
+  <body>
+    <!-- Comienza barra de navegación. -->
+    <header>
+      <div class="container_barra_navegacion">
+        <nav class="navbar navbar-expand-lg">
+          <!-- Comienza logo. -->
+          <div class="container_logo_inicio m-2">
+            <a href="/">
+              <img
+                class="logo_inicio"
+               	th:src="@{/img/logo_barra_navegacion.png}"
+                alt="Logo"
+              />
+             </a> 
+          </div>
+          <!-- Finaliza logo. -->
+
+          <!-- Comienza botón para pantallas chicas. -->
+
+          <!-- Finaliza botón para pantallas chicas. -->
+
+          <!-- Comienza listado de ítems. -->
+         <div
+            class="col-4 col-md-2 col-lg-6 collapse navbar-collapse d-flex justify-content-center"
+          >
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a
+                  class="text-light fw-bold nav-link"
+                 			 href="/nosotros"
+	                 		
+                  >Nosotros</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="text-light fw-bold nav-link"
+                   href="/oficinas"
+                  >Oficinas</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="text-light fw-bold nav-link"
+                  href="/armar_paquete"
+                  >Arma tu Viaje</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="text-light fw-bold nav-link"
+                   href="/ofertas"
+                  >Ofertas</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="text-light fw-bold nav-link"
+                   href="/ayuda"
+                  >Ayuda</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="text-light fw-bold nav-link"
+                   href="/registro"
+                  >Regístrate</a
+                >
+              </li>
+              <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+              <a class="text-light fw-bold nav-link" href="/gestion_usuarios">Gestion Admin</a>
+            </li>
+              
+              <ul class="navbar-right">
+				<li sec:authorize="!isAuthenticated()"><a
+					class="btn btn-outline-light" th:href="@{/iniciar_sesion}">Sign
+						In</a></li>
+
+				<li sec:authorize="isAuthenticated()" class="dropdown show">
+					<a class="btn btn-outline-light dropdown-toggle" href="#"
+					role="button" id="dropdownMenuLink" data-toggle="dropdown"
+					aria-haspopup="true" aria-expanded="false"><span
+						sec:authentication="name"></span></a>
+
+					<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+						<form id="logoutForm" th:action="@{/logout}" method="post">
+							<button class="dropdown-item"
+								onclick="document.getElementById('logoutForm').submit();"
+								type="submit">Sign Out</button>
+						</form>
+
+					</div>
+				</li>
+			</ul>
+              
+            </ul>
+          </div>
+          <!-- Finaliza listado de ítems. -->
+        </nav>
+      </div>
+    </header>
+    <!-- Finaliza barra de navegación. -->
+
+    <!-- Comienza contenido principal. -->
+    <main>
+      <section class="h-100 gradient-form" style="background-color: #eee">
+        <div class="container py-5 h-100">
+          <div
+            class="row d-flex justify-content-center align-items-center h-100"
+          >
+            <div class="col-xl-10">
+              <div class="card rounded-3 text-black">
+                <div class="row g-0">
+                  <div class="col-lg-6">
+                    <div class="card-body p-md-5 mx-md-4">
+                      <div class="text-center">
+                        <h4 class="mt-1 mb-5 pb-1">
+                          Ingrese sus datos de Adminnistrador
+                        </h4>
+                      </div>
+
+                      <form th:action="@{/validarAdmin}" method="post" th:object="${user}">
+                        <p>Por favor, ingrese a su cuenta</p>
+
+                        <div class="form-outline mb-4">
+                          <input
+                            type="text"
+                            id="name"
+                            class="form-control"
+                            th:field="*{nombre}"
+                            placeholder="Nombre usuario"
+                          />
+                          <label class="form-label" for="form2Example11"
+                            >Email</label
+                          >
+                        </div>
+
+                        <div class="form-outline mb-4">
+                          <input
+                            type="password"
+                            id="password"
+                            class="form-control"
+                            th:field="*{password}"
+                            placeholder="Contraseña"
+                          />
+                          <label class="form-label" for="form2Example22"
+                            >Contraseña</label
+                          >
+                        </div>
+
+                        <div class="text-center pt-1 mb-5 pb-1">
+                          <input
+                            class="btn btn-danger fa-lg mb-3 p-3"
+                            type="submit"
+                            name="login-submit" id="login-submit"
+                            value="Iniciar sesión"
+                          >
+                          
+                          <a class="text-muted" href="#!"
+                            >Olvidó su contraseña?</a
+                          >
+                        </div>
+
+                        <div
+                          class="d-flex align-items-center justify-content-center pb-4"
+                        >
+                          <p class="mb-0 me-2">¿Es un admin?</p>
+                          <a class="link-danger" href="/sesion_admin"> 
+                            Ingrese aqui
+                          </a>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                  <div
+                    class="col-lg-6 d-flex align-items-center bg-danger"
+                  >
+                    <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                      <h4 class="mb-4">Agencia NMViajes</h4>
+                      <p class="small mb-0">
+                        Aprovecha Vuelos y Paquetes Turísticos al Mejor Precio.
+                        ¡Compra Ya! en NMViajes. Disfruta Comprando Tus
+                        Vacaciones en nuestra Web sin Salir de Casa. Ingresa
+                        Hoy. Tu Viaje al Mejor Precio. Las Mejores Ofertas.
+                        Paquetes Todo Incluido. Ofertas de Paquetes.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- Finaliza contenido principal. -->
+
+    <!-- Comienza footer. -->
+    <footer class="text-center text-lg-start text-white bg-danger">
+      <!-- Grid container -->
+      <div class="container p-4 pb-0">
+        <!-- Section: Links -->
+        <section>
+          <!--Grid row-->
+          <div class="row">
+            <!-- Grid column -->
+            <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+              <h6 class="text-uppercase mb-4 font-weight-bold">NMViajes</h6>
+              <p>
+                Aprovecha Vuelos y Paquetes Nacionales e Internacionales a
+                Precios Increíbles. Reserva Hoy. Compra tus Vacaciones en
+                NMViajes al Mejor Precio. Disfruta Descuentos Exclusivos Online.
+              </p>
+            </div>
+            <!-- Grid column -->
+
+            <hr class="w-100 clearfix d-md-none" />
+
+            <!-- Grid column -->
+            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+              <h6 class="text-uppercase mb-4 font-weight-bold">Productos</h6>
+              <p>
+                <a class="text-white">Nosotros</a>
+              </p>
+              <p>
+                <a class="text-white">Oficinas</a>
+              </p>
+              <p>
+                <a class="text-white">Arma tu viaje</a>
+              </p>
+              <p>
+                <a class="text-white">Ofertas</a>
+              </p>
+              <p>
+                <a class="text-white">Ayuda</a>
+              </p>
+              <p>
+                <a class="text-white">Regístrate</a>
+              </p>
+              <p>
+                <a class="text-white">Iniciar Sesión</a>
+              </p>
+            </div>
+            <!-- Grid column -->
+
+            <hr class="w-100 clearfix d-md-none" />
+
+            <!-- Grid column -->
+            <hr class="w-100 clearfix d-md-none" />
+
+            <!-- Grid column -->
+            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+              <h6 class="text-uppercase mb-4 font-weight-bold">Contáctanos</h6>
+              <p>
+                Agencias de Viajes en Lima Perú Av. José Pardo 801 Miraflores -
+                Lima 18, Perú.
+              </p>
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+              <h6 class="text-uppercase mb-4 font-weight-bold">Síguenos</h6>
+
+              <!-- Facebook -->
+              <a
+                class="facebook btn btn-primary btn-floating m-1"
+                href="https://www.facebook.com/nmviajes"
+                role="button"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+
+              <!-- Youtube -->
+              <a
+                class="youtube btn btn-primary btn-floating m-1"
+                href="https://www.youtube.com/channel/UCSm8bFv7dgJC8D_WzTqjppA"
+                role="button"
+                ><i class="fab fa-youtube"></i
+              ></a>
+
+              <!-- Instagram -->
+              <a
+                class="instagram btn btn-primary btn-floating m-1"
+                href="https://www.instagram.com/nmviajes/"
+                role="button"
+                ><i class="fab fa-instagram"></i
+              ></a>
+            </div>
+          </div>
+          <!--Grid row-->
+        </section>
+        <!-- Section: Links -->
+      </div>
+      <!-- Grid container -->
+
+      <!-- Copyright -->
+      <div class="copyright text-center p-3">
+        Copyright 2021 nmviajes All Rights Reserved.
+      </div>
+      <!-- Copyright -->
+    </footer>
+    <!-- Finaliza footer. -->
+
+    <!-- Finaliza footer. -->
+
+
+	<!-- Own Javascript -->
+	<script th:src="@{/js/index.js}"></script>
+
+	<!-- Bootstrap JavaScript -->
+	<script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+	<script th:src="@{/js/popper.min.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script th:src="@{/js/jquery-ui.min.js}"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+</html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NMViajes - Oficinas</title>
+
+  
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+
+<link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}" />
+
+<!-- Own CSS -->
+<link rel="stylesheet" href="/css/bootstrap_configuration.css" />
+<link rel="stylesheet" href="/css/oficinas.css" />
+<link rel="stylesheet" href="/css/barra_navegacion.css" />
+<link rel="stylesheet" href="/css/footer.css" />
+
+<!-- Código para los inputs con calendarios. -->
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+</head>
+
+  <body>
+    <!-- Comienza barra de navegación. -->
+    <header>
+      <div class="container_barra_navegacion">
+        <nav class="navbar navbar-expand-lg">
+          <!-- Comienza logo. -->
+          <div class="container_logo_inicio m-2">
+            <a href="/">
+              <img
+                class="logo_inicio"
+                th:src="@{/img/logo_barra_navegacion.png}"
+                alt="Logo"
+              />
+            </a>
+          </div>
+          <!-- Finaliza logo. -->
+
+          <!-- Comienza botón para pantallas chicas. -->
+
+          <!-- Finaliza botón para pantallas chicas. -->
+
+          <!-- Comienza listado de ítems. -->
+          <div
+            class="col-4 col-md-2 col-lg-6 collapse navbar-collapse d-flex justify-content-center"
+          >
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="text-light fw-bold nav-link" href="/nosotros"
+                  >Nosotros</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="text-light fw-bold nav-link" href="/oficinas"
+                  >Oficinas</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="text-light fw-bold nav-link"
+                  href="armar_paquete"
+                  >Arma tu Viaje</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="text-light fw-bold nav-link" href="/ofertas"
+                  >Ofertas</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="text-light fw-bold nav-link" href="/ayuda"
+                  >Ayuda</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="text-light fw-bold nav-link" href="/registro"
+                  >Regístrate</a
+                >
+              </li>
+              <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+              <a class="text-light fw-bold nav-link" href="/gestion_usuarios">Gestion Admin</a>
+            </li>
+              
+              <ul class="navbar-right">
+				<li sec:authorize="!isAuthenticated()"><a
+					class="btn btn-outline-light" th:href="@{/iniciar_sesion}">Sign
+						In</a></li>
+
+				<li sec:authorize="isAuthenticated()" class="dropdown show">
+					<a class="btn btn-outline-light dropdown-toggle" href="#"
+					role="button" id="dropdownMenuLink" data-toggle="dropdown"
+					aria-haspopup="true" aria-expanded="false"><span
+						sec:authentication="name"></span></a>
+
+					<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+						<form id="logoutForm" th:action="@{/logout}" method="post">
+							<button class="dropdown-item"
+								onclick="document.getElementById('logoutForm').submit();"
+								type="submit">Sign Out</button>
+						</form>
+
+					</div>
+				</li>
+			</ul>
+              
+            </ul>
+          </div>
+          <!-- Finaliza listado de ítems. -->
+        </nav>
+      </div>
+    </header>
+    <!-- Finaliza barra de navegación. -->
+
+    <!-- Comienza contenido principal. -->
+    <main>
+      <!-- Comienza información sobre oficinas. -->
+      <section>
+        <div class="container_oficinas container-fluid text-white">
+          <div class="pt-5 mb-5">
+            <h1 class="text-center">Nuestras Oficinas</h1>
+          </div>
+          <div class="d-flex flex-row d-flex justify-content-center">
+            <div class="m-4">
+              <h3>NM Travel Store</h3>
+              <p>Av. 28 de Julio 1136 - Miraflores</p>
+              <p>Lun - Vie 10:00 am a 07:00 pm</p>
+              <p>782-4812</p>
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3900.734025737202!2d-77.0235101852686!3d-12.130341991411651!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105b7fd50f9f5db%3A0x129c4b7ccf8c2dc2!2sAv.%2028%20de%20Julio%201136%2C%20Miraflores%2015047!5e0!3m2!1ses-419!2spe!4v1668622728941!5m2!1ses-419!2spe" width="200" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+
+            <div class="m-4">
+              <h3>NM CC. Mega Plaza</h3>
+              <p>Av. Alfredo Mendiola 3698 tienda L140-B</p>
+              <p>– Independencia</p>
+              <p>Lun - Dom 10:00 am a 10:00 pm</p>
+              <p>782-48222</p>
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3902.7093641801766!2d-77.06517688526989!3d-11.994601191502086!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105ce543477f8d9%3A0x9d64f6794789376b!2sMegaPlaza!5e0!3m2!1ses-419!2spe!4v1668622913697!5m2!1ses-419!2spe" width="200" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+
+            <div class="m-4">
+              <h3>NM San Isidrio</h3>
+              <p>Av. Rivera Navarrete 723 – San Isidro</p>
+              <p>Lun - Vie 10:00 am a 07:00 pm</p>
+              <p>782-4822</p>
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3901.2618522602115!2d-77.02864458526895!3d-12.094217891435672!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105c865c91d7431%3A0xe1a85359ca47db!2sAv.%20Rivera%20Navarrete%20723%2C%20San%20Isidro%2015046!5e0!3m2!1ses-419!2spe!4v1668622975575!5m2!1ses-419!2spe" width="200" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+
+            <div class="m-4">
+              <h3>NM Pardo</h3>
+              <p>Av. José Pardo 801 - Miraflores</p>
+              <p>Lun - Vie 10:00 am a 07:00 pm</p>
+              <p>Sab 10:00 am - 6:00 pm</p>
+              <p>782-4823</p>
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3900.896503918013!2d-77.03940318526861!3d-12.119233391419078!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105c83ccc55db55%3A0xee1a21d484b9cd6f!2sAv.%20Jos%C3%A9%20Pardo%20801%2C%20Lima%2015074!5e0!3m2!1ses-419!2spe!4v1668623025787!5m2!1ses-419!2spe" width="200" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+          </div>
+
+          <div
+            class="container mt-1 d-flex flex-row d-flex justify-content-center"
+          >
+            <div class="m-4">
+              <h3>NM Primavera</h3>
+              <p>Av. Primavera 1352 - Monterrico - Surco</p>
+              <p>Lun - Vie 09:00 am a 07:00 pm</p>
+              <p>Sab 10:00 am - 1:00 pm</p>
+              <p>745-7638</p>
+              <p>745-7639</p>
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3901.030549129034!2d-76.97671888526877!3d-12.110061191425162!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105c799ed93c20f%3A0xeb94621863f68572!2sNMViajes%20Primavera!5e0!3m2!1ses-419!2spe!4v1668623085511!5m2!1ses-419!2spe" width="200" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+              
+            </div>
+
+            <div class="m-4">
+              <h3>NM La Molina</h3>
+              <p>Av. Javier Prado Este 5268 tienda 213</p>
+              <p>– La Molina</p>
+              <p>Lun - Vie 10:00 am a 07:00 pm</p>
+              <p>Sab 10:00 am - 1:00 pm</p>
+              <p>782-4812</p>
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62424.31334964756!2d-76.9641055!3d-12.0765402!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105c7ada8bc3475%3A0x89e06036f6e531fa!2sEME%20LA%20MOLINA%20-%20Cejas%2C%20pesta%C3%B1as%20y%20m%C3%A1s!5e0!3m2!1ses-419!2spe!4v1668623191757!5m2!1ses-419!2spe" width="200" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+             
+            </div>
+
+            <div class="m-4">
+              <h3>NM CC. Caminos del Inca</h3>
+              <p>Av. Caminos del Inca 257 tienda 215</p>
+              <p>- Chacarilla, Surco</p>
+              <p>Lun - Vie 10:00 am a 07:00 pm</p>
+              <p>Sab 10:00 am - 1:00 pm</p>
+              <p>782-4922</p>
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7801.9517254092925!2d-77.0003671302246!3d-12.113803999999988!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105c7ec492ebecb%3A0x5fbb4b33d6aab1a7!2sPetit%20Tresor%20Chacarilla!5e0!3m2!1ses-419!2spe!4v1668623236800!5m2!1ses-419!2spe" width="200" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Finaliza información sobre oficinas. -->
+    </main>
+    <!-- Finaliza contenido principal. -->
+
+    <!-- Comienza footer. -->
+    <footer class="text-center text-lg-start text-white bg-danger">
+      <!-- Grid container -->
+      <div class="container p-4 pb-0">
+        <!-- Section: Links -->
+        <section>
+          <!--Grid row-->
+          <div class="row">
+            <!-- Grid column -->
+            <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+              <h6 class="text-uppercase mb-4 font-weight-bold">NMViajes</h6>
+              <p>
+                Aprovecha Vuelos y Paquetes Nacionales e Internacionales a
+                Precios Increíbles. Reserva Hoy. Compra tus Vacaciones en
+                NMViajes al Mejor Precio. Disfruta Descuentos Exclusivos Online.
+              </p>
+            </div>
+            <!-- Grid column -->
+
+            <hr class="w-100 clearfix d-md-none" />
+
+            <!-- Grid column -->
+            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+              <h6 class="text-uppercase mb-4 font-weight-bold">Productos</h6>
+              <p>
+                <a class="text-white">Nosotros</a>
+              </p>
+              <p>
+                <a class="text-white">Oficinas</a>
+              </p>
+              <p>
+                <a class="text-white">Arma tu viaje</a>
+              </p>
+              <p>
+                <a class="text-white">Ofertas</a>
+              </p>
+              <p>
+                <a class="text-white">Ayuda</a>
+              </p>
+              <p>
+                <a class="text-white">Regístrate</a>
+              </p>
+              <p>
+                <a class="text-white">Iniciar Sesión</a>
+              </p>
+            </div>
+            <!-- Grid column -->
+
+            <hr class="w-100 clearfix d-md-none" />
+
+            <!-- Grid column -->
+            <hr class="w-100 clearfix d-md-none" />
+
+            <!-- Grid column -->
+            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+              <h6 class="text-uppercase mb-4 font-weight-bold">Contáctanos</h6>
+              <p>
+                Agencias de Viajes en Lima Perú Av. José Pardo 801 Miraflores -
+                Lima 18, Perú.
+              </p>
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+              <h6 class="text-uppercase mb-4 font-weight-bold">Síguenos</h6>
+
+              <!-- Facebook -->
+              <a
+                class="facebook btn btn-primary btn-floating m-1"
+                href="https://www.facebook.com/nmviajes"
+                role="button"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+
+              <!-- Youtube -->
+              <a
+                class="youtube btn btn-primary btn-floating m-1"
+                href="https://www.youtube.com/channel/UCSm8bFv7dgJC8D_WzTqjppA"
+                role="button"
+                ><i class="fab fa-youtube"></i
+              ></a>
+
+              <!-- Instagram -->
+              <a
+                class="instagram btn btn-primary btn-floating m-1"
+                href="https://www.instagram.com/nmviajes/"
+                role="button"
+                ><i class="fab fa-instagram"></i
+              ></a>
+            </div>
+          </div>
+          <!--Grid row-->
+        </section>
+        <!-- Section: Links -->
+      </div>
+      <!-- Grid container -->
+
+      <!-- Copyright -->
+      <div class="copyright text-center p-3">
+        Copyright 2021 nmviajes All Rights Reserved.
+      </div>
+      <!-- Copyright -->
+    </footer>
+   <!-- Finaliza footer. -->
+
+	<!-- Own Javascript -->
+	<script th:src="@{/img/javascript/index.js}"></script>
+
+	<!-- Bootstrap JavaScript -->
+	<script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+	<script th:src="@{/js/popper.min.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script th:src="@{/js/jquery-ui.min.js}"></script>
+</body>
+</html>
+
