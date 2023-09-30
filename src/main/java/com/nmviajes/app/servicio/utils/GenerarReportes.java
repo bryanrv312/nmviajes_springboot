@@ -65,6 +65,7 @@ public class GenerarReportes {
 	 
 	 public byte[] generarYenviarReporte(Map<String, Object> params, String nombreArchivo) {
 		 try {
+			 
              // Cargar el archivo .jasper (compilado) del informe Jasper
              InputStream jasperStream = this.getClass().getResourceAsStream("/report1.jasper");
              // Llenar el informe con datos y parámetros
