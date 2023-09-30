@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NMViajes - Armar Paquete Turístico</title>
+  
+  <!-- Anterior Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
+
+  <!-- Bootstrap CSS -->
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+
+<link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}" />
+
+<!-- Own CSS -->
+<link rel="stylesheet" href="/css/bootstrap_configuration.css" />
+<link rel="stylesheet" href="/css/index.css" />
+<link rel="stylesheet" href="/css/barra_navegacion.css" />
+<link rel="stylesheet" href="/css/hero.css" />
+<link rel="stylesheet" href="/css/anuncios.css" />
+<link rel="stylesheet" href="/css/footer.css" />
+
+
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+</head>
+
+<body>
+  <!-- Comienza barra de navegación. -->
+  <header>
+    <div class="container_barra_navegacion">
+      <nav class="navbar navbar-expand-lg">
+        <!-- Comienza logo. -->
+        <div class="container_logo_inicio m-2">
+          <a href="/">
+            <img class="logo_inicio" th:src="@{/img/logo_barra_navegacion.png}" alt="Logo" />
+          </a>
+        </div>
+        <!-- Finaliza logo. -->
+
+        <!-- Comienza botón para pantallas chicas. -->
+
+        <!-- Finaliza botón para pantallas chicas. -->
+
+        <!-- Comienza listado de ítems. -->
+        <div class="col-4 col-md-2 col-lg-6 collapse navbar-collapse d-flex justify-content-center">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="text-light fw-bold nav-link" href="/nosotros">Nosotros</a>
+            </li>
+            <li class="nav-item">
+              <a class="text-light fw-bold nav-link" href="/oficinas">Oficinas</a>
+            </li>
+            <li class="nav-item">
+              <a class="text-light fw-bold nav-link" href="/armar_paquete">Arma tu Viaje</a>
+            </li>
+            <li class="nav-item">
+              <a class="text-light fw-bold nav-link" th:href="@{/paqueteHV}">Paquete</a>
+            </li>
+            <li class="nav-item">
+              <a class="text-light fw-bold nav-link" href="/ofertas">Ofertas</a>
+            </li>
+            <li class="nav-item">
+              <a class="text-light fw-bold nav-link" href="/ayuda">Ayuda</a>
+            </li>
+            <li class="nav-item">
+              <a class="text-light fw-bold nav-link" href="/registro">Regístrate</a>
+            </li>
+              <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+              <a class="text-light fw-bold nav-link" href="/gestion_usuarios">Gestion Admin</a>
+            </li>
+            
+            <ul class="navbar-right">
+				<li sec:authorize="!isAuthenticated()"><a
+					class="btn btn-outline-light" th:href="@{/iniciar_sesion}">Sign
+						In</a></li>
+
+				<li sec:authorize="isAuthenticated()" class="dropdown show">
+					<a class="btn btn-outline-light dropdown-toggle" href="#"
+					role="button" id="dropdownMenuLink" data-toggle="dropdown"
+					aria-haspopup="true" aria-expanded="false"><span
+						sec:authentication="name"></span></a>
+
+					<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+						<form id="logoutForm" th:action="@{/logout}" method="post">
+							<button class="dropdown-item"
+								onclick="document.getElementById('logoutForm').submit();"
+								type="submit">Sign Out</button>
+						</form>
+
+					</div>
+				</li>
+			</ul>
+            
+          </ul>
+        </div>
+        <!-- Finaliza listado de ítems. -->
+      </nav>
+    </div>
+  </header>
+  <!-- Finaliza barra de navegación. -->
+
+  <!-- Comienza main. -->
+  <main>
+    <div class="container mt-3 mb-3">
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="vuelos-tab" data-bs-toggle="tab" data-bs-target="#vuelos" type="button"
+            role="tab" aria-controls="vuelos" aria-selected="true">
+            Vuelos
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="hoteles-tab" data-bs-toggle="tab" data-bs-target="#hoteles" type="button"
+            role="tab" aria-controls="hoteles" aria-selected="false">
+            Hoteles
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="pagos-tab" data-bs-toggle="tab" data-bs-target="#pagos" type="button" role="tab"
+            aria-controls="pagos" aria-selected="false">
+            Pago
+          </button>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+
+        <!-- Comienza contenido de vuelos. -->
+        <div class="tab-pane fade show active" id="vuelos" role="tabpanel" aria-labelledby="vuelos-tab">
+          
+          <!-- Comienza campos para filtrar vuelos. -->
+          <form th:action="@{/search}" method="get" th:object="${search}">
+	          <div class="container mt-4 d-flex flex-row justify-content-center">
+	            <div class="row">
+	              <div class="input-group">
+	              <!--  th:field="${v.id}"-->
+	                <div class="campo_origen m-1" >
+	                  <label >Partida: </label>
+	                  <select th:field="*{origen}" class="form-select" aria-label="Default select example">
+	                    <option th:value="${null}" selected >Origen</option>
+	                    <option th:each="v:${vuelo}" 
+								th:value="${v.origen}"
+								th:text="${v.origen}">
+						</option>
+<!-- 	                    <th:block th:each="v:${vuelo}"> -->
+<!-- 	                      <option th:text="${v.origen}"> </option> -->
+<!-- 	                    </th:block>	 -->
+	                    
+	                  </select>
+	                
+	                </div>
+	
+	                <div class="campo_destino m-1">
+	                  <label >LLegada: </label>
+	                  <select th:field="*{destino}" class="form-select" aria-label="Default select example">
+	                    <option th:value="${null}" selected >Destino</option>
+	                    <option th:each="v:${vuelo}" 
+								th:value="${v.destino}"
+								th:text="${v.destino}">
+						</option>
+<!-- 	                    <th:block th:each="v:${vuelo}"> -->
+<!-- 	                      <option th:text="${v.destino}"> </option> -->
+<!-- 	                    </th:block>	 -->
+	                    
+	                  </select>
+	                </div>
+	
+	                <div class="campo_fecha_partida m-1">
+	                  <label for="date">Fecha Partida: </label>
+	                  <div class="input-group date" id="datepicker">
+	                    
+	                    <input type="date" class="form-control" id="date" placeholder="Fecha Partida" />
+	                    <span class="input-group-append"> </span>
+	                  </div>
+	                </div>
+	
+	                <div class="campo_fecha_regreso m-1">
+	                  <label for="date">Fecha Regreso: </label>
+	                  <div class="input-group date" id="datepicker_2">
+	                    <input type="date" class="form-control" id="date" placeholder="Fecha Regreso" />
+	                    <span class="input-group-append"> </span>
+	                  </div>
+	                </div>
+	
+	                <div class="campo_pasajeros m-1">
+	                  <label for="pasajeros">Pasajeros: </label>
+	                  <div class="input-group date">
+	                    <input type="number" class="form-control" id="pasajeros" placeholder="Pasajeros" />
+	                    <span class="input-group-append"> </span>
+	                  </div>
+	                </div>
+	
+	                <div class="m-1">
+	                  <button class="btn btn-danger" type="submit">
+	                    Buscar Vuelo
+	                  </button>
+	                </div>
+	              </div>
+	            </div>
+	          </div>
+          </form>
+          <!-- Finaliza campos para filtrar vuelos. -->
+
+          <div class="container mt-4" th:action="@{/vuelos/comprar}" method="post">
+            <!-- <input type="hidden" th:field="*{id}" th:value="${vuelo.id}">-->
+            <div   style="display: block;
+						  padding: 1em 2em;
+						  margin: 1em auto;
+						  border: 1px solid rgb(197, 197, 197);
+						  background-color: rgb(255, 255, 255);
+						  font-size: .85em;" 
+				   class="article-loop d-flex d-flex justify-content-between rounded" th:each="v:${vuelo}">
+              <div>
+                <p class="text-secondary fs-6">6:30 - 7:51</p>
+                <ul style="list-style-type: none;" class="fw-bold">
+                  <li class="fw-bold fs-3 text-success" style="float: left; margin-left:-35px; margin-right: 20px;
+                      padding: 0 4px;" th:text="${v.origen}"> </li>
+                  <li class="fw-bold fs-3 text-success" style="float: left;  margin-right: 20px;
+                      padding: 0 4px;"> - </li>
+                  <li class="fw-bold fs-3 text-success" style="float: left;  margin-right: 20px;
+                      padding: 0 4px;" th:text="${v.destino}"> </li>
+                  <li class="fw-bold fs-3 text-success" style="float: left;  margin-right: 20px;
+                       padding: 0 4px;"> - </li>
+                  <li class="fw-bold fs-3 text-success" style="float: left;   margin-right: 20px;
+                      padding: 0 4px;" th:text="${v.aerolinea}"> </li>
+                  <li class="fw-bold fs-3 text-success" style="float: left;   margin-right: 20px;
+                      padding: 0 4px;">(Peru)</li>
+                </ul>
+
+                </p>
+
+                <p class="text-secondary fs-6">7:08 - 8:536</p>
+                <ul style="list-style-type: none;" class="fw-bold">
+                  <li class="fw-bold fs-3 text-success" style="float: left; margin-left:-35px; margin-right: 20px;
+                      padding: 0 4px;" th:text="${v.destino}"> </li>
+                  <li class="fw-bold fs-3 text-success" style="float: left;  margin-right: 20px;
+                      padding: 0 4px;"> - </li>
+                  <li class="fw-bold fs-3 text-success" style="float: left;  margin-right: 20px;
+                      padding: 0 4px;" th:text="${v.origen}"> </li>
+                  <li class="fw-bold fs-3 text-success" style="float: left;  margin-right: 20px;
+                       padding: 0 4px;"> - </li>
+                  <li class="fw-bold fs-3 text-success" style="float: left;   margin-right: 20px;
+                      padding: 0 4px;" th:text="${v.aerolinea}"> </li>
+                  <li class="fw-bold fs-3 text-success" style="float: left;   margin-right: 20px;
+                      padding: 0 4px;">(Peru)</li>
+                </ul>
+
+                </p>
+              </div>
+              <div class="mt-4 d-flex flex-column text-center">
+                <p class="fw-bold fs-3 text-success" th:text="${v.precio}"></p>
+                <a th:href="@{/ejemplo_paquete}" class="btn btn-warning">Seleccionar Vuelo</a>
+              </div>
+            </div>
+            <style>
+				.article-loop:hover {
+				  box-shadow: 0px 0px 5px 1px #969595;
+				  font-size: .85em;
+				}
+			</style>
+
+          </div>
+        </div>
+        <!-- Finaliza lista de vuelos. -->
+      </div>
+      <!-- Finaliza contenido de vuelos. -->
+
+
+
+        
+
+      <!-- Comienza contenido de hoteles.   -->
+      <div class="tab-pane fade" id="hoteles" role="tabpanel" aria-labelledby="hoteles-tab">
+        <!-- Comienza campos para registrar hotel. -->
+        
+
+        <!-- Comienza lista de hoteles.  public Hospedaje(String nombre, String ubicacion, Double precio) -->
+        <div class="container mt-4" th:each="t:${hospedaje}">
+          <div class="article-loop_2 d-flex d-flex justify-content-between rounded">
+            <div class="mt-2">
+              <h1 class="fs-4" th:text="${t.nombre}"></h1>
+              <p class="text-secondary" th:text="${t.ubicacion}"></p>
+              
+            </div>
+            <div class="d-flex flex-column text-center">
+              <ul style="list-style-type: none;" class="fw-bold">
+                <li class="fw-bold fs-3 text-success" style="float: left;   margin-right: 20px;
+                padding: 0 4px;" >S/</li>
+                <li class="fw-bold fs-3 text-success" style="float: left;   margin-right: 20px;
+                padding: 0 4px;" th:text="${t.precio}"> </li>
+              </ul>
+              <a th:href="@{/nuevo_paquete_hospedaje/{id}  (id=${t.id})  }"  class="btn btn-warning">Seleccionar Hotel</a>
+              
+            </div>
+          </div>
+
+        </div>
+        <!-- Finaliza lista de hoteles. -->
+
+        <div class="container">
+          <button class="m-3 btn btn-primary">Anterior</button>
+        </div>
+      </div>
+      <!-- Finaliza contenido de hoteles. -->
+
+      <!-- Comienza contenido de pago. -->
+      <div class="tab-pane fade" id="pagos" role="tabpanel" aria-labelledby="pagos-tab">
+        <div class="m-3 mt-5">
+          <h4 class="mt-2 fw-bold">¿Cómo deseas pagar?</h4>
+          <div class="mt-4 form-check">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1"
+              checked />
+            <label class="form-check-label" for="exampleRadios1">
+              Tarjeta
+            </label>
+          </div>
+        </div>
+
+        <div class="m-3 mt-5">
+          <h4 class="mt-2 fw-bold">Ingresa los datos de la tarjeta</h4>
+          <div class="d-flex flex-row">
+            <div class="mt-3">
+              <label for="" class="form-label">Número de Tarjeta</label>
+              <input type="text" class="form-control" id="" aria-describedby="" />
+
+              <label for="" class="mt-3 form-label">Vencimiento</label>
+              <input type="text" class="form-control" id="" aria-describedby="" />
+
+              <label for="" class="mt-3 form-label">Código de Seguridad</label>
+              <input type="text" class="form-control" id="" aria-describedby="" />
+            </div>
+
+            <div class="mt-3 mx-3">
+              <label for="" class="form-label">Titular de la Tarjeta</label>
+              <input type="text" class="form-control" id="" aria-describedby="" />
+
+              <label for="" class="mt-3 form-label">Documento del Titular de la Tarjeta</label>
+              <input type="text" class="form-control" id="" aria-describedby="" />
+            </div>
+          </div>
+        </div>
+
+        <div class="m-3 mt-5">
+          <h4 class="mt-2 fw-bold">¿Quiénes viajan?</h4>
+
+          <div>
+            <p class="fs-5 mt-4 text-secondary">Pasajero 1</p>
+            <div class="d-flex flex-row">
+              <div class="mt-3">
+                <label for="" class="form-label">Nombres</label>
+                <input type="text" class="form-control" id="" aria-describedby="" />
+
+                <label for="" class="mt-3 form-label">Apellidos</label>
+                <input type="text" class="form-control" id="" aria-describedby="" />
+
+                <label for="" class="mt-3 form-label">Tipo y Número de Documento</label>
+                <select class="form-select" aria-label="Default select example">
+                  <option selected>...</option>
+                  <option value="1">DNI</option>
+                  <option value="2">Pasaporte</option>
+                </select>
+                <input type="text" class="mt-3 form-control" id="" aria-describedby="" />
+              </div>
+
+              <div class="mx-3">
+                <label for="" class="mt-3 form-label">País de Residencia</label>
+                <select class="form-select" aria-label="Default select example">
+                  <option selected>...</option>
+                  <option value="1">Perú</option>
+                  <option value="2">Argentina</option>
+                  <option value="3">Francia</option>
+                </select>
+
+                <div class="">
+                  <label for="" class="mt-3 form-label">Fecha de Nacimiento</label>
+                  <div class="input-group date" id="datepicker_3">
+                    <input type="text" class="form-control" id="date" />
+                    <span class="input-group-append"> </span>
+                  </div>
+                </div>
+
+                <div class="">
+                  <label for="" class="mt-3 form-label">Sexo</label>
+                  <select class="form-select" aria-label="Default select example">
+                    <option selected>...</option>
+                    <option value="1">Masculino</option>
+                    <option value="2">Femenino</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-5">
+            <hr>
+            <p class="fs-5 mt-4 text-secondary">Pasajero 2</p>
+            <div class="d-flex flex-row">
+              <div class="mt-3">
+                <label for="" class="form-label">Nombres</label>
+                <input type="text" class="form-control" id="" aria-describedby="" />
+
+                <label for="" class="mt-3 form-label">Apellidos</label>
+                <input type="text" class="form-control" id="" aria-describedby="" />
+
+                <label for="" class="mt-3 form-label">Tipo y Número de Documento</label>
+                <select class="form-select" aria-label="Default select example">
+                  <option selected>...</option>
+                  <option value="1">DNI</option>
+                  <option value="2">Pasaporte</option>
+                </select>
+                <input type="text" class="mt-3 form-control" id="" aria-describedby="" />
+              </div>
+
+              <div class="mx-3">
+                <label for="" class="mt-3 form-label">País de Residencia</label>
+                <select class="form-select" aria-label="Default select example">
+                  <option selected>...</option>
+                  <option value="1">Perú</option>
+                  <option value="2">Argentina</option>
+                  <option value="3">Francia</option>
+                </select>
+
+                <div class="">
+                  <label for="" class="mt-3 form-label">Fecha de Nacimiento</label>
+                  <div class="input-group date" id="datepicker_3">
+                    <input type="text" class="form-control" id="date" />
+                    <span class="input-group-append"> </span>
+                  </div>
+                </div>
+
+                <div class="">
+                  <label for="" class="mt-3 form-label">Sexo</label>
+                  <select class="form-select" aria-label="Default select example">
+                    <option selected>...</option>
+                    <option value="1">Masculino</option>
+                    <option value="2">Femenino</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-5">
+            <hr>
+            <p class="fs-5 mt-4 text-secondary">Pasajero 3</p>
+            <div class="d-flex flex-row">
+              <div class="mt-3">
+                <label for="" class="form-label">Nombres</label>
+                <input type="text" class="form-control" id="" aria-describedby="" />
+
+                <label for="" class="mt-3 form-label">Apellidos</label>
+                <input type="text" class="form-control" id="" aria-describedby="" />
+
+                <label for="" class="mt-3 form-label">Tipo y Número de Documento</label>
+                <select class="form-select" aria-label="Default select example">
+                  <option selected>...</option>
+                  <option value="1">DNI</option>
+                  <option value="2">Pasaporte</option>
+                </select>
+                <input type="text" class="mt-3 form-control" id="" aria-describedby="" />
+              </div>
+
+              <div class="mx-3">
+                <label for="" class="mt-3 form-label">País de Residencia</label>
+                <select class="form-select" aria-label="Default select example">
+                  <option selected>...</option>
+                  <option value="1">Perú</option>
+                  <option value="2">Argentina</option>
+                  <option value="3">Francia</option>
+                </select>
+
+                <div class="">
+                  <label for="" class="mt-3 form-label">Fecha de Nacimiento</label>
+                  <div class="input-group date" id="datepicker_3">
+                    <input type="text" class="form-control" id="date" />
+                    <span class="input-group-append"> </span>
+                  </div>
+                </div>
+
+                <div class="">
+                  <label for="" class="mt-3 form-label">Sexo</label>
+                  <select class="form-select" aria-label="Default select example">
+                    <option selected>...</option>
+                    <option value="1">Masculino</option>
+                    <option value="2">Femenino</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="m-3 mt-5">
+          <h4 class="mt-2 fw-bold">¿A dónde enviamos tus vouchers?</h4>
+          <label for="" class="mt-3 form-label">Email (donde recibirás tus vouchers)</label>
+          <input type="text" class="w-25 form-control" id="" aria-describedby="" />
+        </div>
+
+        <div class="m-3 mt-5 form-check">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+          <label class="form-check-label" for="flexCheckDefault">
+            Leí y acepto las condiciones de compra , políticas de privacidad y políticas de cambios y cancelaciones.
+          </label>
+        </div>
+
+        <div class="container d-flex justify-content-between">
+          <button class="m-3 btn btn-primary">Anterior</button>
+          <button class="m-3 btn btn-success">Comprar</button>
+        </div>
+
+
+
+
+
+      </div>
+      <!-- Finaliza contenido de pago. -->
+    </div>
+    </div>
+  </main>
+  <!-- Finaliza main. -->
+
+  <!-- Comienza footer. -->
+  <footer class="text-center text-lg-start text-white bg-danger">
+    <!-- Grid container -->
+    <div class="container p-4 pb-0">
+      <!-- Section: Links -->
+      <section>
+        <!--Grid row-->
+        <div class="row">
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+            <h6 class="text-uppercase mb-4 font-weight-bold">NMViajes</h6>
+            <p>
+              Aprovecha Vuelos y Paquetes Nacionales e Internacionales a
+              Precios Increíbles. Reserva Hoy. Compra tus Vacaciones en
+              NMViajes al Mejor Precio. Disfruta Descuentos Exclusivos Online.
+            </p>
+          </div>
+          <!-- Grid column -->
+
+          <hr class="w-100 clearfix d-md-none" />
+
+          <!-- Grid column -->
+          <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+            <h6 class="text-uppercase mb-4 font-weight-bold">Productos</h6>
+            <p>
+              <a class="text-white">Nosotros</a>
+            </p>
+            <p>
+              <a class="text-white">Oficinas</a>
+            </p>
+            <p>
+              <a class="text-white">Arma tu viaje</a>
+            </p>
+            <p>
+              <a class="text-white">Ofertas</a>
+            </p>
+            <p>
+              <a class="text-white">Ayuda</a>
+            </p>
+            <p>
+              <a class="text-white">Regístrate</a>
+            </p>
+            <p>
+              <a class="text-white">Iniciar Sesión</a>
+            </p>
+          </div>
+          <!-- Grid column -->
+
+          <hr class="w-100 clearfix d-md-none" />
+
+          <!-- Grid column -->
+          <hr class="w-100 clearfix d-md-none" />
+
+          <!-- Grid column -->
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+            <h6 class="text-uppercase mb-4 font-weight-bold">Contáctanos</h6>
+            <p>
+              Agencias de Viajes en Lima Perú Av. José Pardo 801 Miraflores -
+              Lima 18, Perú.
+            </p>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+            <h6 class="text-uppercase mb-4 font-weight-bold">Síguenos</h6>
+
+            <!-- Facebook -->
+            <a class="facebook btn btn-primary btn-floating m-1" href="https://www.facebook.com/nmviajes"
+              role="button"><i class="fab fa-facebook-f"></i></a>
+
+            <!-- Youtube -->
+            <a class="youtube btn btn-primary btn-floating m-1"
+              href="https://www.youtube.com/channel/UCSm8bFv7dgJC8D_WzTqjppA" role="button"><i
+                class="fab fa-youtube"></i></a>
+
+            <!-- Instagram -->
+            <a class="instagram btn btn-primary btn-floating m-1" href="https://www.instagram.com/nmviajes/"
+              role="button"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+        <!--Grid row-->
+      </section>
+      <!-- Section: Links -->
+    </div>
+    <!-- Grid container -->
+
+    <!-- Copyright -->
+    <div class="copyright text-center p-3">
+      Copyright 2021 nmviajes All Rights Reserved.
+    </div>
+    <!-- Copyright -->
+  </footer>
+  <!-- Finaliza footer. -->
+
+
+	<!-- Own Javascript -->
+	<script th:src="@{/js/index.js}"></script>
+
+	<!-- Bootstrap JavaScript -->
+	<script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+	<script th:src="@{/js/popper.min.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script th:src="@{/js/jquery-ui.min.js}"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js">
+	</script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+	    integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+	    crossorigin="anonymous">
+	</script>
+</body>
+</html>

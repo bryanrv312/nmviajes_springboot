@@ -1,0 +1,20 @@
+.styles_container_hero_2 {
+  background-image:	url(/img/hero_2.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 500px;
+}
+
+.styles_container_hero_2 div {
+    padding-left: 80px;
+    padding-top: 250px;
+}
+
+.styles_container_hero_2 div .text-cc {
+    color: #f29704;
+    font-size: 20px;
+}
+
+.styles_container_hero_2 div .text-white {
+    font-size: 50px;
+}

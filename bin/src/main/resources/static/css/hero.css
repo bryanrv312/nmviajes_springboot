@@ -1,0 +1,10 @@
+.container_hero {
+  background: linear-gradient(rgba(0, 0, 0, 0.192), rgba(0, 0, 0, 0.7)), url(/img/inicio_hero.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 400px;
+}
+
+.dtpicker {
+  width: 150px;
+}

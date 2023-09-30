@@ -1,0 +1,21 @@
+.container_anuncios {
+  display: flex;
+  flex-direction: row;
+}
+
+.img_anuncios {
+  width: 550px;
+  height: 150px;
+}
+
+@media (max-width: 720px) {
+  .styles_container_anuncios {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .styles_img_anuncios {
+    width: 350px;
+    height: 100px;
+  }
+}

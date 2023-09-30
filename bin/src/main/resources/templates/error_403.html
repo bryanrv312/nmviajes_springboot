@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>NMViajes - Inicio</title>
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+
+<link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}" />
+
+<!-- Own CSS -->
+<link rel="stylesheet" href="/css/bootstrap_configuration.css" />
+<link rel="stylesheet" href="/css/index.css" />
+<link rel="stylesheet" href="/css/barra_navegacion.css" />
+<link rel="stylesheet" href="/css/hero.css" />
+<link rel="stylesheet" href="/css/anuncios.css" />
+<link rel="stylesheet" href="/css/footer.css" />
+
+
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+</head>
+
+<body>
+	<!-- Comienza barra de navegación. -->
+	<header>
+		<div th:include="componentes/navbar/barra_navegacion.html::header"></div>
+	</header>
+	<!-- Finaliza barra de navegación. -->
+
+	<!-- Comienza contenido principal. -->
+	<div class="container py-4">
+
+		<div class="card bg-danger text-white">
+			<div class="card-header">Error: Acceso Denegado!</div>
+			<div class="card-body">
+				<h5 class="card-title">
+					Los sentimos <span th:text="${#authentication.name}"></span>, NO
+					tienes permisos para acceder a este recurso.
+				</h5>
+				<a th:href="@{/}" class="btn btn-outline-light" role="button">Ir
+					al inicio</a>
+
+			</div>
+		</div>
+	</div>
+	<!-- Finaliza contenido principal. -->
+
+	<!-- Comienza footer. -->
+
+	<footer class="text-center text-lg-start text-white bg-danger">
+		<div th:include="componentes/footer/pie_pagina.html::footer"></div>
+	</footer>
+
+	<!-- Finaliza footer. -->
+
+
+	<!-- Own Javascript -->
+	<script th:src="@{/js/index.js}"></script>
+
+	<!-- Bootstrap JavaScript -->
+	<script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+	<script th:src="@{/js/popper.min.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script th:src="@{/js/jquery-ui.min.js}"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+</html>
