@@ -552,15 +552,15 @@ public class ControladorVuelo {
 		pago.setCurrencyCode(currencyCode);
 
 
-		
 		servicePago.save(pago);
 		servicePago.guardarPagoEnMemoria(pago);// guardar pago en memoria
+		
 		generarPdf(nombreUsuario, apellidos, email, pago.getOrderId(), fechaPago2, pago.getPurchaseAmount());
-		enviarCorreo(nombreUsuario, apellidos, email, pago.getOrderId(), fechaPago2, pago.getPurchaseAmount());
+		//enviarCorreo(nombreUsuario, apellidos, email, pago.getOrderId(), fechaPago2, pago.getPurchaseAmount());
 		
-		jasperReportService.generarYenviarReporte(obtenerPdf(), "comprobante-pago.pdf");
-		
-		enviarCorreoPdf(email, jasperReportService.generarYenviarReporte(obtenerPdf(), "comprobante-pago.pdf"));
+		//jasperReportService.generarYenviarReporte(obtenerPdf(), dataSource, "comprobante-pago.pdf");
+		enviarCorreoPdf(email, jasperReportService.generarYenviarReporte(obtenerPdf(), dataSource, "comprobante-pago.pdf"));
+		System.out.println(dataSource);
 
 		return "redirect:/cleanCart";
 	}
@@ -579,7 +579,9 @@ public class ControladorVuelo {
 		params.put("correo", email);
 		params.put("orden_compra", String.valueOf(orderId)); // Convertimos orderId a String
 		params.put("fecha_pago", fechaPago2);
-		 List<Map<String, Object>> listaParametros = new ArrayList<>();
+		
+		List<Map<String, Object>> listaParametros = new ArrayList<>();
+		 
 		for (DetallePagoDTO dpago : detalles) {
 			 Map<String, Object> parametros = new HashMap<>();
 		    nombreServicio = dpago.getNombre();

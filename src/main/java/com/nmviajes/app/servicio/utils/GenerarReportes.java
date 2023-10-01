@@ -63,15 +63,16 @@ public class GenerarReportes {
 	    }
 	 
 	 
-	 public byte[] generarYenviarReporte(Map<String, Object> params, String nombreArchivo) {
+	 public byte[] generarYenviarReporte(Map<String, Object> params, JRBeanCollectionDataSource dataSource, String nombreArchivo) {
 		 try {
 			 
              // Cargar el archivo .jasper (compilado) del informe Jasper
              InputStream jasperStream = this.getClass().getResourceAsStream("/report1.jasper");
              // Llenar el informe con datos y parámetros
-             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperStream, params, new JREmptyDataSource());
+             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperStream, params, dataSource);
              
              byte[] pdfReport = JasperExportManager.exportReportToPdf(jasperPrint);
+             
              return pdfReport;
 	            
 		 }catch(Exception e){
