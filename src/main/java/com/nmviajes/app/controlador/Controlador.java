@@ -15,6 +15,8 @@ import com.nmviajes.app.servicio.DetallePagoServicio;
 import com.nmviajes.app.servicio.PagoServicioImpl;
 
 
+//HOLA BRYAN
+
 @Controller
 public class Controlador {
 	@Autowired
