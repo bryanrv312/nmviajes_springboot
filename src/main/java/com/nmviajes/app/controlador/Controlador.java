@@ -16,8 +16,7 @@ import com.nmviajes.app.servicio.PagoServicioImpl;
 
 //HOLA
 //BUENAS
-//NOCHES
-//COMO ESTAS
+
 @Controller
 public class Controlador {
 	@Autowired
