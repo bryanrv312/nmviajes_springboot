@@ -35,6 +35,9 @@ public class Vuelo {
 
     @Column(name = "precio")
     private Double precio;
+    
+    
+    
 
     public Long getId() {
         return id;
