@@ -102,6 +102,10 @@
               <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
               <a class="text-light fw-bold nav-link" href="/gestion_usuarios">Gestion Admin</a>
             </li>
+            
+            <li class="nav-item" sec:authorize="hasRole('ROLE_USER')">
+              <a class="text-light fw-bold nav-link" href="/order">Ver Orden</a>
+            </li>
               
               <ul class="navbar-right">
 					<li sec:authorize="!isAuthenticated()"><a

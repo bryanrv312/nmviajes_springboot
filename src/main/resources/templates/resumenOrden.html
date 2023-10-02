@@ -119,6 +119,12 @@
                     <!-- Comienza campos para filtrar vuelos. -->
 
                     <!-- Finaliza campos para filtrar vuelos. -->
+                    
+                    <br>
+					
+					<div th:if="${mensaje}" class="alert alert-warning">
+					    <p th:text="${mensaje}"></p>
+					</div>
 
 
                     <div class="container mt-4">
@@ -160,6 +166,8 @@
                                                             </tr>
                                                         </tbody>
                                                     </table>
+                                                    <br><br><br>
+                                                    <a th:href="@{/cleanCart2}" class="btn btn-dark">Vaciar</a> 
                                                 </div>
 
                                             </div>
@@ -180,7 +188,11 @@
                                         </li>
                                         
 <!--                                         <a th:href="@{/guardarOV/{total} (total=${orden.total}) }" class="btn btn-dark">Generar</a> -->
-										<a th:href="@{/pagarPaypal/{total} (total=${orden.total}) }" class="btn btn-dark">Generar</a>
+<!-- 										<a th:href="@{/pagarPaypal/{total} (total=${orden.total}) }" class="btn btn-dark">Generar</a> -->
+										<form th:action="@{/pagarPaypal}" method="post">
+											    <input type="hidden" name="total" th:value="${orden.total}" />
+											    <button type="submit" class="btn btn-dark" th:if="${orden.total > 0.0}">Pagar</button>
+											</form>
                                     </ul>
                                 </div>
 

@@ -300,25 +300,26 @@ public class ControladorVuelo {
 		double capturar = 0;
 		String nombre = " ";
 		DetallePagoDTO e = new DetallePagoDTO();
+		
+		if(detalles.isEmpty()) {
+			model.addAttribute("mensaje", "Orden vacía");
+		}else {
+			for (DetallePagoDTO i : detalles) {
+				capturar += i.getTotal();
+				e.setNombre(i.getNombre() + " "); // e se le agrega el nombre de lo que escogio
+			}
 
-		for (DetallePagoDTO i : detalles) {
-			capturar += i.getTotal();
-			e.setNombre(i.getNombre() + " "); // e se le agrega el nombre de lo que escogio
+			e.setTotal(capturar);// e solo tendria el nombre y el total
+
+			System.out.println("----------------- foreach detalles ----------");
+			for (DetallePagoDTO dpago : detalles) {
+				System.out.println(dpago);
+			}
+			
+			detallePagoDTOImple.saveOrden(e, usuario);
+			System.out.println("-------------" + e.getTotal());
 		}
-
-		// public Orden(String usuario, String apellido, String correo, String lugar,
-		// double montoTotal)
-		// Orden or = new Orden(detalles);
-
-		e.setTotal(capturar);// e solo tendria el nombre y el total
-
-		System.out.println("----------------- foreach detalles ----------");
-		for (DetallePagoDTO dpago : detalles) {
-			System.out.println(dpago);
-		}
-
-		detallePagoDTOImple.saveOrden(e, usuario);
-		System.out.println("-------------" + e.getTotal());
+		
 		model.addAttribute("usuario", usuario);
 		model.addAttribute("detalles", detalles);
 		model.addAttribute("orden", e);
@@ -326,12 +327,21 @@ public class ControladorVuelo {
 		return "resumenOrden";
 	}
 
-	@Secured({ "ROLE_USER", "ROLE_ADMIN" })
+	/*@Secured({ "ROLE_USER", "ROLE_ADMIN" })
 	@GetMapping("pagarPaypal/{total}")
 	public String pagarPaypal(@PathVariable Double total, Model model) {
 		System.out.println("Boton Generar a paypal");
 		System.out.println("TOTAL: " + total);
 		return "zpago";
+	}*/
+	
+	@Secured({ "ROLE_USER", "ROLE_ADMIN" })
+	@PostMapping("pagarPaypal")
+	public String pagarPaypal(@RequestParam("total") Double total, Model model) {
+			System.out.println("Boton Generar a paypal");
+			System.out.println("TOTAL: " + total);
+			model.addAttribute("total", total);
+			return "zpago";
 	}
 
 	@Secured({ "ROLE_USER", "ROLE_ADMIN" })
@@ -365,6 +375,18 @@ public class ControladorVuelo {
 
 		attributes.addFlashAttribute("msg", "Pago Exitoso !!!");
 		return "redirect:/";
+	}
+	
+	@Secured({ "ROLE_USER", "ROLE_ADMIN" })
+	@GetMapping("/cleanCart2")
+	public String limpiarCarrito2(RedirectAttributes attributes) {
+		System.out.println("Entre a /cleanCart2");
+
+		total = 0;
+		detalles.clear();
+
+		attributes.addFlashAttribute("mensaje", "items eliminados");
+		return "redirect:/order";
 	}
 
 	/*
