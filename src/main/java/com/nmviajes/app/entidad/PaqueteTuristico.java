@@ -258,6 +258,8 @@ public class PaqueteTuristico {
 				+ habitaciones + ", usuario=" + usuario + ", hospedaje=" + hospedaje + ", vuelo=" + vuelo + ", pago="
 				+ pago + "]";
 	}
+
+	
     
     
 

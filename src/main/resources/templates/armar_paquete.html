@@ -285,6 +285,8 @@
             <div class="mt-2">
               <h1 class="fs-4" th:text="${t.nombre}"></h1>
               <p class="text-secondary" th:text="${t.ubicacion}"></p>
+              <p class="text-secondary" th:text="'Persona(s): ' + ${t.personas}"></p>
+              <p class="text-secondary" th:text="'habitacione(s): ' + ${t.habitaciones}"></p>
               
             </div>
             <div class="d-flex flex-column text-center">
@@ -293,6 +295,7 @@
                 padding: 0 4px;" >S/</li>
                 <li class="fw-bold fs-3 text-success" style="float: left;   margin-right: 20px;
                 padding: 0 4px;" th:text="${t.precio}"> </li>
+                
               </ul>
               <a th:href="@{/nuevo_paquete_hospedaje/{id}  (id=${t.id})  }"  class="btn btn-warning">Seleccionar Hotel</a>
               

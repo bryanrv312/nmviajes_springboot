@@ -23,6 +23,18 @@ public class Hospedaje {
 
     @Column(name = "precio")
     private Double precio;
+    
+    @Column(name = "habitaciones")
+    private Integer habitaciones;
+    
+    @Column(name = "personas")
+    private Integer personas;
+    
+    
+
+    public Hospedaje() {
+    }
+    
 
     public Long getId() {
         return id;
@@ -69,8 +81,26 @@ public class Hospedaje {
         this.ubicacion = ubicacion;
         this.precio = precio;
     }
+    
+    
 
-    @Override
+    public Integer getHabitaciones() {
+		return habitaciones;
+	}
+
+	public void setHabitaciones(Integer habitaciones) {
+		this.habitaciones = habitaciones;
+	}
+
+	public Integer getPersonas() {
+		return personas;
+	}
+
+	public void setPersonas(Integer personas) {
+		this.personas = personas;
+	}
+
+	@Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
@@ -95,13 +125,18 @@ public class Hospedaje {
         return true;
     }
 
-    public Hospedaje() {
-    }
 
-    @Override
-    public String toString() {
-        return "Hospedaje [nombre=" + nombre + ", ubicacion=" + ubicacion + ", precio=" + precio + "]";
-    }
+	@Override
+	public String toString() {
+		return "Hospedaje [id=" + id + ", nombre=" + nombre + ", ubicacion=" + ubicacion + ", precio=" + precio
+				+ ", habitaciones=" + habitaciones + ", personas=" + personas + "]";
+	}
+    
+    
+    
+
+
+    
 
     
 
