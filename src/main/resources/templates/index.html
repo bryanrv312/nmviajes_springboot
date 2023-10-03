@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <title>NMViajes - Inicio</title>
 
     <!-- Bootstrap CSS -->
@@ -21,6 +22,26 @@
 <link rel="stylesheet" href="/css/anuncios.css" />
 <link rel="stylesheet" href="/css/footer.css" />
 
+
+  
+  <!-- Para el carrucel -->
+ <style>
+    .carousel-container {
+      max-width: 1200px; /* Establece el ancho máximo del contenedor */
+      margin: 0 auto; /* Centra el contenedor en la página */
+    }
+    .carousel-item img {
+      max-height: 500px; /* Establece la altura máxima de las imágenes */
+      width: auto; /* Permite que el ancho se ajuste automáticamente */
+    }
+  </style>
+    <!-- mmmm -->
+  <style>
+    .card ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+  </style>
 
 <!-- Font Awesome -->
 <link rel="stylesheet"
@@ -49,6 +70,9 @@
           <!-- Finaliza botón para pantallas chicas. -->
 
           <!-- Comienza listado de ítems. -->
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <div
             class="col-4 col-md-2 col-lg-6 collapse navbar-collapse d-flex justify-content-center"
           >
@@ -213,64 +237,105 @@
 			<p th:text="${pago.payerName}"></p>
 		</div>
 		
-      <!-- Comienza sección de anuncios. -->
-      <div
-        class="container_anuncios container mt-5 mb-5 d-flex justify-content-center"
-      >
-        <div class="overflow-hidden d-flex justify-content-center m-1">
-          <img
-            class="img_anuncios"
-            th:src="@{/img/anuncio_1.jpg}"
-          />
+		
+   
+		
+  <!-- Sección de anuncios -->
+  <div class="container mt-5 mb-5 d-flex justify-content-center">
+    <div class="overflow-hidden m-1">
+      <img class="img_anuncios" th:src="@{/img/anuncio_1.jpg}" alt="Anuncio 1">
+    </div>
+    <div class="overflow-hidden m-1">
+      <img class="img_anuncios" th:src="@{/img/anuncio_2.jpg}" alt="Anuncio 2">
+    </div>
+  </div>
+  <!-- Fin de sección de anuncios -->
+
+  <!-- Espaciado -->
+  <div class="container mt-5 mb-5"></div>
+
+  <!-- Sección de carrusel -->
+  <section class="carousel-container">
+    <div id="carouselExample" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#carouselExample" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExample" data-slide-to="1"></li>
+        <li data-target="#carouselExample" data-slide-to="2"></li>
+        <li data-target="#carouselExample" data-slide-to="3"></li>
+      </ol>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <a href="URL_DE_LA_PRIMERA_IMAGEN">
+            <img th:src="@{/img/img0.jpg}" src="https://via.placeholder.com/800x300" class="d-block w-100" alt="Imagen 1">
+          </a>
         </div>
-        <div class="overflow-hidden d-flex justify-content-center m-1">
-          <img
-            class="img_anuncios"
-           th:src="@{/img/anuncio_2.jpg}"
-          />
+        <div class="carousel-item">
+          <a href="URL_DE_LA_SEGUNDA_IMAGEN">
+            <img th:src="@{/img/img1.jpg}" src="https://via.placeholder.com/800x300" class="d-block w-100" alt="Imagen 2">
+          </a>
+        </div>
+        <div class="carousel-item">
+          <a href="URL_DE_LA_TERCERA_IMAGEN">
+            <img th:src="@{/img/img2.jpg}" src="https://via.placeholder.com/800x300" class="d-block w-100" alt="Imagen 3">
+          </a>
+        </div>
+        <div class="carousel-item">
+          <a href="URL_DE_LA_CUARTA_IMAGEN">
+            <img th:src="@{/img/img3.jpg}" src="https://via.placeholder.com/800x300" class="d-block w-100" alt="Imagen 4">
+          </a>
         </div>
       </div>
-      <!-- Finaliza sección de anuncios. -->
+      <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExample" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+  </section>
+  <!-- Fin de sección de carrusel -->
 
-      <!-- Comienza sección para suscribirse. -->
-      <div class="container">
-        <div class="text-center">
-          <img th:src="@{/img/porcentaje.png}" />
+  <!-- Espaciado -->
+  <div class="container mt-5 mb-5"></div>
+
+  <!-- Sección para suscribirse -->
+  <div class="container border p-4">
+    <div class="text-center">
+      <img th:src="@{/img/porcentaje.png}" alt="Logo">
+    </div>
+    <div class="mt-5 mb-5">
+      <h1 class="text-uppercase text-center">Ofertas exclusivas</h1>
+      <p class="text-center">
+        Sé el primero en recibir nuestras ofertas de viajes
+      </p>
+
+      <div class="px-1 d-flex flex-column gap-2">
+        <div class="d-flex flex-row align-items-center">
+          <input class="form-control m-1" placeholder="Ingrese su nombre" />
+          <input class="form-control m-1" placeholder="Correo electrónico" />
+          <button class="btn btn-danger">Suscríbete</button>
         </div>
-        <div class="mt-5 mb-5">
-          <h1 class="text-uppercase text-center">Ofertas exclusivas</h1>
-          <p class="text-center">
-            Sé el primero en recibir nuestras ofertas de viajes
-          </p>
 
-          <div class="px-1 d-flex flex-column gap-2">
-            <div class="d-flex flex-row align-items-center">
-              <input class="form-control m-1" placeholder="Ingrese su nombre" />
-              <input
-                class="form-control m-1"
-                placeholder="Correo electrónico"
-              />
-              <button class="btn btn-danger">Suscríbete</button>
-            </div>
+        <div class="d-flex flex-column">
+          <div class="d-flex flex-row">
+            <input class="m-1" type="checkbox" />
+            <label class="text-muted styles-label-checkbox">
+              Acepto la Política De Protección De Datos
+            </label>
+          </div>
 
-            <div class="d-flex flex-column">
-              <div class="d-flex flex-row">
-                <input class="m-1" type="checkbox" />
-                <label class="text-muted styles-label-checkbox"
-                  >Acepto la Política De Protección De Datos
-                </label>
-              </div>
-
-              <div class="d-flex flex-row">
-                <input class="m-1" type="checkbox" />
-                <label class="text-muted styles-label-checkbox"
-                  >Autorizo el uso de mi Información para la publicidad
-                </label>
-              </div>
-            </div>
+          <div class="d-flex flex-row">
+            <input class="m-1" type="checkbox" />
+            <label class="text-muted styles-label-checkbox">
+              Autorizo el uso de mi Información para la publicidad
+            </label>
           </div>
         </div>
       </div>
+    </div>
+  </div>
       <!-- Finaliza sección para suscribirse. -->
 
       <!-- Comienza sección de anuncios 2. -->
@@ -327,25 +392,28 @@
             <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
               <h6 class="text-uppercase mb-4 font-weight-bold">Productos</h6>
               <p>
-                <a class="text-white">Nosotros</a>
+                <a class="text-white" href="/nosotros">Nosotros</a>
               </p>
               <p>
-                <a class="text-white">Oficinas</a>
+                <a class="text-white" href="/oficinas">Oficinas</a>
               </p>
               <p>
-                <a class="text-white">Arma tu viaje</a>
+                <a class="text-white" href="/armar_paquete">Arma tu viaje</a>
+              </p>
+               <p>
+                <a class="text-white" href="/paqueteHV">Paquete</a>
               </p>
               <p>
-                <a class="text-white">Ofertas</a>
+                <a class="text-white"  href="/ofertas">Ofertas</a>
               </p>
               <p>
-                <a class="text-white">Ayuda</a>
+                <a class="text-white"  href="/ayuda">Ayuda</a>
               </p>
               <p>
-                <a class="text-white">Regístrate</a>
+                <a class="text-white" href="/registro">Regístrate</a>
               </p>
               <p>
-                <a class="text-white">Iniciar Sesión</a>
+                <a class="text-white"  href="/iniciar_sesion">Iniciar Sesión</a>
               </p>
             </div>
             <!-- Grid column -->
