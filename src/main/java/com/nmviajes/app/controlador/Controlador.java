@@ -19,7 +19,7 @@ import com.nmviajes.app.servicio.PagoServicioImpl;
 
 //HOLA BRYAN 2
 
-// probando merge desde la "rama A"
+// probando merge desde la "rama AA" 
 
 @Controller
 public class Controlador {
