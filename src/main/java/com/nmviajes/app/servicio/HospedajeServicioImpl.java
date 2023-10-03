@@ -41,5 +41,9 @@ public class HospedajeServicioImpl {
 		Hospedaje u = hospedajeRepo.findById(id).get();
 		return u;
 	}
+	
+	public List<Hospedaje> buscarHotelesPorUbicacion(String ciudad) {
+	    return hospedajeRepo.findByUbicacionContaining(ciudad);
+	}
     
 }

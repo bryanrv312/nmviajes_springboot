@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -84,6 +85,7 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
+
 @Controller
 public class ControladorVuelo {
 	private final Logger log = LoggerFactory.getLogger(ControladorVuelo.class);
@@ -135,14 +137,6 @@ public class ControladorVuelo {
 		List<Vuelo> p = servicio.listarVuelo();
 		Vuelo vuelo = new Vuelo();
 
-		SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyy");
-
-		for (Vuelo v : p) {
-			Date fechaOriginal = v.getFecha();
-			String fechaFormateada = formatoFecha.format(fechaOriginal);
-			v.setFecha(formatoFecha.parse(fechaFormateada));
-		}
-
 		model.addAttribute("user", p);
 		model.addAttribute("vuelo", vuelo);
 		return "gestion_vuelos";
@@ -156,27 +150,55 @@ public class ControladorVuelo {
 		// System.out.println("-----------"+ uServicio.getUsuario().getNombre());
 		model.addAttribute("vuelo", p);
 		model.addAttribute("hospedaje", a);
+		
+		//para el th:object de form busqueda vuelos
+		Vuelo vueloSearch = new Vuelo();
+		model.addAttribute("search_vuelo", vueloSearch);
+		
+		//para el th:object de form busqueda hospedaje
+		Vuelo hospedajeSearch = new Vuelo();
+		model.addAttribute("search_hospedaje", hospedajeSearch);
 
 		return "armar_paquete";
 	}
 
-	@ModelAttribute
-	public void setGenericos(Model model) {
-		Vuelo vueloSearch = new Vuelo();
-		model.addAttribute("search", vueloSearch);
-	}
+//	@ModelAttribute
+//	public void setGenericos(Model model) {
+//		Vuelo vueloSearch = new Vuelo();
+//		model.addAttribute("search", vueloSearch);//ese es el th:object en el form
+//	}
 
 	@InitBinder // cambia de vacio a null
 	public void initBinder(WebDataBinder binder) {
 		binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
 	}
 
-	@GetMapping("/search")
+	/*@GetMapping("/search")
 	public String buscarVuelo(@ModelAttribute("search") Vuelo vuelo, Model model) {
-		System.out.println("Vuelo: " + vuelo);
+		System.out.println("Fecha obtenida: " + vuelo.getFechaPartida());
+		
+		Date fechaPartida = vuelo.getFechaPartida();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String fechaFormateada = dateFormat.format(fechaPartida);
+		System.out.println("Fecha formateada: " + fechaFormateada);
+		
+
+		
 		Example<Vuelo> example = Example.of(vuelo);
 		List<Vuelo> listaVuelos = servicio.buscarByExample(example);
 		model.addAttribute("vuelo", listaVuelos);
+		return "armar_paquete";
+	}*/
+	
+	@PostMapping("/search_2")
+	public String buscarPorFecha(@ModelAttribute("search_vuelo") Vuelo vuelo, Model model) {
+		System.out.println("vuelo fecha partida: " + vuelo.getFechaPartida());
+		System.out.println("vuelo fecha regreso: " + vuelo.getFechaRegreso());
+		
+		Example<Vuelo> example = Example.of(vuelo);
+		List<Vuelo> listaVuelos = servicio.buscarByExample(example);
+		model.addAttribute("vuelo", listaVuelos);
+		
 		return "armar_paquete";
 	}
 
@@ -638,11 +660,7 @@ public class ControladorVuelo {
 		return this.parametros;
 	}
 
-	@InitBinder
-	public void initBinder1(WebDataBinder webDataBinder) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-		webDataBinder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
-	}
+	
 
 	@GetMapping("/generar-informe")
 	public void generarYDescargarInforme(HttpServletResponse response) {
@@ -703,5 +721,11 @@ public class ControladorVuelo {
 		    }
 		
 	}
+	
+//	@InitBinder
+//	public void initBinder1(WebDataBinder webDataBinder) {
+//		SimpleDateFormat dateFormatt = new SimpleDateFormat("dd-MM-yyyy");
+//		webDataBinder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormatt, false));
+//	}
 
 }
