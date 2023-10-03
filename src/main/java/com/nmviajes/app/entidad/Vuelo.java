@@ -1,5 +1,6 @@
 package com.nmviajes.app.entidad;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -8,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "vuelos") 
@@ -36,8 +39,17 @@ public class Vuelo {
     @Column(name = "precio")
     private Double precio;
     
+    //@Column(name = "fechaPartida", columnDefinition = "DATE")
+    @Column(name = "fechaPartida")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate fechaPartida;
     
     
+    @Column(name = "fechaRegreso")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate fechaRegreso;
+    
+     
 
     public Long getId() {
         return id;
@@ -86,9 +98,40 @@ public class Vuelo {
     public void setPrecio(Double precio) {
         this.precio = precio;
     }
-
     
-    public Vuelo(String origen, String destino, String aerolinea, Date fecha, Double precio) {
+    public LocalDate getFechaPartida() {
+		return fechaPartida;
+	}
+
+	public void setFechaPartida(LocalDate fechaPartida) {
+		this.fechaPartida = fechaPartida;
+	}
+
+	public LocalDate getFechaRegreso() {
+		return fechaRegreso;
+	}
+
+	public void setFechaRegreso(LocalDate fechaRegreso) {
+		this.fechaRegreso = fechaRegreso;
+	}
+	
+	
+
+	public Vuelo(Long id, String origen, String destino, String aerolinea, Integer pasajeros, Date fecha, Double precio,
+			LocalDate fechaPartida, LocalDate fechaRegreso) {
+		super();
+		this.id = id;
+		this.origen = origen;
+		this.destino = destino;
+		this.aerolinea = aerolinea;
+		this.pasajeros = pasajeros;
+		this.fecha = fecha;
+		this.precio = precio;
+		this.fechaPartida = fechaPartida;
+		this.fechaRegreso = fechaRegreso;
+	}
+
+	public Vuelo(String origen, String destino, String aerolinea, Date fecha, Double precio) {
         this.origen = origen;
         this.destino = destino;
         this.aerolinea = aerolinea;
@@ -162,11 +205,7 @@ public class Vuelo {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "Vuelo [origen=" + origen + ", destino=" + destino + ", pasajeros=" + pasajeros + ", fecha=" + fecha
-                + ", precio=" + precio + "]";
-    }
+  
 
     public String getAerolinea() {
         return aerolinea;
@@ -176,6 +215,15 @@ public class Vuelo {
         this.aerolinea = aerolinea;
     }
 
+	@Override
+	public String toString() {
+		return "Vuelo [id=" + id + ", origen=" + origen + ", destino=" + destino + ", aerolinea=" + aerolinea
+				+ ", pasajeros=" + pasajeros + ", fecha=" + fecha + ", precio=" + precio + ", fechaPartida="
+				+ fechaPartida + ", fechaRegreso=" + fechaRegreso + "]";
+	}
+    
+    
+    
     
     
 }

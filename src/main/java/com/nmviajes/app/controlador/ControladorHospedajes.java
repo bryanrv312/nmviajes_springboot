@@ -3,6 +3,7 @@ package com.nmviajes.app.controlador;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,10 +13,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.nmviajes.app.entidad.Hospedaje;
+import com.nmviajes.app.entidad.Vuelo;
 import com.nmviajes.app.modelo.HospedajeDTO;
 import com.nmviajes.app.servicio.HospedajeServicioImpl;
 
-@Secured("ROLE_ADMIN")
+@Secured({"ROLE_ADMIN","ROLE_USER"})
 @Controller
 public class ControladorHospedajes {
 
@@ -61,6 +63,22 @@ public class ControladorHospedajes {
 	public String registrarHospedajeEditado(@ModelAttribute("hospedaje") HospedajeDTO registroDTO){
 		servicio.guardarEditado(registroDTO);
 		return "gestion_admin";
+	}
+	
+	
+	/*@ModelAttribute
+	public void setGenericos2(Model model) {
+		Vuelo hospedajeSearch = new Vuelo();
+		model.addAttribute("search_hospedaje", hospedajeSearch);//ese es el th:object en el form
+	}*/
+	
+	@GetMapping("/search_hospedaje")
+	public String buscarHospedaje(@ModelAttribute("search_hospedaje") Vuelo vuelo, Model model) {
+		System.out.println("busqueda ciudad hospedaje: " + vuelo.getDestino());
+		//Example<Hospedaje> example = Example.of(hospedaje);
+		//List<Hospedaje> listaHospedajes = servicio.buscarHotelesPorUbicacion();
+		
+		return "armar_paquete";
 	}
 
 	

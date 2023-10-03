@@ -134,77 +134,61 @@
         <div class="tab-pane fade show active" id="vuelos" role="tabpanel" aria-labelledby="vuelos-tab">
           
           <!-- Comienza campos para filtrar vuelos. -->
-          <form th:action="@{/search}" method="get" th:object="${search}">
-	          <div class="container mt-4 d-flex flex-row justify-content-center">
-	            <div class="row">
-	              <div class="input-group">
-	              <!--  th:field="${v.id}"-->
-	                <div class="campo_origen m-1" >
-	                  <label >Partida: </label>
-	                  <select th:field="*{origen}" class="form-select" aria-label="Default select example">
-	                    <option th:value="${null}" selected >Origen</option>
-	                    <option th:each="v:${vuelo}" 
-								th:value="${v.origen}"
-								th:text="${v.origen}">
-						</option>
-<!-- 	                    <th:block th:each="v:${vuelo}"> -->
-<!-- 	                      <option th:text="${v.origen}"> </option> -->
-<!-- 	                    </th:block>	 -->
-	                    
-	                  </select>
-	                
-	                </div>
-	
-	                <div class="campo_destino m-1">
-	                  <label >LLegada: </label>
-	                  <select th:field="*{destino}" class="form-select" aria-label="Default select example">
-	                    <option th:value="${null}" selected >Destino</option>
-	                    <option th:each="v:${vuelo}" 
-								th:value="${v.destino}"
-								th:text="${v.destino}">
-						</option>
-<!-- 	                    <th:block th:each="v:${vuelo}"> -->
-<!-- 	                      <option th:text="${v.destino}"> </option> -->
-<!-- 	                    </th:block>	 -->
-	                    
-	                  </select>
-	                </div>
-	
-	                <div class="campo_fecha_partida m-1">
-	                  <label for="date">Fecha Partida: </label>
-	                  <div class="input-group date" id="datepicker">
-	                    
-	                    <input type="date" class="form-control" id="date" placeholder="Fecha Partida" />
-	                    <span class="input-group-append"> </span>
-	                  </div>
-	                </div>
-	
-	                <div class="campo_fecha_regreso m-1">
-	                  <label for="date">Fecha Regreso: </label>
-	                  <div class="input-group date" id="datepicker_2">
-	                    <input type="date" class="form-control" id="date" placeholder="Fecha Regreso" />
-	                    <span class="input-group-append"> </span>
-	                  </div>
-	                </div>
-	
-	                <div class="campo_pasajeros m-1">
-	                  <label for="pasajeros">Pasajeros: </label>
-	                  <div class="input-group date">
-	                    <input type="number" class="form-control" id="pasajeros" placeholder="Pasajeros" />
-	                    <span class="input-group-append"> </span>
-	                  </div>
-	                </div>
-	
-	                <div class="m-1">
-	                  <button class="btn btn-danger" type="submit">
-	                    Buscar Vuelo
-	                  </button>
-	                </div>
-	              </div>
-	            </div>
-	          </div>
-          </form>
-          <!-- Finaliza campos para filtrar vuelos. -->
+		<form th:object="${search_vuelo}" th:action="@{/search_2}" method="post">
+			<div class="container mt-4 d-flex flex-row justify-content-center">
+				<div class="row">
+	              	<div class="input-group">
+	              	
+		              	<div class="campo_origen m-1" >
+		                  <label >Partida: </label>
+		                  <select th:field="*{origen}" class="form-select" aria-label="Default select example">
+		                    <option th:value="${null}" selected >Origen</option>
+		                    <option th:each="v:${vuelo}" 
+									th:value="${v.origen}"
+									th:text="${v.origen}">
+							</option>
+		                  </select>
+		                </div>
+		                
+		                <div class="campo_destino m-1">
+		                  <label >LLegada: </label>
+		                  <select th:field="*{destino}" class="form-select" aria-label="Default select example">
+		                    <option th:value="${null}" selected >Destino</option>
+		                    <option th:each="v:${vuelo}" 
+									th:value="${v.destino}"
+									th:text="${v.destino}">
+							</option>
+		                  </select>
+		                </div>
+			
+						<div class="campo_fecha_partida m-1">
+							<label for="fechaPartida">Fecha Partida:</label> 
+							<div class="input-group date" id="datepicker">
+								<input class="form-control" type="date" id="fechaPartida" th:field="*{fechaPartida}"/>
+								<span class="input-group-append"> </span>
+							</div>
+						</div>
+						
+						<div class="campo_fecha_regreso m-1">
+							<label for="fechaRegreso">Fecha Regreso:</label> 
+							<div class="input-group date" id="datepicker">
+								<input class="form-control" type="date" id="fechaRegreso" th:field="*{fechaRegreso}"/>
+								<span class="input-group-append"> </span>
+							</div>
+						</div>
+					
+					
+					
+						<div class="m-1">
+							<button class="btn btn-danger" type="submit">Buscar</button>
+						</div>
+			
+					</div>
+				</div>
+			</div>
+		</form>
+
+					<!-- Finaliza campos para filtrar vuelos. -->
 
           <div class="container mt-4" th:action="@{/vuelos/comprar}" method="post">
             <!-- <input type="hidden" th:field="*{id}" th:value="${vuelo.id}">-->
@@ -216,7 +200,9 @@
 						  font-size: .85em;" 
 				   class="article-loop d-flex d-flex justify-content-between rounded" th:each="v:${vuelo}">
               <div>
-                <p class="text-secondary fs-6">6:30 - 7:51</p>
+<!--                 <p class="text-secondary fs-6">6:30 - 7:51</p> -->
+				<p th:text="${v.fechaPartida}" class="text-secondary fs-6"></p>
+<!-- 				<p th:text="${#dates.format(v.fechaPartida, 'dd-MM-yyyy')}" class="text-secondary fs-6"></p>	 -->
                 <ul style="list-style-type: none;" class="fw-bold">
                   <li class="fw-bold fs-3 text-success" style="float: left; margin-left:-35px; margin-right: 20px;
                       padding: 0 4px;" th:text="${v.origen}"> </li>
@@ -230,11 +216,14 @@
                       padding: 0 4px;" th:text="${v.aerolinea}"> </li>
                   <li class="fw-bold fs-3 text-success" style="float: left;   margin-right: 20px;
                       padding: 0 4px;">(Peru)</li>
+                      <br><br>
                 </ul>
 
-                </p>
+                <br>
 
-                <p class="text-secondary fs-6">7:08 - 8:536</p>
+<!--                 <p class="text-secondary fs-6">7:08 - 8:536</p> -->
+                <p th:text="${v.fechaRegreso}" class="text-secondary fs-6"></p>
+<!-- 				<p th:text="${#dates.format(v.fechaRegreso, 'dd-MM-yyyy')}"class="text-secondary fs-6"></p> -->
                 <ul style="list-style-type: none;" class="fw-bold">
                   <li class="fw-bold fs-3 text-success" style="float: left; margin-left:-35px; margin-right: 20px;
                       padding: 0 4px;" th:text="${v.destino}"> </li>
@@ -277,6 +266,63 @@
       <!-- Comienza contenido de hoteles.   -->
       <div class="tab-pane fade" id="hoteles" role="tabpanel" aria-labelledby="hoteles-tab">
         <!-- Comienza campos para registrar hotel. -->
+        
+        
+        <!-- Busqueda Hoteles -->
+      <!-- <form th:action="@{/search_hospedaje}" method="get" th:object="${search_hospedaje}">
+	          <div class="container mt-4 d-flex flex-row justify-content-center">
+	            <div class="row">
+	              <div class="input-group">
+	              
+	                
+	
+	                <div class="campo_destino_1 m-1">
+	                  <label >Ciudad </label>
+	                  <select th:field="*{destino}" class="form-select" aria-label="Default select ciudad">
+	                    <option th:value="${null}" selected >Ciudad</option>
+	                    <option th:each="v:${vuelo}" 
+								th:value="${v.destino}"
+								th:text="${v.destino}">
+						</option>
+
+	                    
+	                  </select>
+	                </div>-->
+	
+	                  <!--  <div class="campo_fecha_partida m-1">
+	                  <label for="date">Fecha Partida: </label>
+	                  <div class="input-group date" id="datepicker">
+	                    
+	                    <input type="date" class="form-control" id="date" placeholder="Fecha Partida" />
+	                    <span class="input-group-append"> </span>
+	                  </div>
+	                </div>
+	
+	                <div class="campo_fecha_regreso m-1">
+	                  <label for="date">Fecha Regreso: </label>
+	                  <div class="input-group date" id="datepicker_2">
+	                    <input type="date" class="form-control" id="date" placeholder="Fecha Regreso" />
+	                    <span class="input-group-append"> </span>
+	                  </div>
+	                </div>
+	
+	                  <div class="campo_pasajeros m-1">
+	                  <label for="pasajeros">habitaciones: </label>
+	                  <div class="input-group date">
+	                    <input type="number" class="form-control" id="habitaciones" placeholder="habitaciones" />
+	                    <span class="input-group-append"> </span>
+	                  </div>
+	                </div>-->
+	
+	                <!--  <div class="m-1">
+	                  <button class="btn btn-danger" type="submit">
+	                    Buscar Hotel
+	                  </button>
+	                </div>
+	              </div>
+	            </div>
+	          </div>
+          </form>-->
         
 
         <!-- Comienza lista de hoteles.  public Hospedaje(String nombre, String ubicacion, Double precio) -->
