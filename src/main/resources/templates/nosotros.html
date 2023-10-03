@@ -1,30 +1,45 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>NMViajes - Nosotros</title>
 
     <!-- Bootstrap CSS -->
-    <!-- Bootstrap CSS -->
-<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+      
+    />
 
-<link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}" />
+      
+     <!-- Iconos -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
-<!-- Own CSS -->
-<link rel="stylesheet" href="/css/bootstrap_configuration.css" />
-<link rel="stylesheet" href="/css/index.css" />
-<link rel="stylesheet" href="/css/barra_navegacion.css" />
-<link rel="stylesheet" href="/css/hero.css" />
-<link rel="stylesheet" href="/css/anuncios.css" />
-<link rel="stylesheet" href="/css/footer.css" />
+    <!-- Own CSS -->
+    <link rel="stylesheet" href="/css/bootstrap_configuration.css" />
+    <link rel="stylesheet" href="/css/index.css" />
+    <link rel="stylesheet" href="/css/barra_navegacion.css" />
+    <link rel="stylesheet" href="/css/hero.css" />
+    <link rel="stylesheet" href="/css/anuncios.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
 
+    <!-- Código para los inputs con calendarios. -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 
-<!-- Font Awesome -->
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
-</head>
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    />
+  </head>
 
   <body>
     <!-- Comienza barra de navegación. -->
@@ -32,14 +47,14 @@
       <div class="container_barra_navegacion">
         <nav class="navbar navbar-expand-lg">
           <!-- Comienza logo. -->
-          <div class="container_logo_inicio m-2">
-            <a  href="/">
+          <div class="container_logo_inicio m-2" >
+             <a href="/">
               <img
                 class="logo_inicio"
-               th:src="@{/img/logo_barra_navegacion.png}"
+               	th:src="@{/img/logo_barra_navegacion.png}"
                 alt="Logo"
               />
-            </a>
+             </a> 
           </div>
           <!-- Finaliza logo. -->
 
@@ -47,54 +62,51 @@
 
           <!-- Finaliza botón para pantallas chicas. -->
 
-          <!-- Comienza listado de ítems. -->
+
+           <!-- Comienza listado de ítems. -->
           <div
             class="col-4 col-md-2 col-lg-6 collapse navbar-collapse d-flex justify-content-center"
           >
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a
-                  class="text-light fw-bold nav-link"
-                  href="/nosotros"
+                <a class="text-light fw-bold nav-link" href="/nosotros"
                   >Nosotros</a
                 >
               </li>
               <li class="nav-item">
-                <a
-                  class="text-light fw-bold nav-link"
-                  	href="/oficinas"
+                <a class="text-light fw-bold nav-link" href="/oficinas"
                   >Oficinas</a
                 >
               </li>
               <li class="nav-item">
                 <a
                   class="text-light fw-bold nav-link"
-                   href="/armar_paquete"
+                  href="armar_paquete"
                   >Arma tu Viaje</a
                 >
               </li>
               <li class="nav-item">
                 <a
                   class="text-light fw-bold nav-link"
-                  href="/ofertas"
+                  th:href="@{/paqueteHV}"
+                  >Paquete</a>
+              </li>
+              <li class="nav-item">
+                <a class="text-light fw-bold nav-link" href="/ofertas"
                   >Ofertas</a
                 >
               </li>
               <li class="nav-item">
-                <a
-                  class="text-light fw-bold nav-link"
-                   href="/ayuda"
+                <a class="text-light fw-bold nav-link" href="/ayuda"
                   >Ayuda</a
                 >
               </li>
               <li class="nav-item">
-                <a
-                  class="text-light fw-bold nav-link"
-                  href="/registro"
+                <a class="text-light fw-bold nav-link" href="/registro"
                   >Regístrate</a
                 >
               </li>
-               <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+              <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
               <a class="text-light fw-bold nav-link" href="/gestion_usuarios">Gestion Admin</a>
             </li>
               
@@ -130,20 +142,47 @@
 
     <!-- Comienza contenido principal. -->
     <main>
-      <!-- Comienza hero. -->
-      <section>
-        <div class="styles_container_hero_2 container-fluid">
-          <div>
-            <p class="text-cc fw-bold">Comprometidos contigo</p>
-            <p class="text-white">
-              Nuestra <span class="fw-bold">experiencia</span>
-            </p>
-            <p class="text-white">a tu <span class="fw-bold">alcance</span></p>
-          </div>
-        </div>
-      </section>
-      <!-- Finaliza hero. -->
-
+		<section>
+<div id="carouselExampleDark" class="carousel carousel-dark slide">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active" data-bs-interval="5000">
+      <img th:src="@{/img/hero_2.jpg}" class="d-block w-100"  width="700" height="700"  alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5 style="color: aliceblue;">Comprometidos Contigo</h5>
+        <p style="color: aliceblue;">Vive una gran experiencia con nostros.</p>
+      </div>
+    </div>
+    <div class="carousel-item" data-bs-interval="2000">
+      <img th:src="@{/img/carrucel1.jpg}" class="d-block w-100"  width="700" height="700" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5 style="color: aliceblue;"></h5>
+	    <p style="color: aliceblue;"></p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img th:src="@{/img/carrucel2.jpg}"class="d-block w-100"   width="700" height="700" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5 style="color: aliceblue;"></h5>
+        <p style="color: aliceblue;"></p>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+			</section>
+     
       <!-- Comienza información de la empresa. -->
       <section>
         <div class="container mb-5 mt-5 d-flex flex-row">
@@ -249,7 +288,7 @@
     </main>
     <!-- Finaliza contenido principal. -->
 
-    <!-- Comienza footer. -->
+ <!-- Comienza footer. -->
     <footer class="text-center text-lg-start text-white bg-danger">
       <!-- Grid container -->
       <div class="container p-4 pb-0">
@@ -274,25 +313,28 @@
             <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
               <h6 class="text-uppercase mb-4 font-weight-bold">Productos</h6>
               <p>
-                <a class="text-white">Nosotros</a>
+                <a class="text-white" href="/nosotros">Nosotros</a>
               </p>
               <p>
-                <a class="text-white">Oficinas</a>
+                <a class="text-white" href="/oficinas">Oficinas</a>
               </p>
               <p>
-                <a class="text-white">Arma tu viaje</a>
+                <a class="text-white" href="/armar_paquete">Arma tu viaje</a>
+              </p>
+               <p>
+                <a class="text-white" href="/paqueteHV">Paquete</a>
               </p>
               <p>
-                <a class="text-white">Ofertas</a>
+                <a class="text-white"  href="/ofertas">Ofertas</a>
               </p>
               <p>
-                <a class="text-white">Ayuda</a>
+                <a class="text-white"  href="/ayuda">Ayuda</a>
               </p>
               <p>
-                <a class="text-white">Regístrate</a>
+                <a class="text-white" href="/registro">Regístrate</a>
               </p>
               <p>
-                <a class="text-white">Iniciar Sesión</a>
+                <a class="text-white"  href="/iniciar_sesion">Iniciar Sesión</a>
               </p>
             </div>
             <!-- Grid column -->
@@ -357,15 +399,14 @@
 
  <!-- Finaliza footer. -->
 
+    <!-- Own Javascript -->
+    <script th:src="@{/img/javascript/index.js}"></script>
 
-	<!-- Own Javascript -->
-	<script th:src="@{/js/index.js}"></script>
-
-	<!-- Bootstrap JavaScript -->
-	<script th:src="@{/js/jquery-3.2.1.min.js}"></script>
-	<script th:src="@{/js/popper.min.js}"></script>
-	<script th:src="@{/js/bootstrap.min.js}"></script>
-	<script th:src="@{/js/jquery-ui.min.js}"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <!-- Bootstrap JavaScript -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>
