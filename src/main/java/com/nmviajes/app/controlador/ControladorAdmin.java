@@ -49,7 +49,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-//@Secured("ROLE_ADMIN")
+@Secured("ROLE_ADMIN")
 @Controller
 public class ControladorAdmin {
 	
