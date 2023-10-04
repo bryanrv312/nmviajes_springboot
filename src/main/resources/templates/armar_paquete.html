@@ -134,7 +134,7 @@
         <div class="tab-pane fade show active" id="vuelos" role="tabpanel" aria-labelledby="vuelos-tab">
           
           <!-- Comienza campos para filtrar vuelos. -->
-		<form th:object="${search_vuelo}" th:action="@{/search_2}" method="post">
+		  <form th:object="${search_vuelo}" th:action="@{/search_2}" method="post">
 			<div class="container mt-4 d-flex flex-row justify-content-center">
 				<div class="row">
 	              	<div class="input-group">
@@ -243,7 +243,9 @@
               </div>
               <div class="mt-4 d-flex flex-column text-center">
                 <p class="fw-bold fs-3 text-success" th:text="${v.precio}"></p>
-                <a th:href="@{/ejemplo_paquete}" class="btn btn-warning">Seleccionar Vuelo</a>
+<!--                 <a th:href="@{/ejemplo_paquete}" class="btn btn-warning">Seleccionar Vuelo</a> -->
+                <a th:href="@{/verVuelo/{id}  (id=${v.id})  }"class="btn btn-warning">Seleccionar Vuelo</a>
+                
               </div>
             </div>
             <style>
@@ -269,65 +271,42 @@
         
         
         <!-- Busqueda Hoteles -->
-      <!-- <form th:action="@{/search_hospedaje}" method="get" th:object="${search_hospedaje}">
-	          <div class="container mt-4 d-flex flex-row justify-content-center">
-	            <div class="row">
-	              <div class="input-group">
-	              
-	                
-	
-	                <div class="campo_destino_1 m-1">
-	                  <label >Ciudad </label>
-	                  <select th:field="*{destino}" class="form-select" aria-label="Default select ciudad">
-	                    <option th:value="${null}" selected >Ciudad</option>
-	                    <option th:each="v:${vuelo}" 
-								th:value="${v.destino}"
-								th:text="${v.destino}">
-						</option>
-
-	                    
-	                  </select>
-	                </div>-->
-	
-	                  <!--  <div class="campo_fecha_partida m-1">
-	                  <label for="date">Fecha Partida: </label>
-	                  <div class="input-group date" id="datepicker">
-	                    
-	                    <input type="date" class="form-control" id="date" placeholder="Fecha Partida" />
-	                    <span class="input-group-append"> </span>
-	                  </div>
-	                </div>
-	
-	                <div class="campo_fecha_regreso m-1">
-	                  <label for="date">Fecha Regreso: </label>
-	                  <div class="input-group date" id="datepicker_2">
-	                    <input type="date" class="form-control" id="date" placeholder="Fecha Regreso" />
-	                    <span class="input-group-append"> </span>
-	                  </div>
-	                </div>
-	
-	                  <div class="campo_pasajeros m-1">
-	                  <label for="pasajeros">habitaciones: </label>
-	                  <div class="input-group date">
-	                    <input type="number" class="form-control" id="habitaciones" placeholder="habitaciones" />
-	                    <span class="input-group-append"> </span>
-	                  </div>
-	                </div>-->
-	
-	                <!--  <div class="m-1">
-	                  <button class="btn btn-danger" type="submit">
-	                    Buscar Hotel
-	                  </button>
-	                </div>
-	              </div>
-	            </div>
-	          </div>
-          </form>-->
+        
+        
+       <!--   <form th:object="${search_hospedaje}" th:action="@{/search_3}" method="post">
+			<div class="container mt-4 d-flex flex-row justify-content-center">
+				<div class="row">
+	              	<div class="input-group">
+		                
+		                <div class="campo_destino m-1">
+		                  <label >LLegada: </label>
+		                  <select th:field="*{destino}" class="form-select" aria-label="Default select example">
+		                    <option th:value="${null}" selected >Destino</option>
+		                    <option th:each="v:${vuelo_hoteles}" 
+									th:value="${v.destino}"
+									th:text="${v.destino}">
+							</option>
+		                  </select>
+		                </div>
+		                
+		                <div class="m-1">
+							<button class="btn btn-danger" type="submit">Buscar</button>
+						</div>
+			
+					</div>
+				</div>
+			</div>
+		</form> -->
         
 
         <!-- Comienza lista de hoteles.  public Hospedaje(String nombre, String ubicacion, Double precio) -->
         <div class="container mt-4" th:each="t:${hospedaje}">
-          <div class="article-loop_2 d-flex d-flex justify-content-between rounded">
+          <div style="display: block;
+						  padding: 1em 2em;
+						  margin: 1em auto;
+						  border: 1px solid rgb(197, 197, 197);
+						  background-color: rgb(255, 255, 255);
+						  font-size: .85em;" class="article-loop_2 d-flex d-flex justify-content-between rounded">
             <div class="mt-2">
               <h1 class="fs-4" th:text="${t.nombre}"></h1>
               <p class="text-secondary" th:text="${t.ubicacion}"></p>
@@ -347,8 +326,15 @@
               
             </div>
           </div>
-
+          	<style>
+				.article-loop:hover {
+				  box-shadow: 0px 0px 5px 1px #969595;
+				  font-size: .85em;
+				}
+			</style>
+			
         </div>
+        
         <!-- Finaliza lista de hoteles. -->
 
         <div class="container">

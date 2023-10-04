@@ -1,6 +1,7 @@
 package com.nmviajes.app.modelo;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class VueloDTO {
     private Long id;
@@ -16,8 +17,30 @@ public class VueloDTO {
     private Date fecha;
 
     private Double precio;
+    
+    private LocalDate fechaPartida;
+    
+    private LocalDate fechaRegreso;
+    
+    
 
-    public VueloDTO(String origen, String destino, String aerolinea, Integer pasajeros, Date fecha, Double precio) {
+    public VueloDTO(Long id, String origen, String destino, String aerolinea, Integer pasajeros, Date fecha,
+			Double precio, LocalDate fechaPartida, LocalDate fechaRegreso) {
+		super();
+		this.id = id;
+		this.origen = origen;
+		this.destino = destino;
+		this.aerolinea = aerolinea;
+		this.pasajeros = pasajeros;
+		this.fecha = fecha;
+		this.precio = precio;
+		this.fechaPartida = fechaPartida;
+		this.fechaRegreso = fechaRegreso;
+	}
+
+
+
+	public VueloDTO(String origen, String destino, String aerolinea, Integer pasajeros, Date fecha, Double precio) {
         this.origen = origen;
         this.destino = destino;
         this.aerolinea = aerolinea;
@@ -124,5 +147,31 @@ public class VueloDTO {
     public void setAerolinea(String aerolinea) {
         this.aerolinea = aerolinea;
     }
+
+
+
+	public LocalDate getFechaPartida() {
+		return fechaPartida;
+	}
+
+
+
+	public void setFechaPartida(LocalDate fechaPartida) {
+		this.fechaPartida = fechaPartida;
+	}
+
+
+
+	public LocalDate getFechaRegreso() {
+		return fechaRegreso;
+	}
+
+
+
+	public void setFechaRegreso(LocalDate fechaRegreso) {
+		this.fechaRegreso = fechaRegreso;
+	}
+    
+    
 
 }

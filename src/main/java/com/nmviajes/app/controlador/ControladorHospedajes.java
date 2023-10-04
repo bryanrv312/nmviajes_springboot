@@ -72,14 +72,14 @@ public class ControladorHospedajes {
 		model.addAttribute("search_hospedaje", hospedajeSearch);//ese es el th:object en el form
 	}*/
 	
-	@GetMapping("/search_hospedaje")
+	/*@PostMapping("/search_3")
 	public String buscarHospedaje(@ModelAttribute("search_hospedaje") Vuelo vuelo, Model model) {
 		System.out.println("busqueda ciudad hospedaje: " + vuelo.getDestino());
 		//Example<Hospedaje> example = Example.of(hospedaje);
 		//List<Hospedaje> listaHospedajes = servicio.buscarHotelesPorUbicacion();
 		
 		return "armar_paquete";
-	}
+	}*/
 
 	
 	

@@ -111,6 +111,8 @@
 
             </ul>
             <div class="tab-content" id="myTabContent">
+            <br>
+            <br>
 
                 <!-- Comienza contenido de vuelos. -->
                 <div class="tab-pane fade show active" id="vuelos" role="tabpanel" aria-labelledby="vuelos-tab">
@@ -125,7 +127,7 @@
                             <div class="article-loop d-flex d-flex justify-content-between rounded"
                                 th:each="v:${vuelo}">
                                 <div>
-                                    <p class="text-secondary fs-6">6:30 - 7:51</p>
+                                    <p th:text="${v.fechaPartida}" class="text-secondary fs-6"></p>
 									<ul style="list-style-type: none;" class="fw-bold">
 										<li class="fw-bold fs-3 text-success"
 											style="float: left; margin-left: -35px; margin-right: 20px; padding: 0 4px;"
@@ -148,7 +150,7 @@
 
 									</p>
 
-                                    <p class="text-secondary fs-6">7:08 - 8:536</p>
+                                    <p th:text="${v.fechaRegreso}" class="text-secondary fs-6"></p>
 									<ul style="list-style-type: none;" class="fw-bold">
 										<li class="fw-bold fs-3 text-success"
 											style="float: left; margin-left: -35px; margin-right: 20px; padding: 0 4px;"
@@ -189,7 +191,8 @@
                 <!-- Finaliza lista de vuelos. -->
             </div>
             <!-- Finaliza contenido de vuelos. -->
-
+			<br>
+            <br>
 
         </div>
     </main>
