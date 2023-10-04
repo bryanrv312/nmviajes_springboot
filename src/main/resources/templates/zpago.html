@@ -107,18 +107,55 @@
         </div>
     </header>
     <!-- Finaliza barra de navegación. -->
+    <br>
     
-    <div class="m-3 mt-5">
-		<h4 class="mt-2 fw-bold">Monto Total</h4>
+    
+    <!--  <div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <h4 class="fw-bold">Monto Total</h4>
 		<h5 th:text=" 'Total: S/'+ ${total}"></h5>
 		<input name="total" th:value="${total}" id="montoTotal" type="hidden"
 			class="w-25 form-control" contenteditable="false"></input>
 	</div>
+	
+	
+	
+	<div class="m-3 mt-5">
+		<h4 class="mt-2 fw-bold">Elija su método de pago</h4>
+	</div>
+	
+	<br>
+    <br>
     
-    <div class="container mt-3 mb-3">
-    	<div  id="paypal-button-container"></div>
-    	<a type="button" class="btn btn-secondary" th:href="@{/generar-informe}" >Generar Informe PDF</a>
+      <div class="container mt-3 mb-3">
+    	<div  id="paypal-button-container"></div>-->
+    	<!--<a type="button" class="btn btn-secondary" th:href="@{/generar-informe}" >Generar Informe PDF</a>-->	
+    <!--  </div>
     </div>
+    </div>-->
+    
+    <div class="container mt-5">
+	    <div class="row">
+	        <div class="col-md-6">
+	            <h4 class="fw-bold">Monto Total</h4>
+	            <div class="input-group mb-3">
+	                <span class="input-group-text">S/</span>
+	                <input name="total" th:value="${total}" id="montoTotal" type="text" class="form-control" disabled>
+	            </div>
+	        </div>
+	    </div>
+	    <br>
+	    <div class="row mt-3">
+	        <div class="col-md-6">
+	            <h4 class="fw-bold">Elija su método de pago</h4>
+	            <br>
+	            <br>
+	            <div id="paypal-button-container"></div>
+	        </div>
+	    </div>
+	</div>
+    
     
     <script type="text/javascript">
     
@@ -175,7 +212,7 @@
                         .then(response => {
                             // Maneja la respuesta del servidor si es necesario
                             console.log(response.data);
-                            //window.location.href = "/";
+                            window.location.href = "/";
                         })
                         .catch(error => {
                             // Maneja errores si es necesario

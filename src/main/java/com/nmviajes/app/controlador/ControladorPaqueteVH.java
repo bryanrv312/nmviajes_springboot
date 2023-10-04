@@ -3,6 +3,8 @@ package com.nmviajes.app.controlador;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,9 +15,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.nmviajes.app.entidad.PaqueteTuristico;
+import com.nmviajes.app.entidad.Vuelo;
 import com.nmviajes.app.modelo.DetallePagoDTO;
 import com.nmviajes.app.servicio.PaqueteTuristicoServicioImpl;
+import com.nmviajes.app.servicio.VueloServicioImpl;
 
+//@Secured({"ROLE_ADMIN","ROLE_USER"})
 @Controller
 public class ControladorPaqueteVH {
 	
@@ -23,15 +28,22 @@ public class ControladorPaqueteVH {
 	@Autowired
     private PaqueteTuristicoServicioImpl servicePaquete;
 	
+	@Autowired
+	private VueloServicioImpl serviceVuelo;
 	
-	@GetMapping("/paqueteHV")
+	
+	/*@GetMapping("/paqueteHV")
 	public String listarPaqueteHV(Model model) {
 		List<PaqueteTuristico> listaPaquete = servicePaquete.listarPaqueteTuristicos();
-		PaqueteTuristico paquete = new PaqueteTuristico();
+		PaqueteTuristico search_paquete = new PaqueteTuristico();
+		
 		model.addAttribute("listaPaquete", listaPaquete);
-		model.addAttribute("paquete", paquete);
+		model.addAttribute("search_paquete", search_paquete);//th:object
+		
 		return "paquete";
 	}
+	*/
+	
 	
 	
 	@GetMapping("/verPaqueteHV/{id}")

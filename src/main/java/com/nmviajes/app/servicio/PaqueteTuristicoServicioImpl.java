@@ -3,6 +3,7 @@ package com.nmviajes.app.servicio;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import com.nmviajes.app.entidad.PaqueteTuristico;
@@ -34,5 +35,21 @@ public class PaqueteTuristicoServicioImpl {
 		PaqueteTuristico pt = paqueteTuristicoRepo.findById(id).get();
 		return pt;
 	}
+	
+	public List<PaqueteTuristico> buscarByExample_pq(Example<PaqueteTuristico> example){
+		return paqueteTuristicoRepo.findAll(example);
+	}
+	
+	public List<PaqueteTuristico> buscarPorOrigen(String origen) {
+		return paqueteTuristicoRepo.findByVueloOrigen(origen);
+    }
+	
+	public List<PaqueteTuristico> buscarPorDestino(String destino) {
+        return paqueteTuristicoRepo.findByVueloDestino(destino);
+    }
+
+    public List<PaqueteTuristico> buscarPorOrigenYDestino(String origen, String destino) {
+        return paqueteTuristicoRepo.findByVueloOrigenAndVueloDestino(origen, destino);
+    }
 
 }

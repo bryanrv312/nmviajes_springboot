@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -151,6 +152,8 @@ public class ControladorVuelo {
 		model.addAttribute("vuelo", p);
 		model.addAttribute("hospedaje", a);
 		
+		model.addAttribute("vuelo_hoteles", p);
+		
 		//para el th:object de form busqueda vuelos
 		Vuelo vueloSearch = new Vuelo();
 		model.addAttribute("search_vuelo", vueloSearch);
@@ -172,23 +175,6 @@ public class ControladorVuelo {
 	public void initBinder(WebDataBinder binder) {
 		binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
 	}
-
-	/*@GetMapping("/search")
-	public String buscarVuelo(@ModelAttribute("search") Vuelo vuelo, Model model) {
-		System.out.println("Fecha obtenida: " + vuelo.getFechaPartida());
-		
-		Date fechaPartida = vuelo.getFechaPartida();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		String fechaFormateada = dateFormat.format(fechaPartida);
-		System.out.println("Fecha formateada: " + fechaFormateada);
-		
-
-		
-		Example<Vuelo> example = Example.of(vuelo);
-		List<Vuelo> listaVuelos = servicio.buscarByExample(example);
-		model.addAttribute("vuelo", listaVuelos);
-		return "armar_paquete";
-	}*/
 	
 	@PostMapping("/search_2")
 	public String buscarPorFecha(@ModelAttribute("search_vuelo") Vuelo vuelo, Model model) {
@@ -201,6 +187,84 @@ public class ControladorVuelo {
 		
 		return "armar_paquete";
 	}
+	
+	
+	@PostMapping("/search_3")
+	public String buscarHospedaje(@ModelAttribute("search_hospedaje") Vuelo vuelo, Model model) {
+		System.out.println("busqueda ciudad hospedaje: " + vuelo.getDestino());
+		
+		//Example<Vuelo> example = Example.of(vuelo);
+		List<Hospedaje> listaHospedajes = hservicio.buscarHotelesPorUbicacion(vuelo.getDestino());
+		System.out.println("busqueda de hospedaje por ubicacion: " + vuelo.getDestino());
+		for(Hospedaje h: listaHospedajes) {
+			System.out.println("Nombre del Hospedaje: " + h.getNombre());
+	        System.out.println("Ubicación: " + h.getUbicacion());
+		}
+		
+		model.addAttribute("hospedaje", listaHospedajes);
+		
+		return "armar_paquete";
+	}
+	
+	
+	@PostMapping("/search_4")
+	public String busquedaPaquete(@ModelAttribute("search_paquete") PaqueteTuristico paquete, Model model) {
+		System.out.println("paquete fecha partida: " + paquete.getVuelo().getOrigen());
+		System.out.println("paquete fecha partida: " + paquete.getVuelo().getDestino());
+		
+		
+		String origen = paquete.getVuelo().getOrigen();
+	    String destino = paquete.getVuelo().getDestino();
+
+	    if (origen != null && destino != null) {
+	        // Búsqueda por origen y destino
+	        List<PaqueteTuristico> paquetesPorOrigenYDestino = servicePaquete.buscarPorOrigenYDestino(origen, destino);
+	        model.addAttribute("listaPaquete", paquetesPorOrigenYDestino);
+	    } else if (origen != null) {
+	        // Búsqueda por origen
+	        List<PaqueteTuristico> paquetesPorOrigen = servicePaquete.buscarPorOrigen(origen);
+	        model.addAttribute("listaPaquete", paquetesPorOrigen);
+	    } else if (destino != null) {
+	        // Búsqueda por destino
+	        List<PaqueteTuristico> paquetesPorDestino = servicePaquete.buscarPorDestino(destino);
+	        model.addAttribute("listaPaquete", paquetesPorDestino);
+	    } else {
+	        // No se proporcionaron criterios de búsqueda válidos
+	        model.addAttribute("listaPaquete", Collections.emptyList());
+	    }
+		
+		
+		/*
+		List<PaqueteTuristico> listaPaquetes = servicePaquete.buscarPorOrigen(paquete.getVuelo().getOrigen());
+		System.out.println("hola paquete" + listaPaquetes);
+		*/
+		
+		/*Example<PaqueteTuristico> example = Example.of(paquete);
+		System.out.println("example: " + example);
+		List<PaqueteTuristico> listaPaquetes = servicePaquete.buscarByExample_pq(example);
+		System.out.println("hola paquete" + listaPaquetes);
+		for(PaqueteTuristico pq: listaPaquetes) {
+			System.out.println("id del paquete: " + pq.getId());
+	        System.out.println("origen del paquete: " + pq.getVuelo().getOrigen());
+		}*/
+		
+		//model.addAttribute("listaPaquete", listaPaquetes);
+		
+		return "paquete";
+	}
+	
+	
+	@GetMapping("/paqueteHV")
+	public String listarPaqueteHV(Model model) {
+		List<PaqueteTuristico> listaPaquete = servicePaquete.listarPaqueteTuristicos();
+		PaqueteTuristico search_paquete = new PaqueteTuristico();
+		
+		model.addAttribute("listaPaquete", listaPaquete);
+		model.addAttribute("search_paquete", search_paquete);//th:object
+		
+		return "paquete";
+	}
+	
 
 	@Secured("ROLE_ADMIN")
 	@GetMapping("/vuelos/eliminar/{id}")
