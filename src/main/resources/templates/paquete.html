@@ -102,6 +102,8 @@
   </header>
   <!-- Finaliza barra de navegación. -->
   
+  <div class="">
+  
   <form th:object="${search_paquete}" th:action="@{/search_4}" method="post">
 			<div class="container mt-4 d-flex flex-row justify-content-center">
 				<div class="row">
@@ -158,20 +160,29 @@
   <main>
     <div class="container mt-3 mb-3">
 <!--     <h1 class="fw-bold fs-3">Selecciona Tu Paquete</h1> -->
-    
+
     <br>
+    	<style>
+		  .background-image {
+		    background-image: url('/img/fondo_avion_paquete.jpg'); /* Reemplaza 'ruta-de-tu-imagen.jpg' con la ruta de tu imagen de fondo */
+		    background-size: cover;
+		    /*background-repeat: no-repeat;*/
+		    /*background-attachment: fixed;*/
+		    background-position: center;
+		  }
+		</style>
    
-    	<div class="container mt-4">
+    	<div class="container mt-4 "  >
             <!-- <input type="hidden" th:field="*{id}" th:value="${vuelo.id}">-->
             <div style="display: block;
 						  padding: 1em 2em;
 						  margin: 1em auto;
 						  border: 1px solid rgb(197, 197, 197);
 						  background-color: rgb(255, 255, 255);
-						  font-size: .85em;"  class="article-loop  d-flex justify-content-between " th:each="pq:${listaPaquete}">
+						  font-size: .85em;"  class="background-image article-loop  d-flex justify-content-between " th:each="pq:${listaPaquete}">
               <div>
 <!--               	<h3 class="display-8 text-danger">Vuelo</h3> -->
-				<h3 th:text="'Paquete ' + ${pq.id}" class="fw-bold fs-3 text-danger"></h3>
+				<h3 th:text="'Paquete ' + ${pq.id}" class="fw-bold fs-3 text-danger "></h3>
                 <p th:text="${pq.vuelo.fechaPartida}" class="text-secondary fs-6"></p>
                 <ul style="list-style-type: none;" class="fw-bold">
                   <li class="fw-bold fs-3 text-success" style="float: left; margin-left:-35px; margin-right: 20px;
@@ -258,6 +269,8 @@
     
 <!--     </div> -->
  </main>
+ 
+ </div>
     
     
     <!-- Finaliza footer. -->

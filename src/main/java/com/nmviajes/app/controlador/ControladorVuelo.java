@@ -99,10 +99,10 @@ public class ControladorVuelo {
 	private PagoServicioImpl servicePago;
 
 	@Autowired
-	private PaypalService servicePaypal;// AGREGE
+	private PaypalService servicePaypal;// 
 
 	@Autowired
-	private PaqueteTuristicoServicioImpl servicePaquete;// AGREGE
+	private PaqueteTuristicoServicioImpl servicePaquete;// 
 
 	@Autowired
 	private UsuarioServicio uServicio;
@@ -121,6 +121,8 @@ public class ControladorVuelo {
 
 	@Autowired
 	private GenerarReportes jasperReportService;
+	
+	
 
 	JRBeanCollectionDataSource dataSource ;
 
@@ -131,6 +133,13 @@ public class ControladorVuelo {
 	private double total = 0;
 
 	private double totalorder = 0;
+	
+	
+	public List<DetallePagoDTO> getDetalles() {
+		List<DetallePagoDTO> detalles = this.detalles;
+		detallePagoDTOImple.agregarDetalle(detalles);
+		return detalles;
+	}
 
 	@Secured("ROLE_ADMIN")
 	@GetMapping("/gestion_vuelos")
@@ -302,13 +311,7 @@ public class ControladorVuelo {
 		System.out.println(fechaFormateada.getClass().getName());
 		System.out.println("fechaFormateada : " + fechaFormateada);
 
-		/*
-		 * try { parseDate = dateformat.parse(p.getFecha().toString());
-		 * System.out.println("fecha parseada: " + parseDate);
-		 * System.out.println(parseDate.getClass().getName()); p.setFecha(parseDate);
-		 * System.out.println("fecha setteada: " + p.getFecha()); } catch (Exception e)
-		 * { e.printStackTrace(); }
-		 */
+		
 
 		modelo.addAttribute("vuelo", p);
 
@@ -387,10 +390,10 @@ public class ControladorVuelo {
 		String nombre = " ";
 		DetallePagoDTO e = new DetallePagoDTO();
 		
-		if(detalles.isEmpty()) {
+		if(getDetalles().isEmpty()) {
 			model.addAttribute("mensaje", "Orden vacía");
 		}else {
-			for (DetallePagoDTO i : detalles) {
+			for (DetallePagoDTO i : getDetalles()) {
 				capturar += i.getTotal();
 				e.setNombre(i.getNombre() + " "); // e se le agrega el nombre de lo que escogio
 			}
@@ -398,12 +401,12 @@ public class ControladorVuelo {
 			e.setTotal(capturar);// e solo tendria el nombre y el total
 
 			System.out.println("----------------- foreach detalles ----------");
-			for (DetallePagoDTO dpago : detalles) {
+			for (DetallePagoDTO dpago : getDetalles()) {
 				System.out.println(dpago);
 			}
 			
-			detallePagoDTOImple.saveOrden(e, usuario);
-			System.out.println("-------------" + e.getTotal());
+			//detallePagoDTOImple.saveOrden(e, usuario);
+			//System.out.println("-------------" + e.getTotal());
 		}
 		
 		model.addAttribute("usuario", usuario);
@@ -453,9 +456,26 @@ public class ControladorVuelo {
 
 	@Secured({ "ROLE_USER", "ROLE_ADMIN" })
 	@GetMapping("/cleanCart")
-	public String limpiarCarrito(RedirectAttributes attributes) {
+	public String limpiarCarrito(RedirectAttributes attributes, Authentication authentication) {
 		System.out.println("Entre a /cleanCart");
-
+		
+		Usuario usuario = uServicio.buscaUsurio(authentication.getName());
+		
+		double capturar_total = 0;
+		DetallePagoDTO detalle_pago_dto = new DetallePagoDTO();
+		
+		for (DetallePagoDTO dpdto : getDetalles()) {
+			capturar_total += dpdto.getTotal();
+			detalle_pago_dto.setNombre(dpdto.getNombre() + " "); // detalle_pago_dto se le agrega el nombre de lo que escogio
+		}
+		detalle_pago_dto.setTotal(capturar_total);// detalle_pago_dto solo tendria el nombre y el total
+		
+		if(detalle_pago_dto.getTotal() != 0.0) {
+			System.err.println("grabando orden en /cleanncart con un total de: " + detalle_pago_dto.getTotal());
+			detallePagoDTOImple.saveOrden(detalle_pago_dto, usuario);	
+		}
+		
+		System.out.println("Limpiando orden");
 		total = 0;
 		detalles.clear();
 
@@ -786,10 +806,10 @@ public class ControladorVuelo {
 		
 	}
 	
-//	@InitBinder
-//	public void initBinder1(WebDataBinder webDataBinder) {
-//		SimpleDateFormat dateFormatt = new SimpleDateFormat("dd-MM-yyyy");
-//		webDataBinder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormatt, false));
-//	}
+	
+	/*****************************************************************************/
+	
+	/*****************************************************************************/
+
 
 }

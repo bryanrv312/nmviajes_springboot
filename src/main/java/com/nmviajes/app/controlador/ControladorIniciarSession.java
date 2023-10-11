@@ -2,6 +2,7 @@ package com.nmviajes.app.controlador;
 
 import java.security.Principal;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,15 +20,21 @@ import com.nmviajes.app.servicio.UsuarioServicio;
 public class ControladorIniciarSession {
 
 	
+	@Autowired
+	private UsuarioServicio usuarioServicio;
 	
-	@GetMapping("/iniciar_sesion")// obtenemos el error que nos envia SS cuando ingresa mal el usario
-	public String iniciarSesion(@RequestParam(value="error", required=false) String error,
+	
+	@GetMapping("/iniciar_sesion")
+	public String iniciarSesion(
+			@RequestParam(value="error", required=false) String error, //obtenemos el error que nos envia SS cuando ingresa mal el usario
 			@RequestParam(value="logout", required = false) String logout,
 			Model model,Principal principal,RedirectAttributes flash) {
+		
 		if(principal!=null){
 			System.out.println("ya inicio sesion anteiormente");
 			return "redirect:/";
 		}
+		
 		if(error!=null) {
 			System.out.println("Error en el login ingresa los datos coreectos");
 		}

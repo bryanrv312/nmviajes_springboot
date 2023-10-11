@@ -27,4 +27,8 @@ public interface UsuarioServicio {
 	public Usuario guardar(Usuario registroDTO );
 	
 	public Usuario buscaUsurio(String registroDTO );
+	
+	public Usuario buscarPorToken(String token);
+	
+	public Usuario buscarPorUsername(String username);
 }

@@ -98,6 +98,8 @@
 		</div>
 	</header>
 	<!-- Finaliza barra de navegación. -->
+	
+	<div th:if="${msg != null}" class="alert alert-success" th:text="${msg}" role="alert"></div>
 
 	<!-- Comienza contenido principal. -->
 	<main>

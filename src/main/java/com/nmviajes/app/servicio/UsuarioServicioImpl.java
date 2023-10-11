@@ -108,7 +108,7 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 		for (int i = 0; i < us.size(); i++) {
 			if ((us.get(i).getNombre()).equals(u.getNombre()) && (us.get(i).getApellido()).equals(u.getApellido())) {
 				return new Usuario(us.get(i).getId(), us.get(i).getNombre(), us.get(i).getApellido(),
-						us.get(i).getEmail(), us.get(i).getPassword(), us.get(i).getRol());
+						us.get(i).getEmail(), us.get(i).getPassword(), us.get(i).getRol(), us.get(i).getToken(), us.get(i).isConfirmado());
 			}
 		}
 		return null;
@@ -122,7 +122,7 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 		for (int i = 0; i < us.size(); i++) {
 			if ((us.get(i).getNombre()).equals(u.getNombre()) && (us.get(i).getPassword()).equals(u.getPassword())) {
 				return new Usuario(us.get(i).getId(), us.get(i).getNombre(), us.get(i).getApellido(),
-						us.get(i).getEmail(), us.get(i).getPassword(), us.get(i).getRol());
+						us.get(i).getEmail(), us.get(i).getPassword(), us.get(i).getRol(), us.get(i).getToken(), us.get(i).isConfirmado());
 			}
 		}
 		return null;
@@ -146,8 +146,17 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 
 	@Override
 	public Usuario buscaUsurio(String registroDTO) {
-		
 		return usuarioRepo.findByName(registroDTO);
+	}
+
+	@Override
+	public Usuario buscarPorToken(String token) {
+		return repo.findByToken(token);
+	}
+
+	@Override
+	public Usuario buscarPorUsername(String username) {
+		return repo.findByUsername(username);
 	}
 
 }

@@ -21,8 +21,11 @@ public class DetallePagoDTOImple implements DetallePagoServicio{
 
 	@Autowired
 	private OrdenRepo ordenRepo;
-
+	
+	private List<DetallePagoDTO> detalles = new ArrayList<>();
 	DetallePagoDTO u;
+	
+	
 	
 	@Override
     public void setDetallePago(DetallePagoDTO registroDTO){	
@@ -89,5 +92,13 @@ public class DetallePagoDTOImple implements DetallePagoServicio{
 	public List<Orden> listAll(){
 		return ordenRepo.findAll();
 	}
+	
+	
+	public List<DetallePagoDTO> getDetalles() {
+        return this.detalles;
+    }
+	public void agregarDetalle(List<DetallePagoDTO> detal) {
+        detalles = detal;
+    }
     
 }

@@ -36,6 +36,12 @@ public class Usuario{
 	private Boolean enabled;
 	
 	private String rol;
+	
+	@Column(name = "token")
+	private String token;
+	
+	@Column(name = "confirmado")
+	private boolean confirmado;
 
 	//@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "user_id")
@@ -84,7 +90,7 @@ public class Usuario{
 		this.password = password;
 	}
 
-	public Usuario(Long id, String nombre, String apellido, String email, String password ,String rol) {
+	public Usuario(Long id, String nombre, String apellido, String email, String password ,String rol, String token, boolean confirmado) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -92,6 +98,8 @@ public class Usuario{
 		this.email = email;
 		this.password = password;
 		this.rol = rol;
+		this.token = token;
+		this.confirmado = confirmado;
 	}
 
 	public Long getId() {
@@ -175,6 +183,28 @@ public class Usuario{
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
+
+
+	public String getToken() {
+		return token;
+	}
+
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+
+	public boolean isConfirmado() {
+		return confirmado;
+	}
+
+
+	public void setConfirmado(boolean confirmado) {
+		this.confirmado = confirmado;
+	}
+	
+	
 	
 }
 

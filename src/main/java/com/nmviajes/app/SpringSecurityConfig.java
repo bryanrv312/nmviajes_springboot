@@ -73,7 +73,7 @@ public class SpringSecurityConfig {
 				.antMatchers("/css/**", "/js/**", "/img/**", 
 						"/", "/nosotros/**", "/oficinas/**", "/ofertas/**",
 						"/iniciar_sesion/**", "/registro/**", "/ayuda/**", 
-						"/armar_paquete/**","/registrarUsuario","/registrarConsulta",
+						"/armar_paquete/**","/registrarUsuario","/confirmar_email","/registrarConsulta",
 						"/search",/*"/success_11",*/"/generar-informe","/paqueteHV")
 				.permitAll()
 				.anyRequest().authenticated()

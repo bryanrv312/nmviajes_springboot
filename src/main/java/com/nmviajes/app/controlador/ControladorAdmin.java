@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.nmviajes.app.entidad.Orden;
 import com.nmviajes.app.entidad.Usuario;
+import com.nmviajes.app.modelo.DetallePagoDTO;
 import com.nmviajes.app.modelo.UsuarioRegistroDTO;
 import com.nmviajes.app.servicio.DetallePagoDTOImple;
 import com.nmviajes.app.servicio.DetallePagoServicio;
@@ -59,6 +60,11 @@ public class ControladorAdmin {
 
 	@Autowired
 	private DetallePagoServicio detallePagoDTOImple;
+	
+	@Autowired
+	private DetallePagoDTOImple serviceDetalles;
+	
+	
 	
 	@GetMapping("/listaUsuario")
 	public String verLista(Model model) {
@@ -125,10 +131,15 @@ public class ControladorAdmin {
 	@GetMapping("/registro_mejor")
 	public String paginaMejoresVentas(Model model) {
 		
+		List<DetallePagoDTO> detalles = serviceDetalles.getDetalles();
+		
+		System.err.println("detalles obtenido : " + detalles);
+		
 		List<Orden> o = detallePagoDTOImple.listarCinco();
 		model.addAttribute("user",o);
 		return "/registro_mejor";
 	}
+	
 	
 
 }

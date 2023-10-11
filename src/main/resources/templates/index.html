@@ -230,11 +230,11 @@
       <!-- Finaliza hero. -->
       <div th:if="${msg != null}" class="alert alert-success" th:text="${msg}" role="alert"></div>
       
-		<div th:if="${pago!=null}">
-			<h1 th:text="${pago.mensajePago}"></h1>
-			<h1 th:text="${pago.id}"></h1>
-			<p th:text="${pago.orderId}"></p>
-			<p th:text="${pago.payerName}"></p>
+		<div th:if="${pago!=null}" style="display: none;" id="pagoMessage">
+			<div class="alert alert-success" th:text="${pago.mensajePago}" role="alert"></div>
+			<div th:text="'N°Pago: '+${pago.id}" role="alert"></div>
+			<div th:text="'ID orden: '+${pago.orderId}" role="alert"></div>
+<!-- 			<p th:text="${pago.payerName}"></p> -->
 		</div>
 		
 		
@@ -488,7 +488,17 @@
 <!--   </body> -->
 <!-- </html> -->
 <!-- Finaliza footer. -->
-
+	
+	<script type="text/javascript">
+	 /*   window.onload = function() {
+	        // Mostrar el mensaje
+	        document.getElementById("pagoMessage").style.display = "block";
+	        // Ocultar el mensaje después de 5 segundos (5000 milisegundos)
+	        setTimeout(function() {
+	            document.getElementById("pagoMessage").style.display = "none";
+	        }, 5000);
+	    };*/
+	</script>
 
 	<!-- Own Javascript -->
 	<script th:src="@{/js/index.js}"></script>
