@@ -20,7 +20,7 @@ import com.nmviajes.app.servicio.PagoServicioImpl;
 //HOLA BRYAN 2
 
 // probando merge desde la "rama AAA" 
-//hola comentario2
+//hola comentario
 @Controller
 public class Controlador {
 	@Autowired
