@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nmviajes.app.entidad.Orden;
+import com.nmviajes.app.entidad.Role;
 import com.nmviajes.app.entidad.Usuario;
 import com.nmviajes.app.modelo.DetallePagoDTO;
 import com.nmviajes.app.modelo.UsuarioRegistroDTO;
@@ -97,6 +98,13 @@ public class ControladorAdmin {
 	@GetMapping("/gestion_usuarios")
 	public String paginaGestionUsuarios(Model model) {
 		List<Usuario> p = servicio.listAll();
+		
+		/*for (Usuario usuario : p) {
+	        System.err.println("Roles del usuario " + usuario.getUsername() + ":");
+	        for (Role role : usuario.getRoles()) {
+	            System.err.println("Rol: " + role.getAuthority());
+	        }
+	    }*/
 		
 		model.addAttribute("user",p);
 		return "gestion_usuarios";

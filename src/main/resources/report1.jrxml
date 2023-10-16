@@ -363,7 +363,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{sub_total}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+			 <textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="463" y="43" width="83" height="11" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="87386586-1345-4b2a-8c4b-cf5b3f46c78a"/>
 				<textElement textAlignment="Right" verticalAlignment="Top">
 					<font fontName="SansSerif" size="9"/>
@@ -376,7 +376,7 @@
 					<font fontName="SansSerif" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{total}]]></textFieldExpression>
-			</textField>
+			</textField> 
 			<image>
 				<reportElement x="404" y="102" width="151" height="119" uuid="8a813e10-0832-4619-bb80-230e859f37bc"/>
 				<imageExpression><![CDATA["C:/BryanFiles/Springboot_WorkSpace_5/spring-boot-nmviajes/src/main/resources/viajes.png"]]></imageExpression>
@@ -387,9 +387,9 @@
 				<textElement textAlignment="Left" verticalAlignment="Top">
 					<font fontName="SansSerif" size="8" isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
-				<text><![CDATA[Copyright 2021 nmviajes All Rights Reserved.
+				<text><![CDATA[Copyright 2021 nmviajes All Rights Reserved
 
-Razón Social: PROMOTORA DE TURISMO NUEVO MUNDO S.A.C.
+Razón Social: PROMOTORA DE TURISMO NUEVO MUNDO S.A.C..
 
 RUC: 20106785288]]></text>
 			</staticText>

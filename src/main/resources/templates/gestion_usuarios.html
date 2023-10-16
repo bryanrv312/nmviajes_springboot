@@ -29,6 +29,10 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
       rel="stylesheet"
     />
+	<!-- Data Table -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    
   </head>
 
 
@@ -117,7 +121,7 @@
                 <div class="card-body">
                   <div class="e-table">
                     <div class="table-responsive table-lg mt-3">
-                      <table class="table table-bordered">
+                      <table class="table table-bordered" id="miTabla">
                         <thead>
                           <tr>
                             <th>ID</th>
@@ -134,12 +138,18 @@
                             <td th:text="${persona.nombre}"></td>
                             <td th:text="${persona.apellido}"></td>
                             <td th:text="${persona.email}"></td>
-                            <td th:text="${persona.rol}"></td>
+<!--                             <td th:text="${persona.rol}"></td> -->
+							<td>
+								<ul>
+									<li th:each="rol : ${persona.roles}" th:text="${rol.authority}"></li>
+								</ul>
+							</td>
+							
                             <td class="d-flex">
                              <!-- <button class="btn btn-danger">Eliminar</button>  &nbsp;&nbsp;
                             <a th:href="@{'/productos/editar'+'/'+ ${producto.id}}"  class="btn btn-info">Editar</a>
                             -->
-                              <a class="btn btn-danger" th:href="@{'/usuario/eliminar'+'/'+ ${persona.id}}" >Eliminar</a>
+                              <a class="btn btn-danger" th:href="@{'/usuario/eliminar'+'/'+ ${persona.id}}" onclick="return confirm('¿Estas seguro?')">Eliminar</a>
                               <!--<a th:href="@{'/productos/eliminar'+'/'+ ${producto.id}}"  class="btn btn-danger">Eliminar</a>-->
                             </td>
                           </tr>
@@ -228,5 +238,16 @@
 	<script th:src="@{/js/bootstrap.min.js}"></script>
 	<script th:src="@{/js/jquery-ui.min.js}"></script>
 	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js">
+	</script>
+	
+	<script>
+		$(document).ready(function() {
+		    // Inicializa la tabla DataTable
+		    let table = $('#miTabla').DataTable({
+		        // Opciones de configuración (si es necesario)
+		    });
+		});
+	</script>
+	</body>
 </html>
