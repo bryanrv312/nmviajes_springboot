@@ -37,6 +37,8 @@ public class ControladorIniciarSession {
 		
 		if(error!=null) {
 			System.out.println("Error en el login ingresa los datos coreectos");
+			flash.addFlashAttribute("msg", "Ingrese correctamente sus credenciales");
+			return "redirect:/iniciar_sesion";
 		}
 		if(logout != null) {
 			model.addAttribute("success", "Ha cerrado sesión con éxito!");

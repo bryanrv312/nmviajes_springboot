@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+  <meta charset="UTF-8">
+
+  <title>Envio de Correo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- CSS Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
+
+  <!---- Own CSS ---->
+  <link rel="stylesheet" href="/css/panel_control.css" />
+  <link rel="stylesheet" href="/css/bootstrap_configuration.css" />
+  <link rel="stylesheet" href="/css/tabla_admin.css" />
+  <link rel="stylesheet" href="/css/form_admin.css" />
+
+  <!---- Font Awesome ---->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
+</head>
+
+<body>
+
+
+<!-- Comienza sidebar.  -->
+  <nav id="sidebar" class="bg-danger">
+    <div class="ms-3 me-3 mt-4 mb-1 text-center">
+      <img th:src="@{/img/logo_login.png}" />
+    </div>
+    <ul class="list-unstyled components">
+      <li class="ps-4">
+        <a href="/gestion_usuarios"><i class="fa-solid fa-user"></i><span class="text-white">Gestión de
+            Usuarios</span></a>
+      </li>
+      <li class="ps-4">
+        <a href="/gestion_vuelos"><i class="fa-solid fa-plane"></i><span class="text-white">Gestión de
+            Vuelos</span></a>
+      </li>
+      <li class="ps-4">
+        <a href="/gestion_hoteles"><i class="fa-solid fa-hotel"></i><span class="text-white">Gestión de
+            Hoteles</span></a>
+      </li>
+      <br />
+      <li class="ps-4">
+        <a href="/registro_ventas" class="text-white"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span
+            class="text-white">Registro de Ventas</span></a>
+      </li>
+      <li class="ps-4">
+        <a href="/registro_mejor" class="text-white"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span
+            class="text-white">Mejores Ventas</span></a>
+      </li>
+      <br /><br /><br /><br /><br /><br /><br /><br />
+      <li class="ps-4">
+        <a href="/" class="text-white"><i class="fa fa-window-close" aria-hidden="true"></i><span
+            class="text-white">Salir</span></a>
+      </li>
+      
+    </ul>
+  </nav>
+  <!-- Finaliza sidebar. -->
+
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        Enviar Correo
+                    </div>
+                    <div class="card-body">
+<!--                     <h4  th:value="${usuario.id}">ID</h4> -->
+                        <form class="form-right "  th:action="@{/enviar_correo_2}" method="post" enctype="multipart/form-data">
+                        
+                        	<div th:if="${msg != null}" class="alert alert-success" th:text="${msg}" role="alert" ></div>
+                        	
+                        	<div class="form-group">
+                        		<label for="destinatario">User:</label>
+                                <span th:text=${usuario.username}></span><br>
+                                <label for="destinatario">Nombre:</label>
+                                <span th:text=${usuario.nombre}></span>  
+                            </div>
+                        	
+                            <div class="form-group">
+                                <label for="destinatario">Destinatario:</label>
+                                <input name="destinatario" th:readonly="${true}" th:value="${usuario.email}" type="email" class="form-control" id="destinatario" placeholder="Correo del destinatario">
+                            </div>
+                            <div class="form-group">
+                                <label for="asunto">Asunto:</label>
+                                <input required="required" name="asunto" type="text" class="form-control" id="asunto" placeholder="Asunto del correo">
+                            </div>
+                            <div class="form-group">
+                                <label for="mensaje">Mensaje:</label>
+                                <textarea required="required" name="mensaje" class="form-control" id="mensaje" rows="5" placeholder="Escribe tu mensaje"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="Archivo">Archivo:</label>
+                                <input type="file" class="form-control" name="archivo" id="archivo" accept=".pdf, .jpg, .png">
+                                <p class="help-block">Archivos [ pdf,doc,docx,jpg,png ]</p>
+                            </div>
+                            <br>
+                            <button type="submit" class="btn btn-danger">Enviar Correo</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

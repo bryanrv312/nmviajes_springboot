@@ -1,35 +1,16 @@
 package com.nmviajes.app.servicio.utils;
 
 
-import net.sf.jasperreports.engine.JREmptyDataSource;
-import net.sf.jasperreports.engine.JasperCompileManager;
+
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
+
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-
-
-
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.util.JRLoader;
-import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
-import net.sf.jasperreports.export.SimplePdfReportConfiguration;
-import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
-import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
-import net.sf.jasperreports.export.SimplePdfReportConfiguration;
-import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
-import net.sf.jasperreports.export.SimplePdfReportConfiguration;
-
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
-import java.util.HashMap;
 import java.util.Map;
 
 @Service
@@ -80,5 +61,7 @@ public class GenerarReportes {
 			 return null;
 		 } 
 	 }
+	 
+	
 
 }

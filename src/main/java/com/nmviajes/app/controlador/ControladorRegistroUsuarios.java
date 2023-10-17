@@ -55,7 +55,7 @@ public class ControladorRegistroUsuarios {
         usu.setToken(token);
         usu.setConfirmado(false); // El estado inicial es "no confirmado"
 	
-		usu.setEnabled(false);
+		usu.setEnabled(false); //utilizamos el campo enable de ss
 		//usu.setNombre("patrick");
 		usu.setPassword(passwordEncoder.encode(usu.getPassword()));
 		
