@@ -135,6 +135,7 @@ public class ControladorVuelo {
 	private double totalorder = 0;
 	
 	
+	//funcion que persiste el List detalles
 	public List<DetallePagoDTO> getDetalles() {
 		List<DetallePagoDTO> detalles = this.detalles;
 		detallePagoDTOImple.agregarDetalle(detalles);

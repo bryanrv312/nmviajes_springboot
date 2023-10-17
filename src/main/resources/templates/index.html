@@ -230,7 +230,8 @@
       <!-- Finaliza hero. -->
       <div th:if="${msg != null}" class="alert alert-success" th:text="${msg}" role="alert"></div>
       
-		<div th:if="${pago!=null}" style="display: none;" id="pagoMessage">
+<!-- 		<div th:if="${pago!=null}" style="display: none;" id="pagoMessage"> -->
+		<div th:if="${pago!=null}" id="pagoMessage">
 			<div class="alert alert-success" th:text="${pago.mensajePago}" role="alert"></div>
 			<div th:text="'N°Pago: '+${pago.id}" role="alert"></div>
 			<div th:text="'ID orden: '+${pago.orderId}" role="alert"></div>
