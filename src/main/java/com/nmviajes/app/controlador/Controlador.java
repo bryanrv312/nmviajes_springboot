@@ -14,7 +14,7 @@ import com.nmviajes.app.entidad.Pago;
 import com.nmviajes.app.servicio.DetallePagoServicio;
 import com.nmviajes.app.servicio.PagoServicioImpl;
 
-//HOLA
+
 //BUENAS
 
 //HOLA BRYAN 2
