@@ -2,8 +2,9 @@ package com.nmviajes.app.servicio;
 
 import java.util.List;
 
-
+import com.nmviajes.app.entidad.Hospedaje;
 import com.nmviajes.app.entidad.Usuario;
+import com.nmviajes.app.modelo.HospedajeDTO;
 import com.nmviajes.app.modelo.UsuarioRegistroDTO;
 
 public interface UsuarioServicio {
@@ -31,4 +32,8 @@ public interface UsuarioServicio {
 	public Usuario buscarPorToken(String token);
 	
 	public Usuario buscarPorUsername(String username);
+	
+	public Usuario guardarEditado(Usuario usuario);
+	
+	public Usuario guardarEditado_correo(Usuario usuario);
 }

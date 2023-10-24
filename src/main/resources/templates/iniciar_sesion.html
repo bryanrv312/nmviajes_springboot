@@ -55,11 +55,8 @@
 						<li class="nav-item"><a class="text-light fw-bold nav-link"
 							href="/armar_paquete">Arma tu Viaje</a></li>
 							<li class="nav-item">
-                                 <a
-                             class="text-light fw-bold nav-link"
-                             th:href="@{/paqueteHV}"
-                              >Paquete</a>
-                               </li>
+                              <a class="text-light fw-bold nav-link" th:href="@{/paqueteHV}">Paquete</a>
+                            </li>
 						<li class="nav-item"><a class="text-light fw-bold nav-link"
 							href="/ofertas">Ofertas</a></li>
 						<li class="nav-item"><a class="text-light fw-bold nav-link"
@@ -67,8 +64,8 @@
 						<li class="nav-item"><a class="text-light fw-bold nav-link"
 							href="/registro">Regístrate</a></li>
 						<li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
-              <a class="text-light fw-bold nav-link" href="/gestion_usuarios">Gestion Admin</a>
-            </li>
+			              <a class="text-light fw-bold nav-link" href="/gestion_usuarios">Gestion Admin</a>
+			            </li>
 
 						<ul class="navbar-right">
 							<li sec:authorize="!isAuthenticated()"><a
@@ -103,16 +100,18 @@
 	<!-- Comienza contenido principal. -->
 	<main>
 	
-	<div th:if="${msg != null}" class="alert alert-success" th:text="${msg}" role="alert"></div>
+	
 		<section class="h-100 gradient-form" style="background-color: #eee">
 			<div class="container py-5 h-100">
-				<div
-					class="row d-flex justify-content-center align-items-center h-100">
+				<div class="row d-flex justify-content-center align-items-center h-100">
 					<div class="col-xl-10">
 						<div class="card rounded-3 text-black">
 							<div class="row g-0">
 								<div class="col-lg-6">
 									<div class="card-body p-md-5 mx-md-4">
+									
+										<div th:if="${msg != null}" class="alert alert-success" th:text="${msg}" role="alert"></div>
+									
 										<div class="text-center">
 											<h4 class="mt-1 mb-5 pb-1">Ingresa con tus datos de
 												siempre</h4>
@@ -120,7 +119,7 @@
 										
 										
 
-										<form th:action="@{/iniciar_sesion}" method="post">
+										<form th:action="@{/iniciar_sesion}" method="post" id="login-form">
 											<p>Por favor, ingrese a su cuenta</p>
 
 											<div class="form-outline mb-4">
@@ -274,6 +273,20 @@
 	<script th:src="@{/js/popper.min.js}"></script>
 	<script th:src="@{/js/bootstrap.min.js}"></script>
 	<script th:src="@{/js/jquery-ui.min.js}"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+	
+	
+<!-- 	<script> -->
+// 		document.getElementById('login-form').addEventListener('submit', function (event) {
+// 		    event.preventDefault(); // Evita el envío normal del formulario.
+		
+// 		    // Obtiene el valor del campo username.
+// 		    var username = document.getElementById('username').value;
+// 			alert(username);
+		   
+// 		});
+<!-- 	</script> -->
+	
+	
+	</body>
 </html>

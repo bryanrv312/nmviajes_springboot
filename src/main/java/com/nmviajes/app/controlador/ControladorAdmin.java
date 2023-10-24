@@ -23,6 +23,7 @@ import com.nmviajes.app.entidad.Orden;
 import com.nmviajes.app.entidad.Role;
 import com.nmviajes.app.entidad.Usuario;
 import com.nmviajes.app.modelo.DetallePagoDTO;
+import com.nmviajes.app.modelo.HospedajeDTO;
 import com.nmviajes.app.modelo.UsuarioRegistroDTO;
 import com.nmviajes.app.servicio.DetallePagoDTOImple;
 import com.nmviajes.app.servicio.DetallePagoServicio;
@@ -112,16 +113,14 @@ public class ControladorAdmin {
 
 	@GetMapping("/gestion_usuarios")
 	public String paginaGestionUsuarios(Model model) {
-		List<Usuario> p = servicio.listAll();
-		
+		List<Usuario> usuario = servicio.listAll();
 		/*for (Usuario usuario : p) {
 	        System.err.println("Roles del usuario " + usuario.getUsername() + ":");
 	        for (Role role : usuario.getRoles()) {
 	            System.err.println("Rol: " + role.getAuthority());
 	        }
 	    }*/
-		
-		model.addAttribute("user",p);
+		model.addAttribute("user",usuario);
 		return "gestion_usuarios";
 	}
 
@@ -192,13 +191,6 @@ public class ControladorAdmin {
 			MimeMessage message = javaMailSender.createMimeMessage();
 	        MimeMessageHelper helper = new MimeMessageHelper(message, true);
 	        
-	        /*if(!multipart.isEmpty()) {
-				String nombreArchivo = jasperReportService.guardarArchivo(multipart, rutaCv);
-				if(nombreArchivo != null) {
-					solicitud.setArchivo(nombreArchivo);
-				}
-			}*/
-	        
 	     // Configura el destinatario, asunto y cuerpo del mensaje
 	        helper.setTo(destinatario);
 	        helper.setSubject(asunto);
@@ -215,9 +207,7 @@ public class ControladorAdmin {
 		} catch (Exception e) {
 			flash.addFlashAttribute("msg","ERROR al enviar correo!!");
 		}
-		
-		
-		
+
 		flash.addFlashAttribute("msg","Correo enviado correctamente!!");
 		
 		return "redirect:/form_correo";
@@ -226,14 +216,20 @@ public class ControladorAdmin {
 	
 
 	//editar usuario
-	@GetMapping("/usuarios/editar/{id}")
+	@GetMapping("/usuario/editar/{id}")
 	public String mostrarFormularioModificarUsuario(@PathVariable("id") Long id , Model modelo) {
-		Usuario p = servicio.buscarUsuarioPorId(id);//encontramos y obtenemos
-		modelo.addAttribute("user",p);
-		List<Usuario> listaUsuario = servicio.listarUsuarios();
-		modelo.addAttribute("listaUsuario",listaUsuario);//para pasarle una lista y recorrer todas las lista de la categoria
-		
-		return "gestion_usuarios";
+		System.out.println("Editar id: " + id);
+		Usuario usuario = servicio.buscarUsuarioPorId(id);
+		modelo.addAttribute("user",usuario);
+		return "gestion_usuarios_editar";
+	}
+	
+	@PostMapping("/usuarioRegistroEditado")
+	public String registrarUsuarioEditado(@ModelAttribute("user") Usuario usu, Model modelo){
+		System.err.println(usu.getNombre() + " " + usu.getId());
+		servicio.guardarEditado(usu);
+		modelo.addAttribute("msg","Usuario Editado Correctamente !!!");
+		return "gestion_usuarios_editar";
 	}
 
 
@@ -248,8 +244,8 @@ public class ControladorAdmin {
 	@GetMapping("/registro_mejor")
 	public String paginaMejoresVentas(Model model) {
 		
+		/*Probar List detalles*/
 		List<DetallePagoDTO> detalles = serviceDetalles.getDetalles();
-		
 		System.err.println("detalles obtenido : " + detalles);//test detalle
 		
 		List<Orden> o = detallePagoDTOImple.listarCinco();
