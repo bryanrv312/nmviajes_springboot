@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="/css/panel_control.css" />
   <link rel="stylesheet" href="/css/bootstrap_configuration.css" />
   <link rel="stylesheet" href="/css/tabla_admin.css" />
+  <link rel="stylesheet" href="/css/datatable.css" />
   <link rel="stylesheet" href="/css/form_admin.css" />
 
   <!---- Font Awesome ---->
@@ -28,6 +29,8 @@
     <link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css'>
     <link rel='stylesheet' type='text/css' href='https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css'>
     <link rel='stylesheet' type='text/css' href='https://cdn.datatables.net/buttons/1.6.4/css/buttons.dataTables.min.css'>
+    
+    <link rel="stylesheet" href="/css/bootstrap_configuration.css" />
   
 </head>
 
@@ -115,11 +118,11 @@
                 <a class="nav-link active" href="#">Registro de Ventas</a>
               </li>
             </ul>
-            <ul class="nav nav-tabs">
-              <li class="nav-item">
-                <a class="nav-link active" th:href="@{/reporte}">Reporte Ventas</a>
-              </li>
-            </ul>
+<!--             <ul class="nav nav-tabs"> -->
+<!--               <li class="nav-item"> -->
+<!--                 <a class="nav-link active" th:href="@{/reporte}">Reporte Ventas</a> -->
+<!--               </li> -->
+<!--             </ul> -->
           </div>
 
           <div class="row flex-lg-nowrap">
@@ -128,7 +131,7 @@
                 <div class="card-body">
                   <div class="e-table">
                     <div class="table-responsive table-lg mt-3">
-                      <table id="example" class="table table-striped table-bordered display" style="width:100%">
+                      <table class="table align-middle table-bordered table-striped  table-hover display" style="width:100%" id="miTabla">
                         <thead>
                           <tr>
                             <th scope="col">ID</th>
@@ -157,34 +160,7 @@
                         </tbody>
                       </table>
                     </div>
-                    <div class="d-flex justify-content-center">
-                      <ul class="pagination mt-3 mb-0">
-                        <li class="disabled page-item">
-                          <a href="#" class="page-link">‹</a>
-                        </li>
-                        <li class="active page-item">
-                          <a href="#" class="page-link">1</a>
-                        </li>
-                        <li class="page-item">
-                          <a href="#" class="page-link">2</a>
-                        </li>
-                        <li class="page-item">
-                          <a href="#" class="page-link">3</a>
-                        </li>
-                        <li class="page-item">
-                          <a href="#" class="page-link">4</a>
-                        </li>
-                        <li class="page-item">
-                          <a href="#" class="page-link">5</a>
-                        </li>
-                        <li class="page-item">
-                          <a href="#" class="page-link">›</a>
-                        </li>
-                        <li class="page-item">
-                          <a href="#" class="page-link">»</a>
-                        </li>
-                      </ul>
-                    </div>
+                    
                   </div>
                 </div>
               </div>
@@ -248,12 +224,12 @@
 
     <script type="text/javascript">
 	    /*$(document).ready(function() {
-	    	$('#example').DataTable();
+	    	$('#miTabla').DataTable();
 	    });*/
 	    
 	    var app = {
 	    		init: function(){
-	    			app.initDatatable('#example');
+	    			app.initDatatable('#miTabla');
 	    		},
 	    		initDatatable : function(id){
 	    			$(id).DataTable();
@@ -261,7 +237,34 @@
 	    };
 	    
 	    $(document).ready(function(){
-	    	app.init();
+	    	let table = $('#miTabla').DataTable({
+		    	select: 'single',//selecciona 1 solo registro de la tabla
+		    	lengthChange: false,//deshabilitar show entry
+		    	language: {
+		    		search: "Búsqueda",
+		            info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
+		            infoEmpty: "Mostrando 0 a 0 de 0 registros",
+		            infoFiltered: "(filtrados de _MAX_ registros totales)",
+		            infoPostFix: "",
+		            lengthMenu: "Mostrar _MENU_ registros por página",
+		            zeroRecords: "No se encontraron registros",
+		            paginate: {
+		                first: "Primero",
+		                previous: "Anterior",
+		                next: "Siguiente",
+		                last: "Último"
+		            },
+		            select: true,
+		            select: {
+		                rows: {
+		                    _: "%d filas seleccionados",
+		                    //0: "Ninguna fila seleccionada",
+		                    1: "1 fila seleccionada"
+		                }
+		            }
+		    	}
+		    });//fin datatable
+	    	
 	    });
     </script>
     

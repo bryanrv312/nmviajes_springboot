@@ -1,0 +1,64 @@
+ #miTabla_paginate {
+            float: left; /* Centra la paginación horizontalmente */
+            margin-top: 50px; /* MAS ABAJO */
+        }
+        
+/*         thead { */
+/*     background-color: #FF0000; Color de fondo rojo */
+/*     color: white; Color del texto blanco */
+/*     font-weight: bold; Texto en negrita */
+/*     border: none; Sin bordes */
+}
+        
+/*         th { */
+/* 		    background-color: #FF0000; Cambia este valor al tono de rojo que prefieras */
+/* 		    color: white; */
+/* 		    border: 1px solid #666; */
+/* 		    padding: 8px; */
+/* 		    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); */
+/* 		} */
+        
+        
+        /*th {
+		    background-color: #333;
+		    color: white;
+		}
+		th {
+		    background-color: #333;
+		    color: white;
+		    border: 1px solid #666;
+		    padding: 8px;
+		}
+		th {
+		    background: linear-gradient(to bottom, #333, #555);
+		    color: white;
+		    border: 1px solid #666;
+		    padding: 8px;
+		}
+		th {
+		    background-color: #333;
+		    color: white;
+		    border: 1px solid #666;
+		    padding: 8px;
+		    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+		}
+		th {
+	       background-color: #333;
+	       color: white;
+	       border: 1px solid #666;
+	       padding: 8px;
+	   }
+	   
+	   
+	   
+	   /* Estilo personalizado para los mensajes de selección */
+	    .select-info {
+	        text-align: right; /* Alinea el texto a la derecha */
+	        margin-top: 10px; /* Margen superior para ajustar la posición vertical */
+	        font-weight: bold; /* Fuente en negrita para destacar el mensaje */
+	        color: #007bff; /* Color del texto personalizado */
+	    }
+	    .select-info {
+	    	margin-left: 30px;
+		    
+		}	

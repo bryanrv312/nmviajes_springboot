@@ -123,12 +123,16 @@
                 >
               </li>
                
-              <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+            <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
               <a class="text-light fw-bold nav-link" href="/gestion_usuarios">Gestion Admin</a>
             </li>
             
             <li class="nav-item" sec:authorize="hasRole('ROLE_USER')">
               <a class="text-light fw-bold nav-link" href="/order">Ver Orden</a>
+            </li>
+            
+            <li class="nav-item" sec:authorize="hasRole('ROLE_USER')">
+              <a class="text-light fw-bold nav-link" href="/settings">Settings</a>
             </li>
               
               <ul class="navbar-right">
@@ -228,15 +232,20 @@
         </div>
       </section>
       <!-- Finaliza hero. -->
-      <div th:if="${msg != null}" class="alert alert-success" th:text="${msg}" role="alert"></div>
+      
+      <div class="container mt-5  d-flex justify-content-center" >
+<!--       	<div  class="alert alert-success" role="alert">Pago Exitosoo</div> -->
+      	<div th:if="${msg != null}" class="alert alert-success" th:text="${msg}" role="alert"></div>
+      </div>
+      
       
 <!-- 		<div th:if="${pago!=null}" style="display: none;" id="pagoMessage"> -->
-		<div th:if="${pago!=null}" id="pagoMessage">
-			<div class="alert alert-success" th:text="${pago.mensajePago}" role="alert"></div>
-			<div th:text="'N°Pago: '+${pago.id}" role="alert"></div>
-			<div th:text="'ID orden: '+${pago.orderId}" role="alert"></div>
+<!-- 		<div th:if="${pago!=null}" id="pagoMessage"> -->
+<!-- 			<div class="alert alert-success" th:text="${pago.mensajePago}" role="alert"></div> -->
+<!-- 			<div th:text="'N°Pago: '+${pago.id}" role="alert"></div> -->
+<!-- 			<div th:text="'ID orden: '+${pago.orderId}" role="alert"></div> -->
 <!-- 			<p th:text="${pago.payerName}"></p> -->
-		</div>
+<!-- 		</div> -->
 		
 		
    

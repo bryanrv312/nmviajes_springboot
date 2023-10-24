@@ -480,7 +480,7 @@ public class ControladorVuelo {
 		total = 0;
 		detalles.clear();
 
-		attributes.addFlashAttribute("msg", "Pago Exitoso !!!");
+		attributes.addFlashAttribute("msg", "Su Pago se realizo Exitosamente, se envio los detalles a su correo");
 		return "redirect:/";
 	}
 	

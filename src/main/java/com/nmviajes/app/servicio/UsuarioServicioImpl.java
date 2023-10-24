@@ -3,6 +3,7 @@ package com.nmviajes.app.servicio;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListResourceBundle;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -157,6 +158,44 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 	@Override
 	public Usuario buscarPorUsername(String username) {
 		return repo.findByUsername(username);
+	}
+
+	@Override
+	public Usuario guardarEditado(Usuario usuario) {
+		Optional<Usuario> usuarioExistente = repo.findById(usuario.getId());
+		
+		if(usuarioExistente.isPresent()) {
+			Usuario usuarioActualizado = usuarioExistente.get();
+	        usuarioActualizado.setNombre(usuario.getNombre());
+	        usuarioActualizado.setApellido(usuario.getApellido());
+	        usuarioActualizado.setUsername(usuario.getUsername());
+	        usuarioActualizado.setEmail(usuario.getEmail());
+	        
+	        return repo.save(usuarioActualizado);
+	        
+		} else {
+	        return null;
+	    }
+	}
+
+	@Override
+	public Usuario guardarEditado_correo(Usuario usuario) {
+		Optional<Usuario> usuarioExistente = repo.findById(usuario.getId());
+				
+		if(usuarioExistente.isPresent()) {
+			Usuario usuarioActualizado = usuarioExistente.get();
+	        usuarioActualizado.setNombre(usuario.getNombre());
+	        usuarioActualizado.setApellido(usuario.getApellido());
+	        usuarioActualizado.setUsername(usuario.getUsername());
+	        usuarioActualizado.setEmail(usuario.getEmail());
+	        usuarioActualizado.setEnabled(usuario.getEnabled());
+	        usuarioActualizado.setToken(usuario.getToken());
+	        
+	        return repo.save(usuarioActualizado);
+	        
+		} else {
+	        return null;
+	    }
 	}
 
 }
