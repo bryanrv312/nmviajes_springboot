@@ -8,6 +8,10 @@ public class HospedajeDTO {
 
     
     private String ubicacion;
+    
+    private Integer habitaciones;
+    
+    private Integer personas;
    
     private Double precio;
 
@@ -42,16 +46,56 @@ public class HospedajeDTO {
     public void setPrecio(Double precio) {
         this.precio = precio;
     }
+    
+    
 
-    public HospedajeDTO(Long id, String nombre, String ubicacion, Double precio) {
+    public Integer getHabitaciones() {
+		return habitaciones;
+	}
+
+	public void setHabitaciones(Integer habitaciones) {
+		this.habitaciones = habitaciones;
+	}
+
+	public Integer getPersonas() {
+		return personas;
+	}
+
+	public void setPersonas(Integer personas) {
+		this.personas = personas;
+	}
+
+	public HospedajeDTO(Long id, String nombre, String ubicacion, Double precio) {
         this.id = id;
         this.nombre = nombre;
         this.ubicacion = ubicacion;
         this.precio = precio;
     }
+	
+	
     
 
-    public HospedajeDTO(String nombre, String ubicacion, Double precio) {
+    public HospedajeDTO(String nombre, String ubicacion, Integer habitaciones, Integer personas, Double precio) {
+		super();
+		this.nombre = nombre;
+		this.ubicacion = ubicacion;
+		this.habitaciones = habitaciones;
+		this.personas = personas;
+		this.precio = precio;
+	}
+
+	public HospedajeDTO(Long id, String nombre, String ubicacion, Integer habitaciones, Integer personas,
+			Double precio) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.ubicacion = ubicacion;
+		this.habitaciones = habitaciones;
+		this.personas = personas;
+		this.precio = precio;
+	}
+
+	public HospedajeDTO(String nombre, String ubicacion, Double precio) {
         this.nombre = nombre;
         this.ubicacion = ubicacion;
         this.precio = precio;

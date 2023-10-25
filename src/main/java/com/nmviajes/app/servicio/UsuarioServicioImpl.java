@@ -22,6 +22,8 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 	@Autowired
 	private UsuarioRepo repo;
 	private Usuario u;
+	
+	private Usuario usuarioBloqueado;
 
 	@Override
 	public Usuario save(UsuarioRegistroDTO registroDTO) {
@@ -196,6 +198,17 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 		} else {
 	        return null;
 	    }
+	}
+
+	@Override
+	public void guardarUsuarioBloqueado(Usuario usuario) {
+		this.usuarioBloqueado = usuario;
+		
+	}
+
+	@Override
+	public Usuario getUsuarioBloqueado() {
+		return this.usuarioBloqueado;
 	}
 
 }

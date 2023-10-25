@@ -153,12 +153,12 @@
 							
                             <td class="d-flex">
 
-                            	 <a th:href="@{'/usuario/editar'+'/'+ ${persona.id}}"
-	                              	 onclick="return confirm('¿Estas seguro de editar el usuario?')" class="btn btn-warning btn-sm" 
-	                              	 role="button" title="Editar Usuario."
-	                              	 style="font-size: 14px; padding: 5px 10px; margin-bottom: 10px; margin-right: 10px;">
-	                              	<i class="fas fa-pencil" aria-hidden="true"></i>
-	                             </a>
+<!--                             	 <a th:href="@{'/usuario/editar'+'/'+ ${persona.id}}" -->
+<!-- 	                              	 onclick="return confirm('¿Estas seguro de editar el usuario?')" class="btn btn-warning btn-sm"  -->
+<!-- 	                              	 role="button" title="Editar Usuario." -->
+<!-- 	                              	 style="font-size: 14px; padding: 5px 10px; margin-bottom: 10px; margin-right: 10px;"> -->
+<!-- 	                              	<i class="fas fa-pencil" aria-hidden="true"></i> -->
+<!-- 	                             </a> -->
 								 <a th:href="@{'/usuario/eliminar'+'/'+ ${persona.id}}"
 	                              	 onclick="return confirm('¿Estas seguro de eliminar al usuario?')" class="btn btn-danger btn-sm" 
 	                              	 role="button" title="Eliminar Usuario."
@@ -182,46 +182,46 @@
                             
                         </tbody>
                       </table>
-                    </div>
-                    </div>
-					</div>
-                  </div>         
-                </div>
+                   </div>
+           	     </div>
+		   	   </div>
+           	 </div>         
+           </div>
                 
 <!--                 ESPACIO NECESARIO -->
 <!--                 <div style="width: 8px">  -->
 <!--         		</div> -->
         		
-                		<div class="col-lg-3">
-						    <div class="mi-contenedor">
-						        <h2 class="text-center">Opciones</h2>
-						        <p>Contenido - multiples opciones.</p>
-						
-						        <div class="text-center mt-3">
-						            <a class="btn btn-primary btn-lg btn-block" th:href="@{/registro}">
-						                <i class="fas fa-user-plus"></i> Nuevo Usuario
-						            </a>
-						        </div>
-						
-						        <div class="text-center mt-3">
-						            <a class="btn btn-info btn-lg btn-block" th:href="@{/configuracion}">
-						                <i class="fas fa-cogs"></i> Configuración
-						            </a>
-						        </div>
-						        
-						         <div class="text-center mt-3">
-<!-- 						            <a id="mostrarIdBtn" class="btn btn-success btn-lg btn-block"  th:href="@{'/usuario/enviar_correo'+'/'+ ${idCapturado}}"> -->
-						            <a id="mostrarIdBtn" class="btn btn-success btn-lg btn-block"  >
-						                <i class="far fa-envelope"></i> Enviar Correo
-						            </a>
-						            <div hidden><span id="idHidden"></span></div>  
-						            <span id="idCapturado"></span>
-						            <span id="opcion"></span>
-						            <br><button id="ok_enviar"></button>
-						        </div>
-						        
-						    </div>
-						</div>
+	            <div class="col-lg-3">
+				    <div class="mi-contenedor">
+				        <h2 class="text-center">Opciones</h2>
+				        <p>Contenido - multiples opciones.</p>
+				
+				        <div class="text-center mt-3">
+				            <a class="btn btn-primary btn-lg btn-block" th:href="@{/registro}">
+				                <i class="fas fa-user-plus"></i> Nuevo Usuario
+				            </a>
+				        </div>
+				
+				        <div class="text-center mt-3">
+				            <a class="btn btn-info btn-lg btn-block" th:href="@{/configuracion}">
+				                <i class="fas fa-cogs"></i> Configuración
+				            </a>
+				        </div>
+				        
+				         <div class="text-center mt-3">
+	<!-- 						            <a id="mostrarIdBtn" class="btn btn-success btn-lg btn-block"  th:href="@{'/usuario/enviar_correo'+'/'+ ${idCapturado}}"> -->
+				            <a id="mostrarIdBtn" class="btn btn-success btn-lg btn-block"  >
+				                <i class="far fa-envelope"></i> Enviar Correo
+				            </a>
+				            <div hidden><span id="idHidden"></span></div>  
+				            <span id="idCapturado"></span>
+				            <span id="opcion"></span>
+				            <br><button id="ok_enviar"></button>
+				        </div>
+				        
+				    </div>
+				</div>
               </div>
             </div>
             

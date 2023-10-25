@@ -111,7 +111,8 @@
 									<div class="card-body p-md-5 mx-md-4">
 									
 										<div th:if="${msg != null}" class="alert alert-success" th:text="${msg}" role="alert"></div>
-									
+										<div th:if="${msg_bloqueado != null}" class="alert alert-danger" th:text="${msg_bloqueado}" role="alert"></div>
+										
 										<div class="text-center">
 											<h4 class="mt-1 mb-5 pb-1">Ingresa con tus datos de
 												siempre</h4>

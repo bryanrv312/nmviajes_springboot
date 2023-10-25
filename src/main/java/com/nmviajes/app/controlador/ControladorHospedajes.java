@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.nmviajes.app.entidad.Hospedaje;
 import com.nmviajes.app.entidad.Vuelo;
@@ -39,30 +40,34 @@ public class ControladorHospedajes {
 	}
 
 	@PostMapping("/hospedajeRegistro")
-	public String registrarHospedaje(@ModelAttribute("hospedaje") HospedajeDTO registroDTO){
+	public String registrarHospedaje(@ModelAttribute("hospedaje") HospedajeDTO registroDTO, RedirectAttributes flash){
 		servicio.guardar(registroDTO);
-		return "gestion_admin";
+		flash.addFlashAttribute("msg","Hotel registrado correctamente !!");
+		return "redirect:/gestion_hoteles";
 	}
 
 	@GetMapping("/hospedaje/eliminar/{id}")
-	public String eliminarFormularioHospedaje(@PathVariable("id") Long id ) {
+	public String eliminarFormularioHospedaje(@PathVariable("id") Long id, RedirectAttributes flash) {
 		servicio.eliminarHospedaje(id);
+		flash.addFlashAttribute("msg","Hotel Eliminado correctamente !!");
 		return "redirect:/gestion_hoteles";
 	}
 	
 
 	@GetMapping("/hospedaje/editar/{id}")
 	public String mostrarFormularioModificarUsuario(@PathVariable("id") Long id , Model modelo) {
-		Hospedaje p = servicio.buscarUsuarioPorId(id);//encontramos y obtenemos
+		Hospedaje hos = servicio.buscarUsuarioPorId(id);//encontramos y obtenemos
 		
-		modelo.addAttribute("hospedaje",p);
+		modelo.addAttribute("hospedaje",hos);
 		return "gestion_hoteles_editar";
 	}
 
 	@PostMapping("/hospedajeRegistroEditado")
-	public String registrarHospedajeEditado(@ModelAttribute("hospedaje") HospedajeDTO registroDTO){
+	public String registrarHospedajeEditado(@ModelAttribute("hospedaje") HospedajeDTO registroDTO, RedirectAttributes flash){
 		servicio.guardarEditado(registroDTO);
-		return "gestion_admin";
+		
+		flash.addFlashAttribute("msg","Hotel editado correctamente !!");
+		return "redirect:/gestion_hoteles";
 	}
 	
 	

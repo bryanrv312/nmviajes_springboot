@@ -26,6 +26,9 @@ import com.nmviajes.app.repositorio.IUsuarioDao;
 public class JpaUserDetailsService implements UserDetailsService {
 	@Autowired
 	private IUsuarioDao usuarioDao;
+	
+	@Autowired
+	private UsuarioServicio uservicio;
 
 	private Logger logger = LoggerFactory.getLogger(JpaUserDetailsService.class);
 
@@ -33,8 +36,15 @@ public class JpaUserDetailsService implements UserDetailsService {
 	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Usuario usuario = usuarioDao.findByUsername(username);
-
-		if (usuario == null) {
+		
+		
+		uservicio.guardarUsuarioBloqueado(usuario);
+		
+		
+		if(!usuario.getEnabled()) {
+			logger.error("Error en el Login: usuario bloqueado '" + username + "' en el sistema!");
+			throw new UsernameNotFoundException("Username: " + username + " bloqueado en el sistema!");
+		}else if (usuario == null) {
 			logger.error("Error en el Login: no existe el usuario '" + username + "' en el sistema!");
 			throw new UsernameNotFoundException("Username: " + username + " no existe en el sistema!");
 		}

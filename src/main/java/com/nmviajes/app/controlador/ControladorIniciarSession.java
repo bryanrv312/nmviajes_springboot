@@ -41,44 +41,28 @@ public class ControladorIniciarSession {
 	
 	@GetMapping("/iniciar_sesion")
 	public String iniciarSesion(
-			//@ModelAttribute("username") String user,
-			//@ModelAttribute("password") String pass,
 			@RequestParam(value="error", required=false) String error, //obtenemos el error que nos envia SS cuando ingresa mal el usario
 			@RequestParam(value="logout", required = false) String logout,
 			Model model,Principal principal,RedirectAttributes flash, HttpServletRequest request) {	
 
-		//System.out.println(principal.getName());
+		Usuario usuario_bloqueado = usuarioServicio.getUsuarioBloqueado() == null ? new Usuario("nombre_b", "apellido_b") : usuarioServicio.getUsuarioBloqueado();
 		
 		if(principal!=null){
-			
-			
-			
-			System.err.println("Hola Principal");
-			System.err.println(principal.getName());
 			System.out.println("ya inicio sesion anteiormente");
-			
-			// Obtiene los detalles del usuario autenticado
-			UserDetails userDetails = (UserDetails) ((Authentication) principal).getPrincipal();
-			
-	        String username = userDetails.getUsername();
-	        System.err.println(username);
-	        
-			
 			return "redirect:/";
-		}else {
-			System.err.println("hola en el else");
 		}
 		
 		if(error!=null) {
-			System.out.println("Error en el login ingresa los datos coreectos");	
-			flash.addFlashAttribute("msg", "Ingrese correctamente sus credenciales");
+		
+			if("nombre_b".equals(usuario_bloqueado.getNombre()) && "apellido_b".equals(usuario_bloqueado.getApellido())) {
+				System.out.println("Error en el login ingresa los datos coreectos");	
+				flash.addFlashAttribute("msg", "Ingrese correctamente sus credenciales");
+			}else if(!usuario_bloqueado.getEnabled()) {
+				System.err.println("******************************************************* ESTA BLOQUEADO" );
+				flash.addFlashAttribute("msg_bloqueado", "Usuario bloqueado");
+			}
+			
 			return "redirect:/iniciar_sesion";
-		}else {
-			System.err.println("entre != error");
-			String username = request.getParameter("username");
-	        String password = request.getParameter("password");
-	        
-			System.err.println(username);
 		}
 		
 		if(logout != null) {
