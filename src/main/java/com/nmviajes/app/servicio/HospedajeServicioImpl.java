@@ -16,15 +16,15 @@ public class HospedajeServicioImpl {
 
     public Hospedaje guardar(HospedajeDTO registroDTO) {
 		//public HospedajeDTO(Long id, String nombre, String ubicacion, Double precio) {
-			Hospedaje usuario = new Hospedaje(registroDTO.getNombre(), registroDTO.getUbicacion(),
-				registroDTO.getPrecio());
-		return hospedajeRepo.save(usuario);
+			Hospedaje hospedaje = new Hospedaje(registroDTO.getNombre(), registroDTO.getUbicacion(),
+				registroDTO.getPrecio(), registroDTO.getHabitaciones(), registroDTO.getPersonas());
+		return hospedajeRepo.save(hospedaje);
 	}
 
 	public Hospedaje guardarEditado(HospedajeDTO registroDTO) {
 		//public HospedajeDTO(Long id, String nombre, String ubicacion, Double precio) {
 			Hospedaje usuario = new Hospedaje(registroDTO.getId(),registroDTO.getNombre(), registroDTO.getUbicacion(),
-				registroDTO.getPrecio());
+				registroDTO.getPrecio(), registroDTO.getHabitaciones(), registroDTO.getPersonas());
 		return hospedajeRepo.save(usuario);
 	}
 	

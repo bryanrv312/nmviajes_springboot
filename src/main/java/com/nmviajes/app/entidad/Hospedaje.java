@@ -82,9 +82,30 @@ public class Hospedaje {
         this.precio = precio;
     }
     
+    public Hospedaje(String nombre, String ubicacion, Double precio, Integer habitaciones, Integer personas) {
+		super();
+		this.nombre = nombre;
+		this.ubicacion = ubicacion;
+		this.precio = precio;
+		this.habitaciones = habitaciones;
+		this.personas = personas;
+	}
+    
     
 
-    public Integer getHabitaciones() {
+
+	public Hospedaje(Long id, String nombre, String ubicacion, Double precio, Integer habitaciones, Integer personas) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.ubicacion = ubicacion;
+		this.precio = precio;
+		this.habitaciones = habitaciones;
+		this.personas = personas;
+	}
+
+
+	public Integer getHabitaciones() {
 		return habitaciones;
 	}
 

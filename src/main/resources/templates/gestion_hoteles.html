@@ -75,7 +75,7 @@
   <div class="container">
     <div class="row flex-lg-nowrap">
     
-      <div class="col-12 col-lg-auto mb-3" style="width: 200px">
+      <div class="col-12 col-lg-auto mb-3" style="width: 50px">
         
       </div>
 
@@ -93,62 +93,101 @@
         <div class="row flex-lg-nowrap">
           <div class="col mb-3">
             <div class="e-panel card">
-              <div >
+              <div  class="card-body">
                 <div class="e-table">
                   <div class="table-responsive table-lg mt-3">
-                    <table class="table align-middle table-bordered table-striped  table-hover display" style="width:100%" id="miTabla">
-                      <thead>
+                  <div th:if="${msg != null}" class="alert alert-success" th:text="${msg}" role="alert"></div>
+                    <table class="table align-middle    table-hover display" style="width:100%" id="miTabla">
+                      <thead class="bg-danger text-white ">
                         <tr>
+                          <th>ID</th>	
                           <th>Nombre</th>
                           <th>Dirección</th>
+                          <th>#Habitaciones</th>
+                          <th>#Personas</th>
                           <th>Precio</th>
                           <th>Opciones</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr th:each="v:${user}">
+                          <td class="text-nowrap align-middle" th:text="${v.id}"></td>
                           <td class="text-nowrap align-middle" th:text="${v.nombre}"></td>
                           <td class="text-nowrap align-middle" th:text="${v.ubicacion}"></td>
+                          <td class="text-nowrap align-middle" th:text="${v.habitaciones}"></td>
+                          <td class="text-nowrap align-middle" th:text="${v.personas}"></td>
                           <td class="text-nowrap align-middle" th:text="${v.precio}"></td>
                           <td class="d-flex">
-                            
-                            <a class="btn btn-warning me-3" th:href="@{'/hospedaje/editar'+'/'+ ${v.id}}">Editar</a>
-                            <a class="btn btn-danger" th:href="@{'/hospedaje/eliminar'+'/'+ ${v.id}}" >Eliminar</a>
-                            
-                            <!--<button class="btn btn-danger">Eliminar</button>-->
+                           <a th:href="@{'/hospedaje/editar'+'/'+ ${v.id}}"
+                              onclick="return confirm('¿Estas seguro de editar el hospedaje?')" class="btn btn-warning btn-sm" 
+                              role="button" title="Editar Usuario."
+                              style="font-size: 14px; padding: 5px 10px; margin-bottom: 10px; margin-right: 10px;">
+                              <i class="fas fa-pencil" aria-hidden="true"></i>
+                            </a>
+                            <a th:href="@{'/hospedaje/eliminar'+'/'+ ${v.id}}"
+                               onclick="return confirm('¿Estas seguro de eliminar el hospedaje?')" class="btn btn-danger btn-sm" 
+                               role="button" title="Eliminar Usuario."
+                               style="font-size: 14px; padding: 5px 10px; margin-bottom: 10px; margin-right: 10px;">
+                               <i class="fas fa-trash" aria-hidden="true"></i>
+                            </a>                     
                           </td>
                         </tr>
 
                       </tbody>
                     </table>
                   </div>
-                  
                 </div>
               </div>
             </div>
           </div>
+          
+<!--        ESPACIO NECESARIO -->
+<!--           <div style="width: 10px">  -->
+<!--        	  </div> -->
+          
+          <div class="col-lg-3">
+		    <div class="mi-contenedor">
+		        <h2 class="text-center">Opciones</h2>
+		        <p>Contenido - multiples opciones.</p>
+		
+		        <div class="text-center mt-3">
+		            <a class="btn btn-primary btn-lg btn-block" type="button" data-toggle="modal" data-target="#user-form-modal">
+		                <i class="fa fa-hospital-o"></i>  Nuevo Hotel
+		            </a>
+		        </div>
+		
+		        <div class="text-center mt-3">
+		            <a class="btn btn-info btn-lg btn-block" th:href="@{/configuracion}">
+		                <i class="fas fa-cogs"></i> Configuración
+		            </a>
+		        </div>
+		        
+		         <div class="text-center mt-3">
+		            <a id="mostrarIdBtn" class="btn btn-success btn-lg btn-block"  >
+		                <i class="fas fa-arrow-alt-circle-down"></i> Generar Reporte
+		            </a>
+		            <div hidden><span id="idHidden"></span></div>  
+		            <span id="idCapturado"></span>
+		            <span id="opcion"></span>
+		            <br><button id="ok_enviar"></button>
+		        </div>
+		        
+		    </div>
+		  </div>
+          
+          
+          
         </div>
 
-        <div class="col-12 col-lg-3 mb-3">
-          <div class="card">
-            <div class="card-body">
-              <div class="text-center px-xl-3">
-                <button class="btn btn-success btn-block" type="button" data-toggle="modal"
-                  data-target="#user-form-modal">
-                  Nuevo Hotel
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+
 
         <!-- User Form Modal -->
         <div class="modal fade" role="dialog" tabindex="-1" id="user-form-modal">
           <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">Formulario</h5>
-                <button type="button" class="close" data-dismiss="modal">
+              <div class="modal-header bg-danger">
+                <h5 class="modal-title text-white">Nuevo Hotel</h5>
+                <button type="button" class="close text-white" data-dismiss="modal">
                   <span aria-hidden="true">×</span>
                 </button>
               </div>
@@ -177,6 +216,22 @@
                         <div class="row">
                           <div class="col">
                             <div class="form-group">
+                              <label>Número de Habitaciones</label>
+                              <input class="form-control" type="number" step="1" th:field="*{habitaciones}" />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-group">
+                              <label>Número de Personas</label>
+                              <input class="form-control" type="number" step="1" th:field="*{personas}" />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-group">
                               <label>Precio</label>
                               <input class="form-control" id="precio" type="number" step=0.1 th:field="*{precio}" />
                             </div>
@@ -187,7 +242,7 @@
                     </div>
                     <div class="row">
                       <div class="col d-flex justify-content-end">
-                        <button class="btn btn-primary" type="submit">
+                        <button class="btn btn-danger" type="submit">
                           Guardar
                         </button>
                       </div>
@@ -228,12 +283,7 @@
 
  <!-- Finaliza footer. -->
 
-	<style type="text/css">
-	    body {
-	      margin-top: 20px;
-	      background: #f8f8f8;
-	    }
-  	</style>
+	
 
   	<script type="text/javascript"></script>
 	<!-- Own Javascript -->

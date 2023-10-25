@@ -36,4 +36,8 @@ public interface UsuarioServicio {
 	public Usuario guardarEditado(Usuario usuario);
 	
 	public Usuario guardarEditado_correo(Usuario usuario);
+	
+	public void guardarUsuarioBloqueado(Usuario usuario);
+	
+	public Usuario getUsuarioBloqueado();
 }
