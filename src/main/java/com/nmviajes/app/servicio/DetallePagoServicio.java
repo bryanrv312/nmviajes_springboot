@@ -1,6 +1,8 @@
 package com.nmviajes.app.servicio;
 
+import java.io.ByteArrayInputStream;
 import java.util.List;
+
 
 import com.nmviajes.app.entidad.Orden;
 import com.nmviajes.app.entidad.Usuario;
@@ -28,5 +30,7 @@ public interface DetallePagoServicio {
     
     public List<Orden>listarCinco();
     
+    public ByteArrayInputStream exportMejores() throws Exception;
     
+    public ByteArrayInputStream exportAllVentas() throws Exception;
 }

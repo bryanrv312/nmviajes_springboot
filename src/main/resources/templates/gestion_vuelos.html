@@ -26,16 +26,26 @@
     <link rel="stylesheet" href="/css/form_admin.css" />
 
     <!---- Font Awesome ---->
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <link
-      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
-      rel="stylesheet"
-    />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
+  
+  <!-- Data Table -->
+    <link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css'>
+    <link rel='stylesheet' type='text/css' href='https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css'>
+    <link rel='stylesheet' type='text/css' href='https://cdn.datatables.net/buttons/1.6.4/css/buttons.dataTables.min.css'>
+    
+    <link rel="stylesheet" href="/css/bootstrap_configuration.css" />
+    
+    <style type="text/css">
+      body {
+        margin-top: 20px;
+        background: #f8f8f8;
+      }
+    </style>
+    
+</head>
+  
+<body>
 
     <!-- Comienza sidebar.  -->
   <nav id="sidebar" class="bg-danger">
@@ -54,6 +64,10 @@
       <li class="ps-4">
         <a href="/gestion_hoteles"><i class="fa-solid fa-hotel"></i><span class="text-white">Gestión de
             Hoteles</span></a>
+      </li>
+      <li class="ps-4">
+        <a href="/gestion_paqueteTuristico"><i class="fas fa-box-open"></i><span class="text-white">Gestión de
+            Paquetes</span></a>
       </li>
       <br />
       <li class="ps-4">
@@ -76,33 +90,13 @@
 
     <div class="container">
       <div class="row flex-lg-nowrap">
-        <div class="col-12 col-lg-auto mb-3" style="width: 200px">
-          <div class="card p-3">
-            <div class="e-navlist e-navlist--active-bg">
-              <ul class="nav">
-                <li class="nav-item">
-                  <a class="nav-link px-2 active" href="#"
-                    ><i class="fa fa-fw fa-bar-chart mr-1"></i
-                    ><span>...</span></a
-                  >
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link px-2" href="#" target="__blank"
-                    ><i class="fa fa-fw fa-th mr-1"></i><span>...</span></a
-                  >
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link px-2" href="#" target="__blank"
-                    ><i class="fa fa-fw fa-cog mr-1"></i><span>...</span></a
-                  >
-                </li>
-              </ul>
-            </div>
-          </div>
+      
+      
+        <div class="col-12 col-lg-auto mb-3" style="width: 100px">
         </div>
 
         <!-- Comienza mantenedor. -->
-        <div class="col">
+        <div >
           <div class="e-tabs mb-3 px-3">
             <ul class="nav nav-tabs">
               <li class="nav-item">
@@ -117,13 +111,16 @@
                 <div class="card-body">
                   <div class="e-table">
                     <div class="table-responsive table-lg mt-3">
-                      <table class="table table-bordered">
-                        <thead>
+                      <div th:if="${msg != null}" class="alert alert-success" th:text="${msg}" role="alert"></div>
+                      <table class="table align-middle    table-hover display" style="width:100%" id="miTabla">
+                      	<thead class="bg-danger text-white ">
                           <tr>
+                          	<th>ID</th>
                             <th>Orígen</th>
                             <th>Destino</th>
                             <th>Aerolínea</th>
-                            <th>Fecha - Hora</th>
+                            <th>Partida</th>
+                            <th>Regreso</th>
                             <th>Precio</th>
                             <th>Opciones</th>
                           </tr>
@@ -131,71 +128,64 @@
                         <tbody>
                           
                           <tr th:each="v:${user}">
+                          	<td class="text-nowrap align-middle" th:text="${v.id}"></td>
                             <td class="text-nowrap align-middle" th:text="${v.origen}"></td>
                             <td class="text-nowrap align-middle" th:text="${v.destino}"></td>
                             <td class="text-nowrap align-middle" th:text="${v.aerolinea}"></td>
-                            <td class="text-nowrap align-middle" th:text="${v.fecha}"></td>
+                            <td class="text-nowrap align-middle" th:text="${v.fechaPartida}"></td>
+                            <td class="text-nowrap align-middle" th:text="${v.fechaRegreso}"></td>
                             <td class="text-nowrap align-middle" th:text="${v.precio}"></td>
+                            
                             <td class="d-flex">
-                              
-                              <!--<button class="btn btn-danger">Eliminar</button>-->
-                              <a class="btn btn-warning me-3" th:href="@{'/vuelos/editar'+'/'+ ${v.id}}">Editar</a>
-                              <a class="btn btn-danger" th:href="@{'/vuelos/eliminar'+'/'+ ${v.id}}" >Eliminar</a>
-                              
-                            </td>
+	                           <a th:href="@{'/vuelos/editar'+'/'+ ${v.id}}"
+	                              onclick="return confirm('¿Estas seguro de editar el vuelo?')" class="btn btn-warning btn-sm" 
+	                              role="button" title="Editar Vuelo."
+	                              style="font-size: 14px; padding: 5px 10px; margin-bottom: 10px; margin-right: 10px;">
+	                              <i class="fas fa-pencil" aria-hidden="true"></i>
+	                            </a>
+	                            <a th:href="@{'/vuelos/eliminar'+'/'+ ${v.id}}"
+	                               onclick="return confirm('¿Estas seguro de eliminar el vuelo?')" class="btn btn-danger btn-sm" 
+	                               role="button" title="Eliminar Vuelo."
+	                               style="font-size: 14px; padding: 5px 10px; margin-bottom: 10px; margin-right: 10px;">
+	                               <i class="fas fa-trash" aria-hidden="true"></i>
+	                            </a>                     
+	                        </td>
                           </tr>
                         </tbody>
                       </table>
                     </div>
-                    <div class="d-flex justify-content-center">
-                      <ul class="pagination mt-3 mb-0">
-                        <li class="disabled page-item">
-                          <a href="#" class="page-link">‹</a>
-                        </li>
-                        <li class="active page-item">
-                          <a href="#" class="page-link">1</a>
-                        </li>
-                        <li class="page-item">
-                          <a href="#" class="page-link">2</a>
-                        </li>
-                        <li class="page-item">
-                          <a href="#" class="page-link">3</a>
-                        </li>
-                        <li class="page-item">
-                          <a href="#" class="page-link">4</a>
-                        </li>
-                        <li class="page-item">
-                          <a href="#" class="page-link">5</a>
-                        </li>
-                        <li class="page-item">
-                          <a href="#" class="page-link">›</a>
-                        </li>
-                        <li class="page-item">
-                          <a href="#" class="page-link">»</a>
-                        </li>
-                      </ul>
-                    </div>
+<!--                    paginacion -->
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-12 col-lg-3 mb-3">
-              <div class="card">
-                <div class="card-body">
-                  <div class="text-center px-xl-3">
-                    <button
-                      class="btn btn-success btn-block"
-                      type="button"
-                      data-toggle="modal"
-                      data-target="#user-form-modal"
-                    >
-                      Nuevo Vuelo
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+            
+            <div class="col-lg-3">
+		    <div class="mi-contenedor">
+		        <h2 class="text-center">Opciones</h2>
+		        <p>Contenido - multiples opciones.</p>
+		
+		        <div class="text-center mt-3">
+		            <a class="btn btn-primary btn-lg btn-block text-white" type="button" data-toggle="modal" data-target="#user-form-modal">
+		                <i class="fas fa-plane-departure"></i>  Nuevo Vuelo
+		            </a>
+		        </div>
+		
+		        <div class="text-center mt-3">
+		            <a class="btn btn-info btn-lg btn-block" th:href="@{/configuracion}">
+		                <i class="fas fa-cogs"></i> Configuración
+		            </a>
+		        </div>
+		        
+		        <div class="text-center mt-3">
+			      <a class="btn btn-success btn-lg btn-block" th:href="@{/export/allVuelos}">
+			        <i class="fas fa-file-excel"></i> Exportar Datos
+			      </a>
+				</div>		        
+		    </div>
+		  </div>
+            
+            
 
           <!-- User Form Modal -->
           <div
@@ -206,8 +196,8 @@
           >
             <div class="modal-dialog modal-lg" role="document">
               <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">Formulario</h5>
+                <div class="modal-header bg-danger">
+                  <h5 class="modal-title text-white">Nuevo Vuelo</h5>
                   <button type="button" class="close" data-dismiss="modal">
                     <span aria-hidden="true">×</span>
                   </button>
@@ -215,7 +205,7 @@
                 <div class="modal-body">
                   <div class="py-1">
 
-                    <form class="form" novalidate="" th:action="@{/vueloRegistro}" method="post" th:object="${vuelo}">
+                    <form class="form" th:action="@{/vueloRegistro}" method="post" th:object="${vueloObject}">
                       <div class="row">
                         <div class="col">
                           <div class="row">
@@ -253,9 +243,18 @@
                           <div class="row">
                             <div class="col">
                               <div class="form-group">
-                                <label  for="fecha">Fecha</label>
+                                <label  for="fecha">Fecha de Partida</label>
 <!--                                 <input class="form-control"  id="fecha" type="text" th:value="${fechaFormateada}" /> -->
-                                <input class="form-control"  id="fecha" type="date"  th:field="*{fecha}" />
+                                <input class="form-control"  id="fecha" type="date"  th:field="*{fechaPartida}" />
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group">
+                                <label  for="fecha">Fecha de Regreso</label>
+<!--                                 <input class="form-control"  id="fecha" type="text" th:value="${fechaFormateada}" /> -->
+                                <input class="form-control"  id="fecha" type="date"  th:field="*{fechaRegreso}" />
                               </div>
                             </div>
                           </div>
@@ -271,7 +270,7 @@
                       </div>
                       <div class="row">
                         <div class="col d-flex justify-content-end">
-                          <button class="btn btn-primary" type="submit">
+                          <button class="btn btn-danger" type="submit">
                             Guardar
                           </button>
                         </div>
@@ -295,14 +294,14 @@
             <nav class="d-flex">
               <ul class="m-0 p-0">
                 <li>
-                  <a href="#"> Inicio </a>
+<!--                   <a href="#"> Inicio </a> -->
                 </li>
               </ul>
             </nav>
           </div>
           <div class="col-md-6">
             <p class="copyright d-flex justify-content-end">
-              Copyright 2021 nmviajes All Rights Reserved.
+              Copyright 2023 nmviajes All Rights Reserved.
             </p>
           </div>
         </div>
@@ -311,13 +310,6 @@
     <!-- Finaliza footer. -->
 
 <!-- Finaliza footer. -->
-
-  <style type="text/css">
-      body {
-        margin-top: 20px;
-        background: #f8f8f8;
-      }
-    </style>
 
     <script type="text/javascript"></script>
 	<!-- Own Javascript -->
@@ -328,6 +320,52 @@
 	<script th:src="@{/js/popper.min.js}"></script>
 	<script th:src="@{/js/bootstrap.min.js}"></script>
 	<script th:src="@{/js/jquery-ui.min.js}"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+	
+	<!-- 	DATATABLE -->
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.4/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+	
+	
+	
+	<script type="text/javascript">    
+	    
+	    $(document).ready(function(){
+	    	$(document).ready(function(){
+		    	let table = $('#miTabla').DataTable({
+			    	select: 'single',//selecciona 1 solo registro de la tabla
+			    	lengthChange: false,//deshabilitar show entry
+			    	language: {
+			    		search: "Búsqueda",
+			            info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
+			            infoEmpty: "Mostrando 0 a 0 de 0 registros",
+			            infoFiltered: "(filtrados de _MAX_ registros totales)",
+			            infoPostFix: "",
+			            lengthMenu: "Mostrar _MENU_ registros por página",
+			            zeroRecords: "No se encontraron registros",
+			            paginate: {
+			                first: "Primero",
+			                previous: "Anterior",
+			                next: "Siguiente",
+			                last: "Último"
+			            },
+			            select: true,
+			            select: {
+			                rows: {
+			                    _: "%d filas seleccionados",
+			                    //0: "Ninguna fila seleccionada",
+			                    1: "1 fila seleccionada"
+			                }
+			            }
+			    	}
+			    });//fin datatable
+		    	
+		    });
+	    });
+    </script>
 </html>

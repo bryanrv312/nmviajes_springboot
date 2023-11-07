@@ -1,9 +1,13 @@
 package com.nmviajes.app.controlador;
 
+import java.io.ByteArrayInputStream;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Example;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,9 +18,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.nmviajes.app.entidad.Hospedaje;
+import com.nmviajes.app.entidad.PaqueteTuristico;
 import com.nmviajes.app.entidad.Vuelo;
 import com.nmviajes.app.modelo.HospedajeDTO;
 import com.nmviajes.app.servicio.HospedajeServicioImpl;
+import com.nmviajes.app.servicio.PaqueteTuristicoServicioImpl;
+import com.nmviajes.app.servicio.VueloServicioImpl;
 
 @Secured({"ROLE_ADMIN","ROLE_USER"})
 @Controller
@@ -24,13 +31,20 @@ public class ControladorHospedajes {
 
     @Autowired
 	private HospedajeServicioImpl servicio;
+    
+    @Autowired
+    private PaqueteTuristicoServicioImpl servicePaquete;
+    
+    @Autowired
+    private VueloServicioImpl serviceVuelo;
+    
 
     @GetMapping("/gestion_hoteles")
 	public String listarHoteles(Model model) {
 		Hospedaje hospedaje = new Hospedaje();
         List<Hospedaje> p = servicio.listarHospedaje();
 		model.addAttribute("user",p);
-		model.addAttribute("hospedaje",hospedaje);
+		model.addAttribute("hospedaje",hospedaje);//th:object de nuevo hospedaje
 		return "gestion_hoteles";
 	}
 
@@ -70,6 +84,15 @@ public class ControladorHospedajes {
 		return "redirect:/gestion_hoteles";
 	}
 	
+	//Excel
+	@GetMapping("/export/allHospedajes")
+	public ResponseEntity<InputStreamResource> descargarHospedajes() throws Exception{
+		ByteArrayInputStream stream = servicio.exportAllHospedajes();
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Disposition", "attachment; filename=hoteles.xls");
+		return ResponseEntity.ok().headers(headers).body(new InputStreamResource(stream));
+	}
+	
 	
 	/*@ModelAttribute
 	public void setGenericos2(Model model) {
@@ -87,5 +110,75 @@ public class ControladorHospedajes {
 	}*/
 
 	
+	
+	/********************************* GESTION PAQUETE TURISTICO *******************************************************/
+	
+	@Secured({ "ROLE_ADMIN" })
+	@GetMapping("/gestion_paqueteTuristico")
+	public String listarPaquetes(Model model) {
+
+		List<PaqueteTuristico> listaPaquete = servicePaquete.listarPaqueteTuristicos();
+		List<Vuelo> listaVuelo = serviceVuelo.listarVuelo();
+		List<Hospedaje> listaHospedaje = servicio.listarHospedaje();
+		PaqueteTuristico paquete = new PaqueteTuristico();
+
+		model.addAttribute("listaPaquete", listaPaquete);
+		model.addAttribute("listaVuelo", listaVuelo);
+		model.addAttribute("listaHospedaje", listaHospedaje);
+		model.addAttribute("paqueteObject", paquete);//th:objct-nuevoPaquete
+
+		return "gestionPaqueteTuristico";
+	}
+	
+	
+	@PostMapping("/paqueteRegistro")
+	public String registrarPaquete(@ModelAttribute("paqueteObject") PaqueteTuristico paquete, RedirectAttributes flash){
+		System.err.println(paquete.getVuelo());
+		System.err.println(paquete.getHospedaje());
+		System.err.println(paquete);
+		servicePaquete.guardar(paquete);
+		flash.addFlashAttribute("msg","Paquete registrado correctamente !!");
+		return "redirect:/gestion_paqueteTuristico";
+	}
+	
+	
+	@GetMapping("/paquete/editar/{id}")
+	public String mostrarFormularioEditarPaquete(@PathVariable("id") Long id , Model modelo) {
+		PaqueteTuristico pq = servicePaquete.buscarPaqueteTuristicoPorId(id);
+		
+		List<Vuelo> listaVuelo = serviceVuelo.listarVuelo();
+		List<Hospedaje> listaHospedaje = servicio.listarHospedaje();
+		
+		modelo.addAttribute("listaVuelo", listaVuelo);
+		modelo.addAttribute("listaHospedaje", listaHospedaje);
+		modelo.addAttribute("paqueteObject", pq);//object for form edit
+		return "gestion_paqueteTuristico_editar";
+	}
+	
+	
+	@PostMapping("/paqueteRegistroEditado")
+	public String registrarPaqueteEditado(@ModelAttribute("paqueteObject") PaqueteTuristico paquete, RedirectAttributes flash){
+		servicePaquete.guardarEditado(paquete);
+		flash.addFlashAttribute("msg","Paquete editado correctamente !!");
+		return "redirect:/gestion_paqueteTuristico";
+	}
+	
+	
+	@GetMapping("/paquete/eliminar/{id}")
+	public String eliminarPaqueteTuristico(@PathVariable("id") Long id, RedirectAttributes flash) {
+		servicePaquete.eliminarPaquete(id);
+		flash.addFlashAttribute("msg","Paquete Eliminado correctamente !!");
+		return "redirect:/gestion_paqueteTuristico";
+	}
+	
+	
+	//Excel
+	@GetMapping("/export/allPaquetes")
+	public ResponseEntity<InputStreamResource> descargarPaquetes() throws Exception{
+		ByteArrayInputStream stream = servicePaquete.exportAllPaquetes();
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Disposition", "attachment; filename=paquetesTuristicos.xls");
+		return ResponseEntity.ok().headers(headers).body(new InputStreamResource(stream));
+	}
 	
 }

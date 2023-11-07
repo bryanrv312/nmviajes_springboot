@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -55,6 +58,8 @@ import net.sf.jasperreports.export.SimplePdfReportConfiguration;
 
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletResponse;
+
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
@@ -245,13 +250,44 @@ public class ControladorAdmin {
 	public String paginaMejoresVentas(Model model) {
 		
 		/*Probar List detalles*/
-		List<DetallePagoDTO> detalles = serviceDetalles.getDetalles();
-		System.err.println("detalles obtenido : " + detalles);//test detalle
+		//List<DetallePagoDTO> detalles = serviceDetalles.getDetalles();
+		//System.err.println("detalles obtenido : " + detalles);//test detalle
 		
-		List<Orden> o = detallePagoDTOImple.listarCinco();
+		List<Orden> o = detallePagoDTOImple.listarCinco(); 
 		model.addAttribute("user",o);
 		return "/registro_mejor";
 	}
+	
+	//Excel Ventas Mejores
+	@GetMapping("/export/mejor")
+	public ResponseEntity<InputStreamResource> exportMejoresVentas() throws Exception{
+		ByteArrayInputStream stream = detallePagoDTOImple.exportMejores();	
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Disposition", "attachment; filename=MejoresVentas.xls");
+		return ResponseEntity.ok().headers(headers).body(new InputStreamResource(stream));
+	}
+	
+	//Excel ALL Ventas
+	@GetMapping("/export/ventas")
+	public ResponseEntity<InputStreamResource> exportAllVentas() throws Exception{
+		ByteArrayInputStream stream = detallePagoDTOImple.exportAllVentas();	
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Disposition", "attachment; filename=Ventas.xls");
+		return ResponseEntity.ok().headers(headers).body(new InputStreamResource(stream));
+	}
+	
+	
+	//Excel Usuarios
+	@GetMapping("/export/all")
+	public ResponseEntity<InputStreamResource> exportAllData() throws Exception{
+		ByteArrayInputStream stream = servicio.exportAllData();	
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Disposition", "attachment; filename=usuarios.xls");
+		return ResponseEntity.ok().headers(headers).body(new InputStreamResource(stream));
+	}
+	
+	
+	/******************************** PAQUETES TURISTICOS ****************************************************************/
 	
 	
 

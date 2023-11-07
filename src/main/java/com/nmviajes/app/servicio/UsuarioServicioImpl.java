@@ -1,13 +1,23 @@
 package com.nmviajes.app.servicio;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListResourceBundle;
 import java.util.Optional;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+//import org.apache.poi.ss.util.CellAddress;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nmviajes.app.entidad.Role;
 import com.nmviajes.app.entidad.Usuario;
 import com.nmviajes.app.modelo.UsuarioRegistroDTO;
 import com.nmviajes.app.repositorio.IUsuarioDao;
@@ -209,6 +219,56 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 	@Override
 	public Usuario getUsuarioBloqueado() {
 		return this.usuarioBloqueado;
+	}
+
+	@Override
+	public ByteArrayInputStream exportAllData() throws Exception {
+		
+		String[] columns = {"id", "Usuario", "Apellido", "Correo", "Rol", "Status"};
+		
+		//creando ueva libro
+		Workbook workbook = new HSSFWorkbook();
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		
+		
+		Sheet sheet = workbook.createSheet("Clientes");//creamos una nueva hoja llamada Clientes
+		Row row = sheet.createRow(0);//creamos registro en posicion 0
+		
+		//creando celdas para encabezado
+		for(int i=0; i<columns.length; i++) {
+			Cell cell = row.createCell(i);
+			cell.setCellValue(columns[i]);
+			// Ajustar el ancho de la columna automáticamente
+		    sheet.autoSizeColumn(i);
+		}
+		
+		List<Usuario> lista_usuarios = repo.findAll();
+		int initRow = 1;//fila inicial
+		
+		for (Usuario usuario : lista_usuarios) {
+			row = sheet.createRow(initRow);
+			row.createCell(0).setCellValue(usuario.getId());
+			row.createCell(1).setCellValue(usuario.getUsername());
+			row.createCell(2).setCellValue(usuario.getApellido());
+			row.createCell(3).setCellValue(usuario.getEmail());
+			for(Role role:usuario.getRoles()) {
+				row.createCell(4).setCellValue(role.getAuthority());
+			}
+			row.createCell(5).setCellValue(usuario.getEnabled() ? "HABILITADO" : "DESHABILITADO");
+			
+			// Ajustar el ancho de la columna automáticamente para todas las celdas de esta fila
+		    for (int i = 0; i < columns.length; i++) {
+		        sheet.autoSizeColumn(i);
+		    }
+			
+			
+			initRow++;
+		}
+		
+		workbook.write(stream);
+		workbook.close();
+		//obtener el outputstream y transformarlo en inputstream
+		return new ByteArrayInputStream(stream.toByteArray());
 	}
 
 }

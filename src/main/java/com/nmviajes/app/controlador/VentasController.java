@@ -1,9 +1,13 @@
 package com.nmviajes.app.controlador;
 
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,5 +44,16 @@ public class VentasController {
 
         return "barra_registro_ventas";
     }
+    
+    
+    
+//    //Excel
+//  	@GetMapping("/export/allMejor")
+//  	public ResponseEntity<InputStreamResource> descargarMejoresVentas() throws Exception{
+//  		ByteArrayInputStream stream = servicio.exportAllVuelos();
+//  		HttpHeaders headers = new HttpHeaders();
+//  		headers.add("Content-Disposition", "attachment; filename=MejoresVentas.xls");
+//  		return ResponseEntity.ok().headers(headers).body(new InputStreamResource(stream));
+//  	}
 
 }

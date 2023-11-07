@@ -1,5 +1,6 @@
 package com.nmviajes.app.servicio;
 
+import java.io.ByteArrayInputStream;
 import java.util.List;
 
 import com.nmviajes.app.entidad.Hospedaje;
@@ -40,4 +41,6 @@ public interface UsuarioServicio {
 	public void guardarUsuarioBloqueado(Usuario usuario);
 	
 	public Usuario getUsuarioBloqueado();
+	
+	ByteArrayInputStream exportAllData() throws Exception;
 }

@@ -23,7 +23,7 @@ public class PaqueteTuristico {
     private Integer estado;
     
     @Column(name = "detalles")
-    private Integer detalles;
+    private String detalles;
     
     @Column(name = "precio")
     private Double precio;
@@ -74,11 +74,11 @@ public class PaqueteTuristico {
         this.estado = estado;
     }
 
-    public Integer getDetalles() {
+    public String getDetalles() {
         return detalles;
     }
 
-    public void setDetalles(Integer detalles) {
+    public void setDetalles(String detalles) {
         this.detalles = detalles;
     }
 
@@ -139,7 +139,7 @@ public class PaqueteTuristico {
 		this.habitaciones = habitaciones;
 	}
 
-	public PaqueteTuristico(String lugarTuristico, Integer estado, Integer detalles, Usuario usuario,
+	public PaqueteTuristico(String lugarTuristico, Integer estado, String detalles, Usuario usuario,
             Hospedaje hospedaje, Vuelo vuelo, Pago pago) {
         this.lugarTuristico = lugarTuristico;
         this.estado = estado;
@@ -150,7 +150,7 @@ public class PaqueteTuristico {
         this.pago = pago;
     }
 
-    public PaqueteTuristico(Long id, String lugarTuristico, Integer estado, Integer detalles, Usuario usuario,
+    public PaqueteTuristico(Long id, String lugarTuristico, Integer estado, String detalles, Usuario usuario,
             Hospedaje hospedaje, Vuelo vuelo, Pago pago) {
         this.id = id;
         this.lugarTuristico = lugarTuristico;
@@ -162,7 +162,7 @@ public class PaqueteTuristico {
         this.pago = pago;
     }
 
-    public PaqueteTuristico(Long id, String lugarTuristico, Integer estado, Integer detalles, Usuario usuario,
+    public PaqueteTuristico(Long id, String lugarTuristico, Integer estado, String detalles, Usuario usuario,
             Hospedaje hospedaje, Vuelo vuelo) {
         this.id = id;
         this.lugarTuristico = lugarTuristico;
@@ -173,7 +173,7 @@ public class PaqueteTuristico {
         this.vuelo = vuelo;
     }
 
-    public PaqueteTuristico(String lugarTuristico, Integer estado, Integer detalles, Usuario usuario,
+    public PaqueteTuristico(String lugarTuristico, Integer estado, String detalles, Usuario usuario,
             Hospedaje hospedaje, Vuelo vuelo) {
         this.lugarTuristico = lugarTuristico;
         this.estado = estado;
@@ -183,7 +183,7 @@ public class PaqueteTuristico {
         this.vuelo = vuelo;
     }
 
-    public PaqueteTuristico(Long id, String lugarTuristico, Integer estado, Integer detalles, Usuario usuario,
+    public PaqueteTuristico(Long id, String lugarTuristico, Integer estado, String detalles, Usuario usuario,
             Hospedaje hospedaje) {
         this.id = id;
         this.lugarTuristico = lugarTuristico;
@@ -193,7 +193,7 @@ public class PaqueteTuristico {
         this.hospedaje = hospedaje;
     }
 
-    public PaqueteTuristico(Long id, String lugarTuristico, Integer estado, Integer detalles, Usuario usuario) {
+    public PaqueteTuristico(Long id, String lugarTuristico, Integer estado, String detalles, Usuario usuario) {
         this.id = id;
         this.lugarTuristico = lugarTuristico;
         this.estado = estado;
@@ -201,7 +201,7 @@ public class PaqueteTuristico {
         this.usuario = usuario;
     }
 
-    public PaqueteTuristico(String lugarTuristico, Integer estado, Integer detalles) {
+    public PaqueteTuristico(String lugarTuristico, Integer estado, String detalles) {
 
         this.lugarTuristico = lugarTuristico;
         this.estado = estado;

@@ -32,9 +32,6 @@ public class ControladorRegistroUsuarios {
 	private UsuarioServicio usuarioServicio;
 	
 	@Autowired
-	private UsuarioServicio uServicio;
-	
-	@Autowired
 	private RolesServicio rolServicio;
 	
 	@Autowired
@@ -55,7 +52,7 @@ public class ControladorRegistroUsuarios {
 		String token = generateToken();
 		
         usu.setToken(token);
-        usu.setConfirmado(false); // El estado inicial es "no confirmado"
+        //usu.setConfirmado(false); // El estado inicial es "no confirmado"
 	
 		usu.setEnabled(false); //utilizamos el campo enable de ss
 		//usu.setNombre("patrick");
@@ -103,7 +100,7 @@ public class ControladorRegistroUsuarios {
 
         if (usuario != null && !usuario.getEnabled()) {
         	usuario.setEnabled(true);
-            usuario.setConfirmado(true); // actualizara a 1 la confirmacion en la bd
+            //usuario.setConfirmado(true); // actualizara a 1 la confirmacion en la bd
             usuarioServicio.guardar(usuario);
             System.err.println("/confirmar_email - confirmacion_exitosa");
             
@@ -156,7 +153,7 @@ public class ControladorRegistroUsuarios {
 			String token = generateToken();
 			
 	        usu.setToken(token);
-	        usu.setConfirmado(false);
+	        //usu.setConfirmado(false);
 	        usu.setEnabled(false);
 	        
 	        usuarioServicio.guardarEditado_correo(usu);

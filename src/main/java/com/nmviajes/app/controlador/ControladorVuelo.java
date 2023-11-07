@@ -22,7 +22,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Example;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -81,6 +84,8 @@ import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
 import net.sf.jasperreports.export.SimplePdfReportConfiguration;
 
 import javax.servlet.http.HttpServletResponse;
+
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -140,17 +145,6 @@ public class ControladorVuelo {
 		List<DetallePagoDTO> detalles = this.detalles;
 		detallePagoDTOImple.agregarDetalle(detalles);
 		return detalles;
-	}
-
-	@Secured("ROLE_ADMIN")
-	@GetMapping("/gestion_vuelos")
-	public String listarVuelos(Model model) throws ParseException {
-		List<Vuelo> p = servicio.listarVuelo();
-		Vuelo vuelo = new Vuelo();
-
-		model.addAttribute("user", p);
-		model.addAttribute("vuelo", vuelo);
-		return "gestion_vuelos";
 	}
 
 	@GetMapping("/armar_paquete")
@@ -274,12 +268,25 @@ public class ControladorVuelo {
 		
 		return "paquete";
 	}
+	/************************  GESTION VUELOS ****************************************/
+	
+	@Secured("ROLE_ADMIN")
+	@GetMapping("/gestion_vuelos")
+	public String listarVuelos(Model model) throws ParseException {
+		List<Vuelo> p = servicio.listarVuelo();
+		Vuelo vuelo = new Vuelo();
+
+		model.addAttribute("user", p);
+		model.addAttribute("vueloObject", vuelo);
+		return "gestion_vuelos";
+	}
 	
 
 	@Secured("ROLE_ADMIN")
 	@GetMapping("/vuelos/eliminar/{id}")
-	public String eliminarUnVuelo(@PathVariable("id") Long id, Model modelo) {
+	public String eliminarUnVuelo(@PathVariable("id") Long id, Model modelo, RedirectAttributes flash) {
 		servicio.eliminarVuelo(id);
+		flash.addFlashAttribute("msg", "Vuelo eliminado correctamente !!");
 		return "redirect:/gestion_vuelos";
 	}
 
@@ -288,43 +295,47 @@ public class ControladorVuelo {
 		return new VueloDTO();
 	}
 
+	/*@Secured("ROLE_ADMIN")
+	@PostMapping("/vueloRegistro")
+	public String registrarVuelo(@ModelAttribute("vuelo") VueloDTO registroDTO, RedirectAttributes flash) {
+		System.err.println("eNTRE NEW VUELO");
+		servicio.guardar(registroDTO);
+		
+		flash.addFlashAttribute("msg", "Vuelo registrado correctamente !!");
+		return "redirect:/gestion_vuelos";
+	}*/	
+	
 	@Secured("ROLE_ADMIN")
 	@PostMapping("/vueloRegistro")
-	public String registrarVuelo(@ModelAttribute("vuelo") VueloDTO registroDTO) {
-		servicio.guardar(registroDTO);
-		return "gestion_admin";
+	public String registrarVuelo(@ModelAttribute("vueloObject") Vuelo vu, RedirectAttributes flash) {		
+		servicio.guardarVuelo(vu);	
+		flash.addFlashAttribute("msg", "Vuelo registrado correctamente !!");
+		return "redirect:/gestion_vuelos";
 	}
 
 	@Secured("ROLE_ADMIN")
 	@GetMapping("/vuelos/editar/{id}")
 	public String mostrarFormularioModificarVuelo(@PathVariable("id") Long id, Model modelo) {
-		Vuelo p = servicio.buscarUsuarioPorId(id);// encontramos y obtenemos
-
-		System.out.println(p.getFecha() + " --> " + p.getFecha().getClass().getName());
-
-		SimpleDateFormat dateformat = new SimpleDateFormat("dd-MM-yyyy");
-		String fechaFormateada = dateformat.format(p.getFecha());
-
-		modelo.addAttribute("fechaFormateada", fechaFormateada);
-
-		// p.setFecha(fechaFormateada);
-
-		System.out.println(fechaFormateada.getClass().getName());
-		System.out.println("fechaFormateada : " + fechaFormateada);
-
-		
-
-		modelo.addAttribute("vuelo", p);
-
+		Vuelo vuelo = servicio.buscarUsuarioPorId(id);// encontramos y obtenemos
+		modelo.addAttribute("vueloEdit", vuelo);
 		return "gestion_vuelos_editar";
 	}
-
+	
 	@Secured("ROLE_ADMIN")
+	@PostMapping("/vueloRegistroEditado")
+	public String registrarVueloEditado(@ModelAttribute("vueloEdit") Vuelo vu, RedirectAttributes flash) {
+		System.err.println(vu.getFechaPartida());
+		servicio.guardarEditado_2(vu);
+		flash.addFlashAttribute("msg", "Vuelo editado correctamente !!");
+		return "redirect:/gestion_vuelos";
+	}
+
+	/*@Secured("ROLE_ADMIN")
 	@PostMapping("/vueloRegistroEditado")
 	public String registrarVueloEditado(@ModelAttribute("vuelo") VueloDTO registroDTO) {
 		servicio.guardarEditado(registroDTO);
 		return "gestion_admin";
-	}
+	}*/
 
 	@Secured("ROLE_ADMIN")
 	@GetMapping("/gestion_vuelos_editar")
@@ -332,6 +343,18 @@ public class ControladorVuelo {
 
 		return "gestion_vuelos_editar";
 	}
+	
+	//Excel
+	@GetMapping("/export/allVuelos")
+	public ResponseEntity<InputStreamResource> descargarVuelos() throws Exception{
+		ByteArrayInputStream stream = servicio.exportAllVuelos();
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Disposition", "attachment; filename=vuelos.xls");
+		return ResponseEntity.ok().headers(headers).body(new InputStreamResource(stream));
+	}
+	
+	
+	/**********************************  FIN GESTION VUELOS  **************************************************/
 
 	// carrtio de compras
 	@GetMapping("/ejemplo_paquete")
@@ -575,18 +598,7 @@ public class ControladorVuelo {
 
 	/////////////////////////////////////// GESTION PAQUETES TURISTICOS
 	/////////////////////////////////////// ///////////////////////////////////////////////////////////////////////////////////////////////
-	@Secured({ "ROLE_ADMIN" })
-	@GetMapping("/gestion_paqueteTuristico")
-	public String listarPaquetes(Model model) {
-
-		List<PaqueteTuristico> listaPaquete = servicePaquete.listarPaqueteTuristicos();
-		PaqueteTuristico paquete = new PaqueteTuristico();
-
-		model.addAttribute("listaPaquete", listaPaquete);
-		model.addAttribute("paquete", paquete);
-
-		return "gestionPaqueteTuristico";
-	}
+	
 
 	/* CARRITO PAQUETE */
 	@Secured({ "ROLE_USER", "ROLE_ADMIN" })
@@ -612,7 +624,7 @@ public class ControladorVuelo {
 		return "redirect:/order";
 	}
 
-	/*******************/
+	/********************************************************************************************/
 
 	@Secured({ "ROLE_USER", "ROLE_ADMIN" })
 	@PostMapping("/success_11")

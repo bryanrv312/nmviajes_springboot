@@ -176,9 +176,7 @@
 								<span class="input-group-append"> </span>
 							</div>
 						</div>
-					
-					
-					
+								
 						<div class="m-1">
 							<button class="btn btn-danger" type="submit">Buscar</button>
 						</div>
@@ -191,7 +189,8 @@
 					<!-- Finaliza campos para filtrar vuelos. -->
 
           <div class="container mt-4" th:action="@{/vuelos/comprar}" method="post">
-            <!-- <input type="hidden" th:field="*{id}" th:value="${vuelo.id}">-->
+            <!-- <input type="hidden" th:field="*{id}" th:value="${vuelo.id}">-->       
+            
             <div   style="display: block;
 						  padding: 1em 2em;
 						  margin: 1em auto;
@@ -199,6 +198,11 @@
 						  background-color: rgb(255, 255, 255);
 						  font-size: .85em;" 
 				   class="article-loop d-flex d-flex justify-content-between rounded" th:each="v:${vuelo}">
+				   
+			  <div>
+			  	<img th:src="@{/img/iquitos.jpg}" alt="imagen" style="max-width: 350px; height: 200px; display: block; " />
+			  </div>
+			  
               <div>
 <!--                 <p class="text-secondary fs-6">6:30 - 7:51</p> -->
 				<p th:text="${v.fechaPartida}" class="text-secondary fs-6"></p>
@@ -344,218 +348,218 @@
       <!-- Finaliza contenido de hoteles. -->
 
       <!-- Comienza contenido de pago. -->
-      <div class="tab-pane fade" id="pagos" role="tabpanel" aria-labelledby="pagos-tab">
-        <div class="m-3 mt-5">
-          <h4 class="mt-2 fw-bold">¿Cómo deseas pagar?</h4>
-          <div class="mt-4 form-check">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1"
-              checked />
-            <label class="form-check-label" for="exampleRadios1">
-              Tarjeta
-            </label>
-          </div>
-        </div>
+<!--       <div class="tab-pane fade" id="pagos" role="tabpanel" aria-labelledby="pagos-tab"> -->
+<!--         <div class="m-3 mt-5"> -->
+<!--           <h4 class="mt-2 fw-bold">¿Cómo deseas pagar?</h4> -->
+<!--           <div class="mt-4 form-check"> -->
+<!--             <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" -->
+<!--               checked /> -->
+<!--             <label class="form-check-label" for="exampleRadios1"> -->
+<!--               Tarjeta -->
+<!--             </label> -->
+<!--           </div> -->
+<!--         </div> -->
 
-        <div class="m-3 mt-5">
-          <h4 class="mt-2 fw-bold">Ingresa los datos de la tarjeta</h4>
-          <div class="d-flex flex-row">
-            <div class="mt-3">
-              <label for="" class="form-label">Número de Tarjeta</label>
-              <input type="text" class="form-control" id="" aria-describedby="" />
+<!--         <div class="m-3 mt-5"> -->
+<!--           <h4 class="mt-2 fw-bold">Ingresa los datos de la tarjeta</h4> -->
+<!--           <div class="d-flex flex-row"> -->
+<!--             <div class="mt-3"> -->
+<!--               <label for="" class="form-label">Número de Tarjeta</label> -->
+<!--               <input type="text" class="form-control" id="" aria-describedby="" /> -->
 
-              <label for="" class="mt-3 form-label">Vencimiento</label>
-              <input type="text" class="form-control" id="" aria-describedby="" />
+<!--               <label for="" class="mt-3 form-label">Vencimiento</label> -->
+<!--               <input type="text" class="form-control" id="" aria-describedby="" /> -->
 
-              <label for="" class="mt-3 form-label">Código de Seguridad</label>
-              <input type="text" class="form-control" id="" aria-describedby="" />
-            </div>
+<!--               <label for="" class="mt-3 form-label">Código de Seguridad</label> -->
+<!--               <input type="text" class="form-control" id="" aria-describedby="" /> -->
+<!--             </div> -->
 
-            <div class="mt-3 mx-3">
-              <label for="" class="form-label">Titular de la Tarjeta</label>
-              <input type="text" class="form-control" id="" aria-describedby="" />
+<!--             <div class="mt-3 mx-3"> -->
+<!--               <label for="" class="form-label">Titular de la Tarjeta</label> -->
+<!--               <input type="text" class="form-control" id="" aria-describedby="" /> -->
 
-              <label for="" class="mt-3 form-label">Documento del Titular de la Tarjeta</label>
-              <input type="text" class="form-control" id="" aria-describedby="" />
-            </div>
-          </div>
-        </div>
+<!--               <label for="" class="mt-3 form-label">Documento del Titular de la Tarjeta</label> -->
+<!--               <input type="text" class="form-control" id="" aria-describedby="" /> -->
+<!--             </div> -->
+<!--           </div> -->
+<!--         </div> -->
 
-        <div class="m-3 mt-5">
-          <h4 class="mt-2 fw-bold">¿Quiénes viajan?</h4>
+<!--         <div class="m-3 mt-5"> -->
+<!--           <h4 class="mt-2 fw-bold">¿Quiénes viajan?</h4> -->
 
-          <div>
-            <p class="fs-5 mt-4 text-secondary">Pasajero 1</p>
-            <div class="d-flex flex-row">
-              <div class="mt-3">
-                <label for="" class="form-label">Nombres</label>
-                <input type="text" class="form-control" id="" aria-describedby="" />
+<!--           <div> -->
+<!--             <p class="fs-5 mt-4 text-secondary">Pasajero 1</p> -->
+<!--             <div class="d-flex flex-row"> -->
+<!--               <div class="mt-3"> -->
+<!--                 <label for="" class="form-label">Nombres</label> -->
+<!--                 <input type="text" class="form-control" id="" aria-describedby="" /> -->
 
-                <label for="" class="mt-3 form-label">Apellidos</label>
-                <input type="text" class="form-control" id="" aria-describedby="" />
+<!--                 <label for="" class="mt-3 form-label">Apellidos</label> -->
+<!--                 <input type="text" class="form-control" id="" aria-describedby="" /> -->
 
-                <label for="" class="mt-3 form-label">Tipo y Número de Documento</label>
-                <select class="form-select" aria-label="Default select example">
-                  <option selected>...</option>
-                  <option value="1">DNI</option>
-                  <option value="2">Pasaporte</option>
-                </select>
-                <input type="text" class="mt-3 form-control" id="" aria-describedby="" />
-              </div>
+<!--                 <label for="" class="mt-3 form-label">Tipo y Número de Documento</label> -->
+<!--                 <select class="form-select" aria-label="Default select example"> -->
+<!--                   <option selected>...</option> -->
+<!--                   <option value="1">DNI</option> -->
+<!--                   <option value="2">Pasaporte</option> -->
+<!--                 </select> -->
+<!--                 <input type="text" class="mt-3 form-control" id="" aria-describedby="" /> -->
+<!--               </div> -->
 
-              <div class="mx-3">
-                <label for="" class="mt-3 form-label">País de Residencia</label>
-                <select class="form-select" aria-label="Default select example">
-                  <option selected>...</option>
-                  <option value="1">Perú</option>
-                  <option value="2">Argentina</option>
-                  <option value="3">Francia</option>
-                </select>
+<!--               <div class="mx-3"> -->
+<!--                 <label for="" class="mt-3 form-label">País de Residencia</label> -->
+<!--                 <select class="form-select" aria-label="Default select example"> -->
+<!--                   <option selected>...</option> -->
+<!--                   <option value="1">Perú</option> -->
+<!--                   <option value="2">Argentina</option> -->
+<!--                   <option value="3">Francia</option> -->
+<!--                 </select> -->
 
-                <div class="">
-                  <label for="" class="mt-3 form-label">Fecha de Nacimiento</label>
-                  <div class="input-group date" id="datepicker_3">
-                    <input type="text" class="form-control" id="date" />
-                    <span class="input-group-append"> </span>
-                  </div>
-                </div>
+<!--                 <div class=""> -->
+<!--                   <label for="" class="mt-3 form-label">Fecha de Nacimiento</label> -->
+<!--                   <div class="input-group date" id="datepicker_3"> -->
+<!--                     <input type="text" class="form-control" id="date" /> -->
+<!--                     <span class="input-group-append"> </span> -->
+<!--                   </div> -->
+<!--                 </div> -->
 
-                <div class="">
-                  <label for="" class="mt-3 form-label">Sexo</label>
-                  <select class="form-select" aria-label="Default select example">
-                    <option selected>...</option>
-                    <option value="1">Masculino</option>
-                    <option value="2">Femenino</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div>
+<!--                 <div class=""> -->
+<!--                   <label for="" class="mt-3 form-label">Sexo</label> -->
+<!--                   <select class="form-select" aria-label="Default select example"> -->
+<!--                     <option selected>...</option> -->
+<!--                     <option value="1">Masculino</option> -->
+<!--                     <option value="2">Femenino</option> -->
+<!--                   </select> -->
+<!--                 </div> -->
+<!--               </div> -->
+<!--             </div> -->
+<!--           </div> -->
 
-          <div class="mt-5">
-            <hr>
-            <p class="fs-5 mt-4 text-secondary">Pasajero 2</p>
-            <div class="d-flex flex-row">
-              <div class="mt-3">
-                <label for="" class="form-label">Nombres</label>
-                <input type="text" class="form-control" id="" aria-describedby="" />
+<!--           <div class="mt-5"> -->
+<!--             <hr> -->
+<!--             <p class="fs-5 mt-4 text-secondary">Pasajero 2</p> -->
+<!--             <div class="d-flex flex-row"> -->
+<!--               <div class="mt-3"> -->
+<!--                 <label for="" class="form-label">Nombres</label> -->
+<!--                 <input type="text" class="form-control" id="" aria-describedby="" /> -->
 
-                <label for="" class="mt-3 form-label">Apellidos</label>
-                <input type="text" class="form-control" id="" aria-describedby="" />
+<!--                 <label for="" class="mt-3 form-label">Apellidos</label> -->
+<!--                 <input type="text" class="form-control" id="" aria-describedby="" /> -->
 
-                <label for="" class="mt-3 form-label">Tipo y Número de Documento</label>
-                <select class="form-select" aria-label="Default select example">
-                  <option selected>...</option>
-                  <option value="1">DNI</option>
-                  <option value="2">Pasaporte</option>
-                </select>
-                <input type="text" class="mt-3 form-control" id="" aria-describedby="" />
-              </div>
+<!--                 <label for="" class="mt-3 form-label">Tipo y Número de Documento</label> -->
+<!--                 <select class="form-select" aria-label="Default select example"> -->
+<!--                   <option selected>...</option> -->
+<!--                   <option value="1">DNI</option> -->
+<!--                   <option value="2">Pasaporte</option> -->
+<!--                 </select> -->
+<!--                 <input type="text" class="mt-3 form-control" id="" aria-describedby="" /> -->
+<!--               </div> -->
 
-              <div class="mx-3">
-                <label for="" class="mt-3 form-label">País de Residencia</label>
-                <select class="form-select" aria-label="Default select example">
-                  <option selected>...</option>
-                  <option value="1">Perú</option>
-                  <option value="2">Argentina</option>
-                  <option value="3">Francia</option>
-                </select>
+<!--               <div class="mx-3"> -->
+<!--                 <label for="" class="mt-3 form-label">País de Residencia</label> -->
+<!--                 <select class="form-select" aria-label="Default select example"> -->
+<!--                   <option selected>...</option> -->
+<!--                   <option value="1">Perú</option> -->
+<!--                   <option value="2">Argentina</option> -->
+<!--                   <option value="3">Francia</option> -->
+<!--                 </select> -->
 
-                <div class="">
-                  <label for="" class="mt-3 form-label">Fecha de Nacimiento</label>
-                  <div class="input-group date" id="datepicker_3">
-                    <input type="text" class="form-control" id="date" />
-                    <span class="input-group-append"> </span>
-                  </div>
-                </div>
+<!--                 <div class=""> -->
+<!--                   <label for="" class="mt-3 form-label">Fecha de Nacimiento</label> -->
+<!--                   <div class="input-group date" id="datepicker_3"> -->
+<!--                     <input type="text" class="form-control" id="date" /> -->
+<!--                     <span class="input-group-append"> </span> -->
+<!--                   </div> -->
+<!--                 </div> -->
 
-                <div class="">
-                  <label for="" class="mt-3 form-label">Sexo</label>
-                  <select class="form-select" aria-label="Default select example">
-                    <option selected>...</option>
-                    <option value="1">Masculino</option>
-                    <option value="2">Femenino</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div>
+<!--                 <div class=""> -->
+<!--                   <label for="" class="mt-3 form-label">Sexo</label> -->
+<!--                   <select class="form-select" aria-label="Default select example"> -->
+<!--                     <option selected>...</option> -->
+<!--                     <option value="1">Masculino</option> -->
+<!--                     <option value="2">Femenino</option> -->
+<!--                   </select> -->
+<!--                 </div> -->
+<!--               </div> -->
+<!--             </div> -->
+<!--           </div> -->
 
-          <div class="mt-5">
-            <hr>
-            <p class="fs-5 mt-4 text-secondary">Pasajero 3</p>
-            <div class="d-flex flex-row">
-              <div class="mt-3">
-                <label for="" class="form-label">Nombres</label>
-                <input type="text" class="form-control" id="" aria-describedby="" />
+<!--           <div class="mt-5"> -->
+<!--             <hr> -->
+<!--             <p class="fs-5 mt-4 text-secondary">Pasajero 3</p> -->
+<!--             <div class="d-flex flex-row"> -->
+<!--               <div class="mt-3"> -->
+<!--                 <label for="" class="form-label">Nombres</label> -->
+<!--                 <input type="text" class="form-control" id="" aria-describedby="" /> -->
 
-                <label for="" class="mt-3 form-label">Apellidos</label>
-                <input type="text" class="form-control" id="" aria-describedby="" />
+<!--                 <label for="" class="mt-3 form-label">Apellidos</label> -->
+<!--                 <input type="text" class="form-control" id="" aria-describedby="" /> -->
 
-                <label for="" class="mt-3 form-label">Tipo y Número de Documento</label>
-                <select class="form-select" aria-label="Default select example">
-                  <option selected>...</option>
-                  <option value="1">DNI</option>
-                  <option value="2">Pasaporte</option>
-                </select>
-                <input type="text" class="mt-3 form-control" id="" aria-describedby="" />
-              </div>
+<!--                 <label for="" class="mt-3 form-label">Tipo y Número de Documento</label> -->
+<!--                 <select class="form-select" aria-label="Default select example"> -->
+<!--                   <option selected>...</option> -->
+<!--                   <option value="1">DNI</option> -->
+<!--                   <option value="2">Pasaporte</option> -->
+<!--                 </select> -->
+<!--                 <input type="text" class="mt-3 form-control" id="" aria-describedby="" /> -->
+<!--               </div> -->
 
-              <div class="mx-3">
-                <label for="" class="mt-3 form-label">País de Residencia</label>
-                <select class="form-select" aria-label="Default select example">
-                  <option selected>...</option>
-                  <option value="1">Perú</option>
-                  <option value="2">Argentina</option>
-                  <option value="3">Francia</option>
-                </select>
+<!--               <div class="mx-3"> -->
+<!--                 <label for="" class="mt-3 form-label">País de Residencia</label> -->
+<!--                 <select class="form-select" aria-label="Default select example"> -->
+<!--                   <option selected>...</option> -->
+<!--                   <option value="1">Perú</option> -->
+<!--                   <option value="2">Argentina</option> -->
+<!--                   <option value="3">Francia</option> -->
+<!--                 </select> -->
 
-                <div class="">
-                  <label for="" class="mt-3 form-label">Fecha de Nacimiento</label>
-                  <div class="input-group date" id="datepicker_3">
-                    <input type="text" class="form-control" id="date" />
-                    <span class="input-group-append"> </span>
-                  </div>
-                </div>
+<!--                 <div class=""> -->
+<!--                   <label for="" class="mt-3 form-label">Fecha de Nacimiento</label> -->
+<!--                   <div class="input-group date" id="datepicker_3"> -->
+<!--                     <input type="text" class="form-control" id="date" /> -->
+<!--                     <span class="input-group-append"> </span> -->
+<!--                   </div> -->
+<!--                 </div> -->
 
-                <div class="">
-                  <label for="" class="mt-3 form-label">Sexo</label>
-                  <select class="form-select" aria-label="Default select example">
-                    <option selected>...</option>
-                    <option value="1">Masculino</option>
-                    <option value="2">Femenino</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+<!--                 <div class=""> -->
+<!--                   <label for="" class="mt-3 form-label">Sexo</label> -->
+<!--                   <select class="form-select" aria-label="Default select example"> -->
+<!--                     <option selected>...</option> -->
+<!--                     <option value="1">Masculino</option> -->
+<!--                     <option value="2">Femenino</option> -->
+<!--                   </select> -->
+<!--                 </div> -->
+<!--               </div> -->
+<!--             </div> -->
+<!--           </div> -->
+<!--         </div> -->
 
-        <div class="m-3 mt-5">
-          <h4 class="mt-2 fw-bold">¿A dónde enviamos tus vouchers?</h4>
-          <label for="" class="mt-3 form-label">Email (donde recibirás tus vouchers)</label>
-          <input type="text" class="w-25 form-control" id="" aria-describedby="" />
-        </div>
+<!--         <div class="m-3 mt-5"> -->
+<!--           <h4 class="mt-2 fw-bold">¿A dónde enviamos tus vouchers?</h4> -->
+<!--           <label for="" class="mt-3 form-label">Email (donde recibirás tus vouchers)</label> -->
+<!--           <input type="text" class="w-25 form-control" id="" aria-describedby="" /> -->
+<!--         </div> -->
 
-        <div class="m-3 mt-5 form-check">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-          <label class="form-check-label" for="flexCheckDefault">
-            Leí y acepto las condiciones de compra , políticas de privacidad y políticas de cambios y cancelaciones.
-          </label>
-        </div>
+<!--         <div class="m-3 mt-5 form-check"> -->
+<!--           <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"> -->
+<!--           <label class="form-check-label" for="flexCheckDefault"> -->
+<!--             Leí y acepto las condiciones de compra , políticas de privacidad y políticas de cambios y cancelaciones. -->
+<!--           </label> -->
+<!--         </div> -->
 
-        <div class="container d-flex justify-content-between">
-          <button class="m-3 btn btn-primary">Anterior</button>
-          <button class="m-3 btn btn-success">Comprar</button>
-        </div>
-
-
+<!--         <div class="container d-flex justify-content-between"> -->
+<!--           <button class="m-3 btn btn-primary">Anterior</button> -->
+<!--           <button class="m-3 btn btn-success">Comprar</button> -->
+<!--         </div> -->
 
 
 
-      </div>
+
+
+<!--       </div> -->
       <!-- Finaliza contenido de pago. -->
     </div>
-    </div>
+    
   </main>
   <!-- Finaliza main. -->
 

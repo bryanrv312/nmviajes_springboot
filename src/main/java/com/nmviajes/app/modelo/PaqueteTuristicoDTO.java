@@ -10,7 +10,7 @@ public class PaqueteTuristicoDTO {
 	
 	private Integer estado;
    
-	private Integer detalles;
+	private String detalles;
 
     private Usuario usuario;
 
@@ -38,11 +38,11 @@ public class PaqueteTuristicoDTO {
         this.estado = estado;
     }
 
-    public Integer getDetalles() {
+    public String getDetalles() {
         return detalles;
     }
 
-    public void setDetalles(Integer detalles) {
+    public void setDetalles(String detalles) {
         this.detalles = detalles;
     }
 
@@ -54,7 +54,7 @@ public class PaqueteTuristicoDTO {
         this.usuario = usuario;
     }
 
-    public PaqueteTuristicoDTO(Long id, String lugarTuristico, Integer estado, Integer detalles, Usuario usuario) {
+    public PaqueteTuristicoDTO(Long id, String lugarTuristico, Integer estado, String detalles, Usuario usuario) {
         this.id = id;
         this.lugarTuristico = lugarTuristico;
         this.estado = estado;

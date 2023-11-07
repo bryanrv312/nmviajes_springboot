@@ -52,6 +52,11 @@ f.org">
 			<li class="ps-4"><a href="/gestion_hoteles"><i
 					class="fa-solid fa-hotel"></i><span class="text-white">Gestión
 						de Hoteles</span></a></li>
+			<li class="ps-4">
+		        <a href="/gestion_paqueteTuristico"><i 
+		        	class="fas fa-box-open"></i><span class="text-white">Gestión de
+		            Paquetes</span></a>
+		    </li>
 			<br />
 			<li class="ps-4"><a href="/registro_ventas" class="text-white"><i
 					class="fa fa-shopping-cart" aria-hidden="true"></i><span
@@ -107,10 +112,11 @@ f.org">
 				<div class="row flex-lg-nowrap">
 					<div class="col mb-3">
 						<div class="e-panel card">
+							<div class="card-header bg-danger text-white py-3">
+			                	<h4 class="font-weight-bolder">Editar Vuelo </h4>
+			                </div>
 							<div class="card-body">
-								<form class="form" novalidate=""
-									th:action="@{/vueloRegistroEditado}" method="post"
-									th:object="${vuelo}">
+								<form class="form" th:action="@{/vueloRegistroEditado}" method="post" th:object="${vueloEdit}">
 									<input type="hidden" th:field="*{id}" th:value="${vuelo.id}">
 									<div class="row">
 										<div class="col">
@@ -154,10 +160,20 @@ f.org">
 											<div class="row">
 												<div class="col">
 													<div class="form-group">
-														<label for="fecha">Fecha</label>
+														<label for="fecha">Fecha de Partida</label>
 														<!--                             <input class="form-control"  id="fecha" type="date"  th:value="${fechaFormateada}" /> -->
 														<input class="form-control" id="fecha" type="date"
-															th:field="*{fecha}" required />
+															th:field="*{fechaPartida}" required />
+													</div>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col">
+													<div class="form-group">
+														<label for="fecha">Fecha de Regreso</label>
+														<!--                             <input class="form-control"  id="fecha" type="date"  th:value="${fechaFormateada}" /> -->
+														<input class="form-control" id="fecha" type="date"
+															th:field="*{fechaRegreso}" required />
 													</div>
 												</div>
 											</div>
@@ -174,8 +190,7 @@ f.org">
 									</div>
 									<div class="row">
 										<div class="col d-flex justify-content-end">
-											<button class="btn btn-primary" type="submit">
-												Guardar</button>
+											<button class="btn btn-danger" type="submit">Edtar</button>
 										</div>
 									</div>
 								</form>
@@ -199,12 +214,12 @@ f.org">
 				<div class="col-md-6">
 					<nav class="d-flex">
 						<ul class="m-0 p-0">
-							<li><a href="#"> Inicio </a></li>
+<!-- 							<li><a href="#"> Inicio </a></li> -->
 						</ul>
 					</nav>
 				</div>
 				<div class="col-md-6">
-					<p class="copyright d-flex justify-content-end">Copyright 2021
+					<p class="copyright d-flex justify-content-end">Copyright 2023
 						nmviajes All Rights Reserved.</p>
 				</div>
 			</div>

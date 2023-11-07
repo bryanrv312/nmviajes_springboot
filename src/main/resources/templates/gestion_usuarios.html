@@ -57,6 +57,10 @@
         <a href="/gestion_hoteles"><i class="fa-solid fa-hotel"></i><span class="text-white">Gestión de
             Hoteles</span></a>
       </li>
+      <li class="ps-4">
+        <a href="/gestion_paqueteTuristico"><i class="fas fa-box-open"></i><span class="text-white">Gestión de
+            Paquetes</span></a>
+      </li>
       <br />
       <li class="ps-4">
         <a href="/registro_ventas" class="text-white"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span
@@ -209,10 +213,16 @@
 				            </a>
 				        </div>
 				        
+				        <div class="text-center mt-3">
+				            <a class="btn btn-success btn-lg btn-block" th:href="@{/export/all}">
+				                <i class="fas fa-file-excel"></i> Exportar Datos
+				            </a>
+				        </div>
+				        
 				         <div class="text-center mt-3">
 	<!-- 						            <a id="mostrarIdBtn" class="btn btn-success btn-lg btn-block"  th:href="@{'/usuario/enviar_correo'+'/'+ ${idCapturado}}"> -->
-				            <a id="mostrarIdBtn" class="btn btn-success btn-lg btn-block"  >
-				                <i class="far fa-envelope"></i> Enviar Correo
+				            <a id="mostrarIdBtn" class="btn btn-danger btn-lg btn-block"  style="color: #ffffff;">
+				                <i class="fas fa-envelope" style="color: #ffffff;"></i> Enviar Correo
 				            </a>
 				            <div hidden><span id="idHidden"></span></div>  
 				            <span id="idCapturado"></span>

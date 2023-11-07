@@ -42,7 +42,7 @@ public class Usuario{
 	private String token;
 	
 	@Column(name = "confirmado")
-	private boolean confirmado;
+	private boolean confirmado = true;
 
 	//@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "user_id")
@@ -100,7 +100,7 @@ public class Usuario{
 		this.password = password;
 		this.rol = rol;
 		this.token = token;
-		this.confirmado = confirmado;
+		this.confirmado = true;
 	}
 
 	public Long getId() {

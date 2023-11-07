@@ -149,11 +149,17 @@
 					<h2 class="text-center">Opciones</h2>
 			        <p>Contenido - multiples opciones.</p>			  
 				  
-			         <div class="text-center mt-3">
-	                   <a class="btn btn-success btn-lg btn-block" href="/mejores-ventas">
-	                  	 <i class="fa fa-line-chart "></i>  Ver en Grafico 
+			         <div class="text-center mt-3 ">
+	                   <a class="btn btn-warning btn-lg btn-block " href="/mejores-ventas">
+	                  	 <i class="fas fa-line-chart"></i>  Ver en Grafico 
 	                   </a>
 	                 </div>
+	                 
+	                 <div class="text-center mt-3">
+				       <a class="btn btn-success btn-lg btn-block" th:href="@{/export/mejor}">
+				         <i class="fas fa-file-excel"></i> Exportar Datos
+				       </a>
+					 </div>
 	                 <br>
 	                 
 		        </div>
