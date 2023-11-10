@@ -42,6 +42,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.nmviajes.app.PaypalService;
@@ -61,6 +62,7 @@ import com.nmviajes.app.servicio.PaqueteTuristicoServicioImpl;
 import com.nmviajes.app.servicio.UsuarioServicio;
 import com.nmviajes.app.servicio.VueloServicioImpl;
 import com.nmviajes.app.servicio.utils.GenerarReportes;
+import com.nmviajes.app.servicio.utils.Utileria;
 
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -184,11 +186,10 @@ public class ControladorVuelo {
 	public String buscarPorFecha(@ModelAttribute("search_vuelo") Vuelo vuelo, Model model) {
 		System.out.println("vuelo fecha partida: " + vuelo.getFechaPartida());
 		System.out.println("vuelo fecha regreso: " + vuelo.getFechaRegreso());
-		
+		vuelo.setImagen(null);//controlara el valor por defecto de imagen a null para q el example o tome como null
 		Example<Vuelo> example = Example.of(vuelo);
 		List<Vuelo> listaVuelos = servicio.buscarByExample(example);
 		model.addAttribute("vuelo", listaVuelos);
-		
 		return "armar_paquete";
 	}
 	
@@ -307,7 +308,17 @@ public class ControladorVuelo {
 	
 	@Secured("ROLE_ADMIN")
 	@PostMapping("/vueloRegistro")
-	public String registrarVuelo(@ModelAttribute("vueloObject") Vuelo vu, RedirectAttributes flash) {		
+	public String registrarVuelo(@ModelAttribute("vueloObject") Vuelo vu, RedirectAttributes flash, 
+								 @RequestParam("archivoImagen") MultipartFile multiPart) {		
+		
+		if (!multiPart.isEmpty()) {
+			String ruta = "c:/nmviajes/img-vuelos/";
+			String nombreImagen = Utileria.guardarArchivo(multiPart, ruta);
+			if (nombreImagen != null) { // La imagen si se subio
+				vu.setImagen(nombreImagen);
+			}
+		}
+		
 		servicio.guardarVuelo(vu);	
 		flash.addFlashAttribute("msg", "Vuelo registrado correctamente !!");
 		return "redirect:/gestion_vuelos";

@@ -41,6 +41,9 @@ public class Vuelo {
     @Column(name = "precio")
     private Double precio;
     
+    @Column(name = "imagen")
+    private String imagen = "no-image.png";
+    
     //@Column(name = "fechaPartida", columnDefinition = "DATE")
     @Column(name = "fechaPartida")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -116,11 +119,17 @@ public class Vuelo {
 	public void setFechaRegreso(LocalDate fechaRegreso) {
 		this.fechaRegreso = fechaRegreso;
 	}
-	
-	
+
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
 
 	public Vuelo(Long id, String origen, String destino, String aerolinea, Integer pasajeros, Date fecha, Double precio,
-			LocalDate fechaPartida, LocalDate fechaRegreso) {
+			LocalDate fechaPartida, LocalDate fechaRegreso, String imagen) {
 		super();
 		this.id = id;
 		this.origen = origen;
@@ -131,6 +140,7 @@ public class Vuelo {
 		this.precio = precio;
 		this.fechaPartida = fechaPartida;
 		this.fechaRegreso = fechaRegreso;
+		this.imagen = imagen;
 	}
 
 	public Vuelo(String origen, String destino, String aerolinea, Date fecha, Double precio) {
@@ -216,16 +226,19 @@ public class Vuelo {
     public void setAerolinea(String aerolinea) {
         this.aerolinea = aerolinea;
     }
-
+    
+    
+    /*cambiar imagen a null para q el example haga el match correspondiente en search_2*/
+    public void reset() {
+    	this.imagen = null;
+    }
+    
+    
 	@Override
 	public String toString() {
 		return "Vuelo [id=" + id + ", origen=" + origen + ", destino=" + destino + ", aerolinea=" + aerolinea
-				+ ", pasajeros=" + pasajeros + ", fecha=" + fecha + ", precio=" + precio + ", fechaPartida="
-				+ fechaPartida + ", fechaRegreso=" + fechaRegreso + "]";
+				+ ", pasajeros=" + pasajeros + ", fecha=" + fecha + ", precio=" + precio + ", imagen=" + imagen
+				+ ", fechaPartida=" + fechaPartida + ", fechaRegreso=" + fechaRegreso + "]";
 	}
-    
-    
-    
-    
     
 }

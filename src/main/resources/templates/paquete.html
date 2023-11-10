@@ -23,11 +23,34 @@
 
 
 <!-- Font Awesome -->
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+
+<style>
+	.background-image-2 {
+		background-image: url('/img/fondo_avion_paquete.jpg'); 
+		/* Reemplaza 'ruta-de-tu-imagen.jpg' con la ruta de tu imagen de fondo */
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-attachment: fixed;
+		background-position: center;
+		/*opacity: 0.83;*/
+		
+	}
+	.text-white {
+		text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+		/* Ajusta los valores según sea necesario */
+	}
+	.text-yellow {
+		color: yellow;
+	}
+	.text-shadow {
+		text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+	}
+</style>
+		
 </head>
 
-<body>
+<body class="background-image-2">
   <!-- Comienza barra de navegación. -->
   <header>
     <div class="container_barra_navegacion">
@@ -157,63 +180,61 @@
 		</form>    
   
   
-  <main>
-    <div class="container mt-3 mb-3">
+  <main class="">
+    <div class="container mt-3 mb-3 " th:each="pq:${listaPaquete}">
 <!--     <h1 class="fw-bold fs-3">Selecciona Tu Paquete</h1> -->
 
     <br>
-    	<style>
-		  .background-image {
-		    background-image: url('/img/fondo_avion_paquete.jpg'); /* Reemplaza 'ruta-de-tu-imagen.jpg' con la ruta de tu imagen de fondo */
-		    background-size: cover;
-		    /*background-repeat: no-repeat;*/
-		    /*background-attachment: fixed;*/
-		    background-position: center;
-		  }
-		</style>
+    	
    
     	<div class="container mt-4 "  >
             <!-- <input type="hidden" th:field="*{id}" th:value="${vuelo.id}">-->
-            <div style="display: block;
-						  padding: 1em 2em;
-						  margin: 1em auto;
-						  border: 1px solid rgb(197, 197, 197);
-						  background-color: rgb(255, 255, 255);
-						  font-size: .85em;"  class="background-image article-loop  d-flex justify-content-between " th:each="pq:${listaPaquete}">
+            <div  th:style="'background:url(' + @{/logos/{imgTemp} (imgTemp=${pq.vuelo.imagen})} + '); 
+            	  display: block; padding: 1em 2em;
+				  margin: 1em auto;
+				  border: 1px solid rgb(197, 197, 197);
+				  background-color: rgb(255, 255, 255);
+				  font-size: .85em;
+				  background-size: cover;
+				  background-position: center;
+				  
+				  '"
+				  class=" article-loop  d-flex justify-content-between ">
               <div>
 <!--               	<h3 class="display-8 text-danger">Vuelo</h3> -->
-				<h3 th:text="'Paquete ' + ${pq.id}" class="fw-bold fs-3 text-danger "></h3>
-                <p th:text="${pq.vuelo.fechaPartida}" class="text-secondary fs-6"></p>
+				<h3 th:text="'Paquete ' + ${pq.id}" class="fw-bold fs-2 text-black text-shadow "></h3>
+				
+                <p th:text="${pq.vuelo.fechaPartida}" class="text-white fw-bold fs-6"></p>
                 <ul style="list-style-type: none;" class="fw-bold">
-                  <li class="fw-bold fs-3 text-success" style="float: left; margin-left:-35px; margin-right: 20px;
+                  <li class="fw-bold fs-3 text-white" style="float: left; margin-left:-35px; margin-right: 20px;
                        padding: 0 4px;" th:text="${pq.vuelo.origen}"> </li>
-                  <li class="fw-bold fs-3 text-success" style="float: left;  margin-right: 20px;
+                  <li class="fw-bold fs-3 text-white" style="float: left;  margin-right: 20px;
                        padding: 0 4px;"> - </li> 
-                  <li class="fw-bold fs-3 text-success" style="float: left;  margin-right: 20px;
+                  <li class="fw-bold fs-3 text-white" style="float: left;  margin-right: 20px;
                        padding: 0 4px;" th:text="${pq.vuelo.destino}"> </li> 
-                  <li class="fw-bold fs-3 text-success" style="float: left;  margin-right: 20px;
+                  <li class="fw-bold fs-3 text-white" style="float: left;  margin-right: 20px;
                        padding: 0 4px;"> - </li> 
-                  <li class="fw-bold fs-3 text-success" style="float: left;   margin-right: 20px;
+                  <li class="fw-bold fs-3 text-white" style="float: left;   margin-right: 20px;
                        padding: 0 4px;" th:text="${pq.vuelo.aerolinea}"> </li> 
-                  <li class="fw-bold fs-3 text-success" style="float: left;   margin-right: 20px;
+                  <li class="fw-bold fs-3 text-white" style="float: left;   margin-right: 20px;
                        padding: 0 4px;">(Peru)</li> 
                 </ul>
 
                 
 
-                <p th:text="${pq.vuelo.fechaRegreso}" class="text-secondary fs-6"></p>
+                <p th:text="${pq.vuelo.fechaRegreso}" class="text-white fw-bold fs-6"></p>
                 <ul style="list-style-type: none;" class="fw-bold">
-                  <li class="fw-bold fs-3 text-success" style="float: left; margin-left:-35px; margin-right: 20px;
+                  <li class="fw-bold fs-3 text-white" style="float: left; margin-left:-35px; margin-right: 20px;
                        padding: 0 4px;" th:text="${pq.vuelo.destino}"> </li> 
-                  <li class="fw-bold fs-3 text-success" style="float: left;  margin-right: 20px;
+                  <li class="fw-bold fs-3 text-white" style="float: left;  margin-right: 20px;
                        padding: 0 4px;"> - </li> 
-                  <li class="fw-bold fs-3 text-success" style="float: left;  margin-right: 20px;
+                  <li class="fw-bold fs-3 text-white" style="float: left;  margin-right: 20px;
                        padding: 0 4px;" th:text="${pq.vuelo.origen}"> </li> 
-                  <li class="fw-bold fs-3 text-success" style="float: left;  margin-right: 20px;
+                  <li class="fw-bold fs-3 text-white" style="float: left;  margin-right: 20px;
                         padding: 0 4px;"> - </li> 
-                  <li class="fw-bold fs-3 text-success" style="float: left;   margin-right: 20px;
+                  <li class="fw-bold fs-3 text-white" style="float: left;   margin-right: 20px;
                        padding: 0 4px;" th:text="${pq.vuelo.aerolinea}"> </li> 
-                  <li class="fw-bold fs-3 text-success" style="float: left;   margin-right: 20px;
+                  <li class="fw-bold fs-3 text-white" style="float: left;   margin-right: 20px;
                        padding: 0 4px;">(Peru)</li> 
                 </ul>
 
@@ -226,19 +247,19 @@
 						
 						<div class="mt-2">
 						<br>
-							<h3>Hotel</h3>
-							<h1 class="fs-4" th:text="${pq.hospedaje.nombre}"></h1>
-							<p class="text-secondary" th:text="${pq.hospedaje.ubicacion}"></p>
-							<p class="text-secondary" th:text=" 'Personas: ' + ${pq.pasajeros}"></p>
-							<p class="text-secondary" th:text=" 'Habitaciones: ' + ${pq.habitaciones}"></p>
+							<h3 class="text-white fs-2 fw-bold" >Hotel</h3>
+							<h1 class="text-white fs-2 fw-bold" th:text="${pq.hospedaje.nombre}"></h1>
+							<p class="text-white fs-5 fw-bold" th:text="${pq.hospedaje.ubicacion}"></p>
+							<p class="text-white fs-5 fw-bold" th:text=" 'Personas: ' + ${pq.pasajeros}"></p>
+							<p class="text-white fs-5 fw-bold" th:text=" 'Habitaciones: ' + ${pq.habitaciones}"></p>
 
 						</div>
 						<div class="d-flex flex-column text-center">
 							<ul style="list-style-type: none;" class="fw-bold">
-								<li class="fw-bold fs-3 text-success"
+								<li class="fw-bold fs-3 text-white"
 									style="float: left; margin-right: 20px; padding: 0 4px;">S/
 								</li>
-								<li class="fw-bold fs-3 text-success"
+								<li class="fw-bold fs-2 text-white"
 									style="float: left; margin-right: 20px; padding: 0 4px;"
 									th:text="${pq.precio}">
 								</li>
