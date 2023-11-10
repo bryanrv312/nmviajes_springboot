@@ -26,8 +26,30 @@
 
 
 <!-- Font Awesome -->
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+
+<style>
+	.background-image {
+			background-image: url('/img/fondo_avion_paquete.jpg'); 
+		/* Reemplaza 'ruta-de-tu-imagen.jpg' con la ruta de tu imagen de fondo */
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-attachment: fixed;
+		background-position: center;
+		/*opacity: 0.83;*/
+		
+	}
+	.text-white {
+		text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+		/* Ajusta los valores según sea necesario */
+	}
+	.text-yellow {
+		color: yellow;
+	}
+	.text-shadow {
+		text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+	}
+</style>
 </head>
 
 <body>
@@ -187,6 +209,8 @@
 		</form>
 
 					<!-- Finaliza campos para filtrar vuelos. -->
+					
+		  
 
           <div class="container mt-4" th:action="@{/vuelos/comprar}" method="post">
             <!-- <input type="hidden" th:field="*{id}" th:value="${vuelo.id}">-->       
@@ -197,10 +221,13 @@
 						  border: 1px solid rgb(197, 197, 197);
 						  background-color: rgb(255, 255, 255);
 						  font-size: .85em;" 
-				   class="article-loop d-flex d-flex justify-content-between rounded" th:each="v:${vuelo}">
+				   class="article-loop background-image d-flex d-flex justify-content-between rounded" th:each="v:${vuelo}">
 				   
 			  <div>
-			  	<img th:src="@{/img/iquitos.jpg}" alt="imagen" style="max-width: 350px; height: 200px; display: block; " />
+<!-- 			  	<img th:src="@{/img/iquitos.jpg}" alt="imagen" style="max-width: 350px; height: 200px; display: block; " /> -->
+			  	<img th:src="@{/logos/{imgTemp} (imgTemp=${v.imagen})}" alt="imagen" style="max-width: 300px; height: 200px; display: block; " />
+<!-- 			  	<h4 th:text="${v.imagen}"></h4> -->
+<!-- 			  	<img th:text="${v.imagen}" alt="imagen" style="max-width: 350px; height: 200px; display: block; " /> -->
 			  </div>
 			  
               <div>

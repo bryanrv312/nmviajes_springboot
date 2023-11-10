@@ -187,7 +187,7 @@
             
             
 
-          <!-- User Form Modal -->
+          <!-- Vuelo Form Modal -->
           <div
             class="modal fade"
             role="dialog"
@@ -205,7 +205,7 @@
                 <div class="modal-body">
                   <div class="py-1">
 
-                    <form class="form" th:action="@{/vueloRegistro}" method="post" th:object="${vueloObject}">
+                    <form class="form" th:action="@{/vueloRegistro}" method="post" th:object="${vueloObject}" enctype="multipart/form-data">
                       <div class="row">
                         <div class="col">
                           <div class="row">
@@ -266,6 +266,15 @@
                               </div>
                             </div>
                           </div>
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group">
+                                <label  for="archivoImagen">Imagen</label>
+                                <input class="form-control-file"  id="archivoImagen" name="archivoImagen" type="file"/>
+                              </div>
+                            </div>
+                          </div>
+                          <br><br>
                         </div>
                       </div>
                       <div class="row">
