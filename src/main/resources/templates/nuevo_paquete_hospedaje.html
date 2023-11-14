@@ -118,15 +118,19 @@
 				<form th:action="@{/cartHospedaje}" method="POST">
 					<input type="hidden" th:value="${hospedaje.id}" name="id">
 					<div th:each="t:${hospedaje}">
-						<div
-							class="article-loop_2 d-flex d-flex justify-content-between rounded">
+						<div class="article-loop_2 d-flex d-flex justify-content-between rounded">
+						<div>
+						    	<img th:src="@{/hoteles/{imgTemp} (imgTemp=${t.imagen})}" alt="imagen" style="max-width: 300px; height: 200px; display: block; " />
+						    </div>
 							<div class="mt-2">
-								<h1 class="fs-4" th:text="${t.nombre}"></h1>
+								<h1 class="fs-2 fw-bold">Hotel</h1>
+								<h1 class="fs-2 fw-bold" th:text="${t.nombre}"></h1>
 								<p class="text-secondary" th:text="${t.ubicacion}"></p>
 				                <p class="text-secondary" th:text="'Personas: ' + ${t.personas}"></p>
 				                <p class="text-secondary" th:text="'habitaciones: ' + ${t.habitaciones}"></p>
-
 							</div>
+							
+						    
 							<div class="d-flex flex-column text-center">
 								<ul style="list-style-type: none;" class="fw-bold">
 									<li class="fw-bold fs-3 text-success"
@@ -135,7 +139,7 @@
 										style="float: left; margin-right: 20px; padding: 0 4px;"
 										th:text="${t.precio}"></li>
 								</ul>
-
+								<label>Días</label>
 								<input type="number" id="cantidad" name="cantidad"
 									autocomplete="off" min="1" max="5" value="1"> <br>
 								<button type="submit" class="btn btn-warning">Seleccionar
@@ -152,7 +156,7 @@
 			<br>
 
 			<div class="container">
-				<a th:href="@{/armar_paquete}" class="btn btn-warning">Anterior</a>
+				<a th:href="@{/armar_hoteles}" class="btn btn-warning">Anterior</a>
 			</div>
 		</div>
 		<!-- Finaliza contenido de hoteles. -->

@@ -203,7 +203,7 @@
               </div>
               <div class="modal-body">
                 <div class="py-1">
-                  <form class="form" novalidate="" th:action="@{/hospedajeRegistro}" method="post" th:object="${hospedaje}">
+                  <form class="form" th:action="@{/hospedajeRegistro}" method="post" th:object="${hospedajeObject}" enctype="multipart/form-data">
                     <div class="row">
                       <div class="col">
                         <div class="row">
@@ -246,6 +246,15 @@
                             </div>
                           </div>
                         </div>
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-group">
+                              <label  for="archivoImagen">Imagen</label>
+                              <input class="form-control-file"  id="archivoImagen" name="archivoImagen" type="file"/>
+                            </div>
+                          </div>
+                        </div>
+                        <br><br>
 
                       </div>
                     </div>

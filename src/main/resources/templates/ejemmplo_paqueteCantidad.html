@@ -116,16 +116,15 @@
 
                 <!-- Comienza contenido de vuelos. -->
                 <div class="tab-pane fade show active" id="vuelos" role="tabpanel" aria-labelledby="vuelos-tab">
-                    <!-- Comienza campos para filtrar vuelos. -->
-                    
-                    <!-- Finaliza campos para filtrar vuelos. -->
+
 
                     <form th:action="@{/cart}" method="POST">
                         <input type="hidden" th:value="${vuelo.id}" name="id">
                         <div class="container mt-4">
-                            <!-- <input type="hidden" th:field="*{id}" th:value="${vuelo.id}">-->
-                            <div class="article-loop d-flex d-flex justify-content-between rounded"
-                                th:each="v:${vuelo}">
+                            <div class="article-loop d-flex d-flex justify-content-between rounded" th:each="v:${vuelo}">
+                            	<div>
+								  	<img th:src="@{/logos/{imgTemp} (imgTemp=${v.imagen})}" alt="imagen" style="max-width: 300px; height: 200px; display: block; " />
+								</div>
                                 <div>
                                     <p th:text="${v.fechaPartida}" class="text-secondary fs-6"></p>
 									<ul style="list-style-type: none;" class="fw-bold">
@@ -188,6 +187,14 @@
                         </div>
                     </form>
                 </div>
+                
+                <br>
+				<br>
+				<br>
+	
+				<div class="container">
+					<a th:href="@{/armar_paquete}" class="btn btn-warning">Anterior</a>
+				</div>
                 <!-- Finaliza lista de vuelos. -->
             </div>
             <!-- Finaliza contenido de vuelos. -->

@@ -17,6 +17,7 @@ public class WebConfig implements WebMvcConfigurer{
 		registry.addResourceHandler("/logos/**").addResourceLocations("file:c:/nmviajes/img-vuelos/");
 		//registry.addResourceHandler("/logos/**").addResourceLocations(rutaImages);
 		//registry.addResourceHandler("/cv/**").addResourceLocations("file:" + rutaCv);
+		registry.addResourceHandler("/hoteles/**").addResourceLocations("file:c:/nmviajes/img-hoteles/");
 		}
 
 }

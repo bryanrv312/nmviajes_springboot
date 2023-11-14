@@ -70,7 +70,7 @@ public class SpringSecurityConfig {
 		
 		
 		http.csrf().disable().authorizeRequests()
-				.antMatchers("/search_4/**","/search_2/**", "/logos/**", "/css/**", "/js/**", "/img/**", 
+				.antMatchers("/armar_hoteles/**","/search_4/**","/search_2/**", "/logos/**", "/css/**", "/js/**", "/img/**", 
 						"/", "/nosotros/**", "/oficinas/**", "/ofertas/**",
 						"/iniciar_sesion/**", "/registro/**", "/ayuda/**", 
 						"/armar_paquete/**","/registrarUsuario","/confirmar_email","/registrarConsulta",

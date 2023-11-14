@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.nmviajes.app.entidad.Hospedaje;
 import com.nmviajes.app.entidad.Role;
 import com.nmviajes.app.entidad.Usuario;
+import com.nmviajes.app.entidad.Vuelo;
 import com.nmviajes.app.modelo.HospedajeDTO;
 import com.nmviajes.app.repositorio.HospedajeRepo;
 
@@ -53,6 +54,10 @@ public class HospedajeServicioImpl {
 	
 	public List<Hospedaje> buscarHotelesPorUbicacion(String ciudad) {
 	    return hospedajeRepo.findByUbicacionContaining(ciudad);
+	}
+	
+	public Hospedaje guardarHospedaje(Hospedaje hos) {
+		return hospedajeRepo.save(hos);
 	}
 	
 	

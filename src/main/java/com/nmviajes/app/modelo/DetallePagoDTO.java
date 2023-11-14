@@ -15,6 +15,8 @@ public class DetallePagoDTO{
  
     private Hospedaje hospedaje;
     
+    private Integer personas;
+    
     public DetallePagoDTO(Integer id, String nombre, double cantidad, double precio, double total, Vuelo vuelo,
             Hospedaje hospedaje) {
         this.id = id;
@@ -56,8 +58,13 @@ public class DetallePagoDTO{
         this.total = total;
     }
 
-
-    public DetallePagoDTO() {
+    public Integer getPersonas() {
+		return personas;
+	}
+	public void setPersonas(Integer personas) {
+		this.personas = personas;
+	}
+	public DetallePagoDTO() {
 
     }
 
@@ -83,11 +90,6 @@ public class DetallePagoDTO{
     }
 
     
-    @Override
-    public String toString() {
-        return "DetallePagoDTO [id=" + id + ", nombre=" + nombre + ", cantidad=" + cantidad + ", precio=" + precio
-                + ", total=" + total + "]";
-    }
     public Vuelo getVuelo() {
         return vuelo;
     }
@@ -100,6 +102,11 @@ public class DetallePagoDTO{
     public void setHospedaje(Hospedaje hospedaje) {
         this.hospedaje = hospedaje;
     }
+	@Override
+	public String toString() {
+		return "DetallePagoDTO [id=" + id + ", nombre=" + nombre + ", cantidad=" + cantidad + ", precio=" + precio
+				+ ", total=" + total + ", vuelo=" + vuelo + ", hospedaje=" + hospedaje + ", personas=" + personas + "]";
+	}
 
     
     
