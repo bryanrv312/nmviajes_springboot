@@ -42,7 +42,7 @@ public class Usuario{
 	private String token;
 	
 	@Column(name = "confirmado")
-	private boolean confirmado;
+	private Boolean confirmado;
 
 	//@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "user_id")
@@ -91,7 +91,7 @@ public class Usuario{
 		this.password = password;
 	}
 
-	public Usuario(Long id, String nombre, String apellido, String email, String password ,String rol, String token, boolean confirmado) {
+	public Usuario(Long id, String nombre, String apellido, String email, String password ,String rol, String token, Boolean confirmado) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -196,12 +196,12 @@ public class Usuario{
 	}
 
 
-	public boolean isConfirmado() {
+	public Boolean isConfirmado() {
 		return confirmado;
 	}
 
 
-	public void setConfirmado(boolean confirmado) {
+	public void setConfirmado(Boolean confirmado) {
 		this.confirmado = confirmado;
 	}
 	
