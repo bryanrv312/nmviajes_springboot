@@ -31,7 +31,7 @@ import com.nmviajes.app.servicio.utils.Utileria;
 @Secured({"ROLE_ADMIN","ROLE_USER"})
 @Controller
 public class ControladorHospedajes {
-
+  
     @Autowired
 	private HospedajeServicioImpl servicio;
     

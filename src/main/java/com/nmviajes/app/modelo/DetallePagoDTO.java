@@ -9,7 +9,7 @@ public class DetallePagoDTO{
     private String nombre;
     private double cantidad;
     private double precio ;
-    private double total;
+    private double total; 
 
     private Vuelo vuelo;
  

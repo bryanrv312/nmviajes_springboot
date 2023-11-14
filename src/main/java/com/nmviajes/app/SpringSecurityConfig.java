@@ -27,6 +27,7 @@ public class SpringSecurityConfig {
 		.passwordEncoder(passwordEncoder);
 
 	}*/
+	 
 	
 	@Autowired
 	private JpaUserDetailsService userDetailsService;

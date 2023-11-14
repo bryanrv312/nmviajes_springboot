@@ -10,7 +10,7 @@ import com.nmviajes.app.modelo.DetallePagoDTO;
 
 public interface DetallePagoServicio {
     public void setDetallePago(DetallePagoDTO registroDTO);
-
+ 
     public Orden saveOrden(DetallePagoDTO d, Usuario u);
 
     /*

@@ -22,7 +22,7 @@ import com.nmviajes.app.entidad.Usuario;
 import com.nmviajes.app.modelo.UsuarioRegistroDTO;
 import com.nmviajes.app.repositorio.IUsuarioDao;
 import com.nmviajes.app.repositorio.UsuarioRepo;
-
+ 
 @Service
 public class UsuarioServicioImpl implements UsuarioServicio {
 	

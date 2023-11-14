@@ -18,3 +18,4 @@ public interface HospedajeRepo extends JpaRepository<Hospedaje,Long> {
 	List<Hospedaje> findByUbicacionContaining(String ciudad);
     
 }
+ 

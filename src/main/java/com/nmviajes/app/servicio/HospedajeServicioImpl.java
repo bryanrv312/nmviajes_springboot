@@ -18,7 +18,7 @@ import com.nmviajes.app.entidad.Usuario;
 import com.nmviajes.app.entidad.Vuelo;
 import com.nmviajes.app.modelo.HospedajeDTO;
 import com.nmviajes.app.repositorio.HospedajeRepo;
-
+  
 @Service
 public class HospedajeServicioImpl {
     @Autowired

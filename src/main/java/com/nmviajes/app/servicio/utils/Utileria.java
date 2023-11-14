@@ -27,7 +27,7 @@ public class Utileria {
 		}
 	}
 	
-	
+	 
 	/*
 	 Metodo para generar una cadena aleatoria de longitud N
 	 (Agregar caracteres aleatorios al nombre del archivo para evitar duplicados)
