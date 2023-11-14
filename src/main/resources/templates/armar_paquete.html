@@ -138,10 +138,11 @@
           </button>
         </li>
         <li class="nav-item" role="presentation">
-          <button class="nav-link" id="hoteles-tab" data-bs-toggle="tab" data-bs-target="#hoteles" type="button"
-            role="tab" aria-controls="hoteles" aria-selected="false">
-            Hoteles
-          </button>
+        	<a class="nav-link" th:href="@{/armar_hoteles}">Hoteles</a>
+<!--           <button class="nav-link" id="hoteles-tab" data-bs-toggle="tab" data-bs-target="#hoteles" type="button" -->
+<!--             role="tab" aria-controls="hoteles" aria-selected="false"> -->
+<!--             Hoteles -->
+<!--           </button> -->
         </li>
 <!--         <li class="nav-item" role="presentation"> -->
 <!--           <button class="nav-link" id="pagos-tab" data-bs-toggle="tab" data-bs-target="#pagos" type="button" role="tab" -->
@@ -281,9 +282,10 @@
             </div>
             <style>
 				.article-loop:hover {
-				  box-shadow: 0px 0px 5px 1px #969595;
-				  font-size: .85em;
-				}
+			        box-shadow: 0px 0px 5px 1px #006400; /* Cambia #969595 a #FF0000 para un tono rojizo */
+			        font-size: .85em;
+			        color: #006400; /* Agrega esta línea para cambiar el color del texto al mismo tono rojizo */
+			    }
 			</style>
 
           </div>
@@ -331,47 +333,44 @@
         
 
         <!-- Comienza lista de hoteles.  public Hospedaje(String nombre, String ubicacion, Double precio) -->
-        <div class="container mt-4" th:each="t:${hospedaje}">
-          <div style="display: block;
-						  padding: 1em 2em;
-						  margin: 1em auto;
-						  border: 1px solid rgb(197, 197, 197);
-						  background-color: rgb(255, 255, 255);
-						  font-size: .85em;" class="article-loop_2 d-flex d-flex justify-content-between rounded">
-            <div class="mt-2">
-              <h1 class="fs-4" th:text="${t.nombre}"></h1>
-              <p class="text-secondary" th:text="${t.ubicacion}"></p>
-              <p class="text-secondary" th:text="'Persona(s): ' + ${t.personas}"></p>
-              <p class="text-secondary" th:text="'habitacione(s): ' + ${t.habitaciones}"></p>
+<!--         <div class="container mt-4" th:each="t:${hospedaje}"> -->
+<!--           <div style="display: block; -->
+/* 						  padding: 1em 2em; */
+/* 						  margin: 1em auto; */
+/* 						  border: 1px solid rgb(197, 197, 197); */
+/* 						  background-color: rgb(255, 255, 255); */
+<!-- 						  font-size: .85em;" class="article-loop_2 d-flex d-flex justify-content-between rounded"> -->
+<!--             <div class="mt-2"> -->
+<!--               <h1 class="fs-4" th:text="${t.nombre}"></h1> -->
+<!--               <p class="text-secondary" th:text="${t.ubicacion}"></p> -->
+<!--               <p class="text-secondary" th:text="'Persona(s): ' + ${t.personas}"></p> -->
+<!--               <p class="text-secondary" th:text="'habitacione(s): ' + ${t.habitaciones}"></p> -->
               
-            </div>
-            <div class="d-flex flex-column text-center">
-              <ul style="list-style-type: none;" class="fw-bold">
-                <li class="fw-bold fs-3 text-success" style="float: left;   margin-right: 20px;
-                padding: 0 4px;" >S/</li>
-                <li class="fw-bold fs-3 text-success" style="float: left;   margin-right: 20px;
-                padding: 0 4px;" th:text="${t.precio}"> </li>
+<!--             </div> -->
+<!--             <div class="d-flex flex-column text-center"> -->
+<!--               <ul style="list-style-type: none;" class="fw-bold"> -->
+<!--                 <li class="fw-bold fs-3 text-success" style="float: left;   margin-right: 20px; -->
+<!--                 padding: 0 4px;" >S/</li> -->
+<!--                 <li class="fw-bold fs-3 text-success" style="float: left;   margin-right: 20px; -->
+<!--                 padding: 0 4px;" th:text="${t.precio}"> </li> -->
                 
-              </ul>
-              <a th:href="@{/nuevo_paquete_hospedaje/{id}  (id=${t.id})  }"  class="btn btn-warning">Seleccionar Hotel</a>
+<!--               </ul> -->
+<!--               <a th:href="@{/nuevo_paquete_hospedaje/{id}  (id=${t.id})  }"  class="btn btn-warning">Seleccionar Hotel</a> -->
               
-            </div>
-          </div>
-          	<style>
-				.article-loop:hover {
-				  box-shadow: 0px 0px 5px 1px #969595;
-				  font-size: .85em;
-				}
-			</style>
+<!--             </div> -->
+<!--           </div> -->
+<!--           	<style> -->
+/* 				.article-loop:hover { */
+/* 				  box-shadow: 0px 0px 5px 1px #969595; */
+/* 				  font-size: .85em; */
+/* 				} */
+<!-- 			</style> -->
 			
-        </div>
+<!--         </div> -->
         
         <!-- Finaliza lista de hoteles. -->
 
-        <div class="container">
-          <button class="m-3 btn btn-primary">Anterior</button>
-        </div>
-      </div>
+        
       <!-- Finaliza contenido de hoteles. -->
 
       <!-- Comienza contenido de pago. -->

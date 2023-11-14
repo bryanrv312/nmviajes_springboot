@@ -30,6 +30,9 @@ public class Hospedaje {
     @Column(name = "personas")
     private Integer personas;
     
+    @Column(name = "imagen")
+    private String imagen = "no-image.png";
+    
     
 
     public Hospedaje() {
@@ -67,8 +70,20 @@ public class Hospedaje {
     public void setPrecio(Double precio) {
         this.precio = precio;
     }
+    
+    
 
-    public Hospedaje(Long id, String nombre, String ubicacion, Double precio) {
+    public String getImagen() {
+		return imagen;
+	}
+
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
+
+
+	public Hospedaje(Long id, String nombre, String ubicacion, Double precio) {
         this.id = id;
         this.nombre = nombre;
         this.ubicacion = ubicacion;
@@ -150,14 +165,10 @@ public class Hospedaje {
 	@Override
 	public String toString() {
 		return "Hospedaje [id=" + id + ", nombre=" + nombre + ", ubicacion=" + ubicacion + ", precio=" + precio
-				+ ", habitaciones=" + habitaciones + ", personas=" + personas + "]";
+				+ ", habitaciones=" + habitaciones + ", personas=" + personas + ", imagen=" + imagen + "]";
 	}
-    
-    
-    
 
 
-    
 
     
 

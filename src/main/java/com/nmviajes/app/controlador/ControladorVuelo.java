@@ -195,7 +195,7 @@ public class ControladorVuelo {
 	
 	
 	@PostMapping("/search_3")
-	public String buscarHospedaje(@ModelAttribute("search_hospedaje") Vuelo vuelo, Model model) {
+	public String buscarHospedaje(@ModelAttribute("search_hospedaje_vuelo") Vuelo vuelo, Model model) {
 		System.out.println("busqueda ciudad hospedaje: " + vuelo.getDestino());
 		
 		//Example<Vuelo> example = Example.of(vuelo);
@@ -208,7 +208,7 @@ public class ControladorVuelo {
 		
 		model.addAttribute("hospedaje", listaHospedajes);
 		
-		return "armar_paquete";
+		return "armar_hoteles";
 	}
 	
 	
@@ -586,7 +586,7 @@ public class ControladorVuelo {
 	public String verCartHospedaje(@RequestParam Long id, @RequestParam Integer cantidad, Model model) {
 
 		DetallePagoDTO detallePagoDTO = new DetallePagoDTO();
-		Hospedaje vuelo = new Hospedaje();
+		//Hospedaje vuelo = new Hospedaje();
 		log.info("Producto añadido: {}", hservicio.buscarUsuarioPorId(id));
 		log.info("Cantidad: {}", cantidad);
 		double sumaTotal = 0;
@@ -596,6 +596,7 @@ public class ControladorVuelo {
 		detallePagoDTO.setCantidad(cantidad);
 		detallePagoDTO.setPrecio(hservicio.buscarUsuarioPorId(id).getPrecio());
 		detallePagoDTO.setNombre(hservicio.buscarUsuarioPorId(id).getNombre());
+		detallePagoDTO.setPersonas(hservicio.buscarUsuarioPorId(id).getPersonas());
 		detallePagoDTO.setTotal(sumaTotal);
 		// detallePagoDTOImple.setDetallePago(detallePagoDTO);
 

@@ -152,12 +152,14 @@
                                         <tr>
                                             <th>Nombre</th>
                                             <th>Personas</th>
+                                            <th>Días</th>
                                             <th>Precio</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr th:each="v:${detalle}">
                                             <td class="text-nowrap align-middle" th:text="${v.nombre}"></td>
+                                            <td class="text-nowrap align-middle" th:text="${v.personas}"></td>
                                             <td class="text-nowrap align-middle" th:text="${v.cantidad}"></td>
                                             <td class="text-nowrap align-middle" th:text="${v.precio}"></td>
                                         </tr>

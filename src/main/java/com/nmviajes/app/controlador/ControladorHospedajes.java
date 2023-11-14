@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.nmviajes.app.entidad.Hospedaje;
@@ -24,6 +26,7 @@ import com.nmviajes.app.modelo.HospedajeDTO;
 import com.nmviajes.app.servicio.HospedajeServicioImpl;
 import com.nmviajes.app.servicio.PaqueteTuristicoServicioImpl;
 import com.nmviajes.app.servicio.VueloServicioImpl;
+import com.nmviajes.app.servicio.utils.Utileria;
 
 @Secured({"ROLE_ADMIN","ROLE_USER"})
 @Controller
@@ -38,13 +41,27 @@ public class ControladorHospedajes {
     @Autowired
     private VueloServicioImpl serviceVuelo;
     
+    
+    @GetMapping("/armar_hoteles")
+    public String armar_hoteles(Model model) {
+    	
+    	List<Hospedaje> lista_hoteles = servicio.listarHospedaje();
+    	List<Vuelo> lista_vuelos = serviceVuelo.listarVuelo();
+    	Vuelo vue = new Vuelo();
+    	
+    	model.addAttribute("hospedaje",lista_hoteles);
+    	model.addAttribute("search_hospedaje_vuelo",vue);
+    	model.addAttribute("vuelo_hoteles", lista_vuelos);
+    	
+    	return "armar_hoteles";
+    }
 
     @GetMapping("/gestion_hoteles")
 	public String listarHoteles(Model model) {
 		Hospedaje hospedaje = new Hospedaje();
         List<Hospedaje> p = servicio.listarHospedaje();
 		model.addAttribute("user",p);
-		model.addAttribute("hospedaje",hospedaje);//th:object de nuevo hospedaje
+		model.addAttribute("hospedajeObject",hospedaje);//th:object de nuevo hospedaje
 		return "gestion_hoteles";
 	}
 
@@ -54,8 +71,20 @@ public class ControladorHospedajes {
 	}
 
 	@PostMapping("/hospedajeRegistro")
-	public String registrarHospedaje(@ModelAttribute("hospedaje") HospedajeDTO registroDTO, RedirectAttributes flash){
-		servicio.guardar(registroDTO);
+	public String registrarHospedaje(@ModelAttribute("hospedajeObject") Hospedaje hos, RedirectAttributes flash,
+									 @RequestParam("archivoImagen") MultipartFile multiPart	){
+		
+		System.err.println(hos);
+		
+		if (!multiPart.isEmpty()) {
+			String ruta = "c:/nmviajes/img-hoteles/";
+			String nombreImagen = Utileria.guardarArchivo(multiPart, ruta);
+			if (nombreImagen != null) { // La imagen si se subio
+				hos.setImagen(nombreImagen);
+			}
+		}
+		
+		servicio.guardarHospedaje(hos);
 		flash.addFlashAttribute("msg","Hotel registrado correctamente !!");
 		return "redirect:/gestion_hoteles";
 	}
