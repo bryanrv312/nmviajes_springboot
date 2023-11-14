@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Date;
-
+ 
 @Service
 public class DetallePagoDTOImple implements DetallePagoServicio{
 

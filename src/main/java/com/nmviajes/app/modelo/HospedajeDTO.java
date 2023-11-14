@@ -4,7 +4,7 @@ public class HospedajeDTO {
     private Long id;
 
    
-	private String nombre;
+	private String nombre; 
 
     
     private String ubicacion;

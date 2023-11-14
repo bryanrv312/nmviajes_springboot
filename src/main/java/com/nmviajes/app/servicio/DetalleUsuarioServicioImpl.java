@@ -18,6 +18,6 @@ public class DetalleUsuarioServicioImpl {
 		return detalleUsuarioRepo.save(usuario);
 	}
 
-
+ 
 
 }

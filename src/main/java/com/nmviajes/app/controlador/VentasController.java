@@ -21,7 +21,7 @@ import com.nmviajes.app.servicio.UsuarioServicio;
 @Secured("ROLE_ADMIN")
 @Controller
 public class VentasController {
-	
+	 
 	@Autowired
 	private DetallePagoServicio detallePagoDTOImple;
 	
