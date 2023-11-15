@@ -112,9 +112,10 @@
                   <h4 class="font-weight-bolder">Editar Hotel </h4>
               </div>
               <div class="card-body">
-                <form class="form" novalidate="" th:action="@{/hospedajeRegistroEditado}" method="post"
-                  th:object="${hospedaje}">
-                 <input type="hidden" th:field="*{id}" th:value="${hospedaje.id}">
+                <form class="form" th:action="@{/hospedajeRegistroEditado}" method="post" 
+                	  th:object="${hospedaje_edit}" enctype="multipart/form-data">
+                 <input type="hidden" th:field="*{id}" th:value="${hospedaje_edit.id}">
+                 <input type="hidden" th:field="*{imagen}" th:value="${hospedaje_edit.imagen}">
                   <div class="row">
                     <div class="col">
                       <div class="row">
@@ -158,7 +159,25 @@
                           </div>
                         </div>
                       </div>
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group">
+                            <label  for="archivoImagen">Imagen</label>
+                            <input class="form-control-file"  id="archivoImagen" name="archivoImagen" type="file"/>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group">
+                            <label  for="imagen">Imagen - Hotel</label>
+                            <img style="max-width: 300px; height: 200px; display: block;" class="rounded form-control-file" 
+                            	 th:src="@{/hoteles/{img} (img=${hospedaje_edit.imagen})  }" alt="Generic placeholder image">
+                          </div>
+                        </div>
+                      </div>
                       <div id="mensajeError" style="color: red;"></div>
+                      <br><br>
                     </div>
                   </div>
                   <div class="row">

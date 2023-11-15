@@ -116,8 +116,9 @@ f.org">
 			                	<h4 class="font-weight-bolder">Editar Vuelo </h4>
 			                </div>
 							<div class="card-body">
-								<form class="form" th:action="@{/vueloRegistroEditado}" method="post" th:object="${vueloEdit}">
-									<input type="hidden" th:field="*{id}" th:value="${vuelo.id}">
+								<form class="form" th:action="@{/vueloRegistroEditado}" method="post" th:object="${vueloEdit}" enctype="multipart/form-data">
+									<input type="hidden" th:field="*{id}" th:value="${vueloEdit.id}">
+									<input type="hidden" th:field="*{imagen}" th:value="${vueloEdit.imagen}">
 									<div class="row">
 										<div class="col">
 
@@ -186,6 +187,25 @@ f.org">
 													</div>
 												</div>
 											</div>
+											 <div class="row">
+						                        <div class="col">
+						                          <div class="form-group">
+						                            <label  for="archivoImagen">Imagen</label>
+						                            <input class="form-control-file"  id="archivoImagen" name="archivoImagen" type="file"/>
+						                          </div>
+						                        </div>
+						                      </div>
+						                      <div class="row">
+						                        <div class="col">
+						                          <div class="form-group">
+						                            <label  for="imagen">Imagen - Destino</label>
+						                            <img style="max-width: 300px; height: 200px; display: block;" class="rounded form-control-file" 
+						                            	 th:src="@{/logos/{img} (img=${vueloEdit.imagen})  }" alt="Generic placeholder image">
+						                          </div>
+						                        </div>
+						                      </div>
+						                      <div id="mensajeError" style="color: red;"></div>
+						                      <br><br>
 										</div>
 									</div>
 									<div class="row">

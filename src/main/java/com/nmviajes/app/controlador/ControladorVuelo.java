@@ -334,7 +334,17 @@ public class ControladorVuelo {
 	
 	@Secured("ROLE_ADMIN")
 	@PostMapping("/vueloRegistroEditado")
-	public String registrarVueloEditado(@ModelAttribute("vueloEdit") Vuelo vu, RedirectAttributes flash) {
+	public String registrarVueloEditado(@ModelAttribute("vueloEdit") Vuelo vu, RedirectAttributes flash, 
+			 							@RequestParam("archivoImagen") MultipartFile multiPart) {
+		
+		if (!multiPart.isEmpty()) {
+			String ruta = "c:/nmviajes/img-vuelos/";
+			String nombreImagen = Utileria.guardarArchivo(multiPart, ruta);
+			if (nombreImagen != null) { // La imagen si se subio
+				vu.setImagen(nombreImagen);
+			}
+		}
+		
 		System.err.println(vu.getFechaPartida());
 		servicio.guardarEditado_2(vu);
 		flash.addFlashAttribute("msg", "Vuelo editado correctamente !!");
