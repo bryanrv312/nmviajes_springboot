@@ -28,7 +28,7 @@ import com.nmviajes.app.servicio.PaqueteTuristicoServicioImpl;
 import com.nmviajes.app.servicio.VueloServicioImpl;
 import com.nmviajes.app.servicio.utils.Utileria;
 
-@Secured({"ROLE_ADMIN","ROLE_USER"})
+//@Secured({"ROLE_ADMIN","ROLE_USER"})
 @Controller
 public class ControladorHospedajes {
   
@@ -101,13 +101,26 @@ public class ControladorHospedajes {
 	public String mostrarFormularioModificarUsuario(@PathVariable("id") Long id , Model modelo) {
 		Hospedaje hos = servicio.buscarUsuarioPorId(id);//encontramos y obtenemos
 		
-		modelo.addAttribute("hospedaje",hos);
+		modelo.addAttribute("hospedaje_edit",hos);
 		return "gestion_hoteles_editar";
 	}
 
 	@PostMapping("/hospedajeRegistroEditado")
-	public String registrarHospedajeEditado(@ModelAttribute("hospedaje") HospedajeDTO registroDTO, RedirectAttributes flash){
-		servicio.guardarEditado(registroDTO);
+	public String registrarHospedajeEditado(@ModelAttribute("hospedaje_edit") Hospedaje hos, RedirectAttributes flash,
+										    @RequestParam("archivoImagen") MultipartFile multiPart){
+		
+		System.err.println(hos);
+		
+		if (!multiPart.isEmpty()) {
+			String ruta = "c:/nmviajes/img-hoteles/";
+			String nombreImagen = Utileria.guardarArchivo(multiPart, ruta);
+			if (nombreImagen != null) { // La imagen si se subio
+				hos.setImagen(nombreImagen);
+			}
+		}
+		
+		//servicio.guardarEditado(hos);
+		servicio.guardarHospedaje(hos);
 		
 		flash.addFlashAttribute("msg","Hotel editado correctamente !!");
 		return "redirect:/gestion_hoteles";

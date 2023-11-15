@@ -23,12 +23,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet" />
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
   
-  <style type="text/css">
-	body {
-		margin-top: 20px;
-		background: #f8f8f8;
-	}
-  </style>
+  
 </head>
 
 <body>
@@ -139,22 +134,22 @@
 	                   </select>
 	                  </div>
                     
-                      <div class="row">
-                        <div class="col">
-                          <div class="form-group">
-                            <label>Nombre</label>
-                            <input class="form-control" type="text" th:field="*{vuelo.origen}" />
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col">
-                          <div class="form-group">
-                            <label>Dirección</label>
-                            <input class="form-control" type="text" th:field="*{hospedaje.ubicacion}" />
-                          </div>
-                        </div>
-                      </div>
+<!--                       <div class="row"> -->
+<!--                         <div class="col"> -->
+<!--                           <div class="form-group"> -->
+<!--                             <label>Nombre</label> -->
+<!--                             <input class="form-control" type="text" th:field="*{vuelo.origen}" /> -->
+<!--                           </div> -->
+<!--                         </div> -->
+<!--                       </div> -->
+<!--                       <div class="row"> -->
+<!--                         <div class="col"> -->
+<!--                           <div class="form-group"> -->
+<!--                             <label>Dirección</label> -->
+<!--                             <input class="form-control" type="text" th:field="*{hospedaje.ubicacion}" /> -->
+<!--                           </div> -->
+<!--                         </div> -->
+<!--                       </div> -->
                       <div class="row">
                         <div class="col">
                           <div class="form-group">
@@ -172,6 +167,7 @@
                           </div>
                         </div>
                       </div>
+                      
                       <div class="row">
                         <div class="col">
                           <div class="form-group">
@@ -180,6 +176,22 @@
                           </div>
                         </div>
                       </div>
+                      <div class="row">
+					    <div class="col mt-3 md-6">
+					        <div class="form-group">
+					            <label for="imagen">Imagen - Destino</label>
+					            <img style="max-width: 300px; height: 200px; display: block;" class="rounded form-control-file" 
+					                th:src="@{/logos/{img} (img=${paqueteObject.vuelo.imagen})}" alt="Generic placeholder image">
+					        </div>
+					    </div>
+					    <div class="col mt-3 md-6">
+					        <div class="form-group">
+					            <label for="imagen">Imagen - Hotel</label>
+					            <img style="max-width: 300px; height: 200px; display: block;" class="rounded form-control-file" 
+					                th:src="@{/hoteles/{img} (img=${paqueteObject.hospedaje.imagen})}" alt="Generic placeholder image">
+					        </div>
+					    </div>
+					  </div>
                       
                       <div id="mensajeError" style="color: red;"></div>
                       

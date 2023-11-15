@@ -57,7 +57,7 @@
               <a class="text-light fw-bold nav-link" href="/armar_paquete">Arma tu Viaje</a>
             </li>
             <li class="nav-item">
-              <a class="text-light fw-bold nav-link" href="">Paquete</a>
+              <a class="text-light fw-bold nav-link" href="/paqueteHV">Paquete</a>
             </li>
             <li class="nav-item">
               <a class="text-light fw-bold nav-link" href="/ofertas">Ofertas</a>
@@ -109,55 +109,54 @@
     <br><br>
     <h1 class="fw-bold fs-2">Detalles del Paquete</h1>
     
-    <br>
+    <br><br>
 		<form th:action="@{/cartPaquete}" method="POST">
+		
 <!--     	<div class="container mt-4" th:action="@{/vuelos/comprar}" method="post"> -->
             <!-- <input type="hidden" th:field="*{id}" th:value="${vuelo.id}">-->
-            <div style="display: block;
-						  padding: 1em 2em;
-						  margin: 1em auto;
-						  border: 1px solid rgb(197, 197, 197);
-						  background-color: rgb(255, 255, 255);
-						  font-size: .85em;" class="article-loop  d-flex justify-content-between ">
+            <div  class="  d-flex justify-content-between ">
+              
               <div>
               	<input type="hidden" th:value="${paquete.id}" name="id">
-              	<h3 th:text="'Paquete ' + ${paquete.id}" class="fw-bold fs-3 text-danger"></h3>
-                <p th:text="${paquete.vuelo.fechaPartida}" class="text-secondary fs-6"></p>
-                <ul style="list-style-type: none;" class="fw-bold">
-                  <li class="fw-bold fs-3 text-success" style="float: left; margin-left:-35px; margin-right: 20px;
-                       padding: 0 4px;" th:text="${paquete.vuelo.origen}"> </li>
-                  <li class="fw-bold fs-3 text-success" style="float: left;  margin-right: 20px;
-                       padding: 0 4px;"> - </li> 
-                  <li class="fw-bold fs-3 text-success" style="float: left;  margin-right: 20px;
-                       padding: 0 4px;" th:text="${paquete.vuelo.destino}"> </li> 
-                  <li class="fw-bold fs-3 text-success" style="float: left;  margin-right: 20px;
-                       padding: 0 4px;"> - </li> 
-                  <li class="fw-bold fs-3 text-success" style="float: left;   margin-right: 20px;
-                       padding: 0 4px;" th:text="${paquete.vuelo.aerolinea}"> </li> 
-                  <li class="fw-bold fs-3 text-success" style="float: left;   margin-right: 20px;
-                       padding: 0 4px;">(Peru)</li> 
-                </ul>
-
+              	<h3 th:text="'Paquete ' + ${paquete.id}" class="fw-bold fs-3 text-success"></h3>
+              	
+              	
+              	
+              	<div>
+	              <img style="max-width: 500px; height: 200px; display: block;" class="rounded form-control-file" 
+					   th:src="@{/logos/{img} (img=${paquete.vuelo.imagen})}" alt="Generic placeholder image">        
+	            </div>
+	            
+	            <br>
+	            
+	            
+	               
+	            <h1 class="fs-2" th:text=" ${paquete.vuelo.origen} + '  -  ' + ${paquete.vuelo.destino}"></h1>
+	            
+	            <p th:text="'Del  ' + ${paquete.vuelo.fechaPartida} + '  Al  ' + ${paquete.vuelo.fechaRegreso}" 
+	               class="text-secondary  fs-6"></p>
+	               
+	            <p th:text="${paquete.vuelo.aerolinea} + '  -  Perú  '" 
+	               class="text-secondary  fs-6"></p>
+	            
+         
                 
-
-                <p th:text="${paquete.vuelo.fechaRegreso}" class="text-secondary fs-6"></p>
-                <ul style="list-style-type: none;" class="fw-bold">
-                  <li class="fw-bold fs-3 text-success" style="float: left; margin-left:-35px; margin-right: 20px;
-                       padding: 0 4px;" th:text="${paquete.vuelo.destino}"> </li> 
-                  <li class="fw-bold fs-3 text-success" style="float: left;  margin-right: 20px;
-                       padding: 0 4px;"> - </li> 
-                  <li class="fw-bold fs-3 text-success" style="float: left;  margin-right: 20px;
-                       padding: 0 4px;" th:text="${paquete.vuelo.origen}"> </li> 
-                  <li class="fw-bold fs-3 text-success" style="float: left;  margin-right: 20px;
-                        padding: 0 4px;"> - </li> 
-                  <li class="fw-bold fs-3 text-success" style="float: left;   margin-right: 20px;
-                       padding: 0 4px;" th:text="${paquete.vuelo.aerolinea}"> </li> 
-                  <li class="fw-bold fs-3 text-success" style="float: left;   margin-right: 20px;
-                       padding: 0 4px;">(Peru)</li> 
-                </ul>
-
-                
-                
+<!--                 <ul style="list-style-type: none;" class=""> -->
+<!--                   <li class=" fs-3" style="float: left; margin-left:-35px; margin-right: 20px; -->
+<!--                        padding: 0 4px;" th:text="${paquete.vuelo.origen}"> </li> -->
+<!--                   <li class=" fs-3 text-success" style="float: left;  margin-right: 20px; -->
+<!--                        padding: 0 4px;"> - </li>  -->
+<!--                   <li class=" fs-3 text-success" style="float: left;  margin-right: 20px; -->
+<!--                        padding: 0 4px;" th:text="${paquete.vuelo.destino}"> </li>  -->
+<!--                 </ul> -->
+<!--                 <ul style="list-style-type: none;" class=""> -->
+                  
+<!--                   <li class=" fs-3 text-success" style="float: left;   margin-left:-35px; margin-right: 20px; -->
+<!--                        padding: 0 4px;" th:text="${paquete.vuelo.aerolinea}"> </li>  -->
+<!--                   <li class="fs-3 text-success" style="float: left;   margin-right: 20px; -->
+<!--                        padding: 0 4px;">(Perú)</li>  -->
+<!--                 </ul> -->
+             
               </div>
               
 <!-- 				<div class="container mt-4" th:each="pq:${listaPaquete}"> -->
@@ -165,8 +164,13 @@
 						
 						<div class="mt-2">
 						<br>
-							<h3>Hotel</h3>
-							<h1 class="fs-4" th:text="${paquete.hospedaje.nombre}"></h1>
+						<div>
+			              <img style="width: 300px; height: 200px; display: block;" class="rounded form-control-file mt-2" 
+							   th:src="@{/hoteles/{img} (img=${paquete.hospedaje.imagen})}" alt="Generic placeholder image">        
+			            </div>
+						
+						<br>
+							<h1 class="fs-2" th:text="'Hotel ' + ${paquete.hospedaje.nombre}"></h1>
 							<p class="text-secondary" th:text="${paquete.hospedaje.ubicacion}"></p>
 							<p class="text-secondary" th:text=" 'Personas: ' + ${paquete.pasajeros}"></p>
 							<p class="text-secondary" th:text=" 'Habitaciones: ' + ${paquete.habitaciones}"></p>
@@ -195,18 +199,19 @@
 				}
 			</style>
          </form>
+         
+         <br>
+         
+         <div class="container">
+			<a th:href="@{/paqueteHV}" class="btn btn-warning">Anterior</a>
+		 </div>
 
           </div>
     
 <!--     </div> -->
  	</main>
- 	
- 	
-  
-  <br>
-    <br>
-    <br>
-    <br>
+ 
+ 	<br>
     <!-- Comienza footer. -->
 	<footer class="text-center text-lg-start text-white bg-danger">
 		<!-- Grid container -->
