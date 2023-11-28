@@ -1,6 +1,7 @@
 package com.nmviajes.app.entidad;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -49,14 +50,45 @@ public class Vuelo {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaPartida;
     
+    @Column(name = "horaPartida")
+    @DateTimeFormat(pattern = "HH:mm")
+    private LocalTime horaPartida;
+    
+    @Column(name = "fechaPartida2")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate fechaPartida2;
+    
+    @Column(name = "horaPartida2")
+    @DateTimeFormat(pattern = "HH:mm")
+    private LocalTime horaPartida2;
+    
     
     @Column(name = "fechaRegreso")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaRegreso;
     
-     
+    @Column(name = "horaRegreso")
+    @DateTimeFormat(pattern = "HH:mm")
+    private LocalTime horaRegreso;
+    
+    @Column(name = "fechaRegreso2")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate fechaRegreso2;
+    
+    @Column(name = "horaRegreso2")
+    @DateTimeFormat(pattern = "HH:mm")
+    private LocalTime horaRegreso2;
+    
 
-    public Long getId() {
+    public LocalTime getHoraPartida() {
+		return horaPartida;
+	}
+
+	public void setHoraPartida(LocalTime horaPartida) {
+		this.horaPartida = horaPartida;
+	}
+
+	public Long getId() {
         return id;
     }
 
@@ -129,7 +161,9 @@ public class Vuelo {
 	}
 
 	public Vuelo(Long id, String origen, String destino, String aerolinea, Integer pasajeros, Date fecha, Double precio,
-			LocalDate fechaPartida, LocalDate fechaRegreso, String imagen) {
+			String imagen, LocalDate fechaPartida, LocalTime horaPartida, LocalDate fechaPartida2,
+			LocalTime horaPartida2, LocalDate fechaRegreso, LocalTime horaRegreso, LocalDate fechaRegreso2,
+			LocalTime horaRegreso2) {
 		super();
 		this.id = id;
 		this.origen = origen;
@@ -138,9 +172,15 @@ public class Vuelo {
 		this.pasajeros = pasajeros;
 		this.fecha = fecha;
 		this.precio = precio;
-		this.fechaPartida = fechaPartida;
-		this.fechaRegreso = fechaRegreso;
 		this.imagen = imagen;
+		this.fechaPartida = fechaPartida;
+		this.horaPartida = horaPartida;
+		this.fechaPartida2 = fechaPartida2;
+		this.horaPartida2 = horaPartida2;
+		this.fechaRegreso = fechaRegreso;
+		this.horaRegreso = horaRegreso;
+		this.fechaRegreso2 = fechaRegreso2;
+		this.horaRegreso2 = horaRegreso2;
 	}
 
 	public Vuelo(String origen, String destino, String aerolinea, Date fecha, Double precio) {
@@ -228,17 +268,63 @@ public class Vuelo {
     }
     
     
-    /*cambiar imagen a null para q el example haga el match correspondiente en search_2*/
+    
+    
+    public LocalDate getFechaPartida2() {
+		return fechaPartida2;
+	}
+
+	public void setFechaPartida2(LocalDate fechaPartida2) {
+		this.fechaPartida2 = fechaPartida2;
+	}
+
+	public LocalTime getHoraPartida2() {
+		return horaPartida2;
+	}
+
+	public void setHoraPartida2(LocalTime horaPartida2) {
+		this.horaPartida2 = horaPartida2;
+	}
+
+	public LocalTime getHoraRegreso() {
+		return horaRegreso;
+	}
+
+	public void setHoraRegreso(LocalTime horaRegreso) {
+		this.horaRegreso = horaRegreso;
+	}
+
+	public LocalDate getFechaRegreso2() {
+		return fechaRegreso2;
+	}
+
+	public void setFechaRegreso2(LocalDate fechaRegreso2) {
+		this.fechaRegreso2 = fechaRegreso2;
+	}
+
+	public LocalTime getHoraRegreso2() {
+		return horaRegreso2;
+	}
+
+	public void setHoraRegreso2(LocalTime horaRegreso2) {
+		this.horaRegreso2 = horaRegreso2;
+	}
+
+	/*cambiar imagen a null para q el example haga el match correspondiente en search_2*/
     public void reset() {
     	this.imagen = null;
     }
-    
+
     
 	@Override
 	public String toString() {
 		return "Vuelo [id=" + id + ", origen=" + origen + ", destino=" + destino + ", aerolinea=" + aerolinea
 				+ ", pasajeros=" + pasajeros + ", fecha=" + fecha + ", precio=" + precio + ", imagen=" + imagen
-				+ ", fechaPartida=" + fechaPartida + ", fechaRegreso=" + fechaRegreso + "]";
+				+ ", fechaPartida=" + fechaPartida + ", horaPartida=" + horaPartida + ", fechaPartida2=" + fechaPartida2
+				+ ", horaPartida2=" + horaPartida2 + ", fechaRegreso=" + fechaRegreso + ", horaRegreso=" + horaRegreso
+				+ ", fechaRegreso2=" + fechaRegreso2 + ", horaRegreso2=" + horaRegreso2 + "]";
 	}
+
+	
     
 }

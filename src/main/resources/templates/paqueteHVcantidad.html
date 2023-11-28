@@ -123,7 +123,7 @@
               	
               	
               	<div>
-	              <img style="max-width: 500px; height: 200px; display: block;" class="rounded form-control-file" 
+	              <img style="width: 450px; height: 200px; display: block;" class="rounded form-control-file" 
 					   th:src="@{/logos/{img} (img=${paquete.vuelo.imagen})}" alt="Generic placeholder image">        
 	            </div>
 	            
@@ -131,65 +131,60 @@
 	            
 	            
 	               
-	            <h1 class="fs-2" th:text=" ${paquete.vuelo.origen} + '  -  ' + ${paquete.vuelo.destino}"></h1>
+	            <h1 class="fs-2" th:text=" ${paquete.vuelo.origen} + '  -  ' + ${paquete.vuelo.destino} + '  -  ' + ${paquete.vuelo.aerolinea}"></h1>
 	            
-	            <p th:text="'Del  ' + ${paquete.vuelo.fechaPartida} + '  Al  ' + ${paquete.vuelo.fechaRegreso}" 
-	               class="text-secondary  fs-6"></p>
-	               
-	            <p th:text="${paquete.vuelo.aerolinea} + '  -  Perú  '" 
-	               class="text-secondary  fs-6"></p>
+	            <div style="display: flex;">
+				    <div style="display: inline-block; ">
+				        <p th:text="'Salida : ' + ${paquete.vuelo.fechaPartida + ' (' + paquete.vuelo.horaPartida} + ')'" class="fw-bold text-secondary fs-6"></p>
+				    </div>
+				    <div style="display: inline-block; margin-left: 20px;">
+				        <p th:text="'Llegada : ' + ${paquete.vuelo.fechaPartida2 + ' (' + paquete.vuelo.horaPartida2} + ')'" class="fw-bold text-secondary fs-6"></p>
+				    </div>
+				</div>
+				
+				<h1 class="fs-2" th:text=" ${paquete.vuelo.destino} + '  -  ' + ${paquete.vuelo.origen} + '  -  ' + ${paquete.vuelo.aerolinea}"></h1>
 	            
-         
-                
-<!--                 <ul style="list-style-type: none;" class=""> -->
-<!--                   <li class=" fs-3" style="float: left; margin-left:-35px; margin-right: 20px; -->
-<!--                        padding: 0 4px;" th:text="${paquete.vuelo.origen}"> </li> -->
-<!--                   <li class=" fs-3 text-success" style="float: left;  margin-right: 20px; -->
-<!--                        padding: 0 4px;"> - </li>  -->
-<!--                   <li class=" fs-3 text-success" style="float: left;  margin-right: 20px; -->
-<!--                        padding: 0 4px;" th:text="${paquete.vuelo.destino}"> </li>  -->
-<!--                 </ul> -->
-<!--                 <ul style="list-style-type: none;" class=""> -->
-                  
-<!--                   <li class=" fs-3 text-success" style="float: left;   margin-left:-35px; margin-right: 20px; -->
-<!--                        padding: 0 4px;" th:text="${paquete.vuelo.aerolinea}"> </li>  -->
-<!--                   <li class="fs-3 text-success" style="float: left;   margin-right: 20px; -->
-<!--                        padding: 0 4px;">(Perú)</li>  -->
-<!--                 </ul> -->
+	            <div style="display: flex;">
+				    <div style="display: inline-block; ">
+				        <p th:text="'Salida : ' + ${paquete.vuelo.fechaRegreso + ' (' + paquete.vuelo.horaRegreso} + ')'" class="fw-bold text-secondary fs-6"></p>
+				    </div>
+				    <div style="display: inline-block; margin-left: 20px;">
+				        <p th:text="'Llegada : ' + ${paquete.vuelo.fechaRegreso2 + ' (' + paquete.vuelo.horaRegreso2} + ')'" class="fw-bold text-secondary fs-6"></p>
+				    </div>
+				</div>
+	            
+
              
               </div>
-              
-<!-- 				<div class="container mt-4" th:each="pq:${listaPaquete}"> -->
-<!-- 					<div class="article-loop_2 d-flex d-flex justify-content-between rounded"> -->
 						
-						<div class="mt-2">
-						<br>
-						<div>
-			              <img style="width: 300px; height: 200px; display: block;" class="rounded form-control-file mt-2" 
-							   th:src="@{/hoteles/{img} (img=${paquete.hospedaje.imagen})}" alt="Generic placeholder image">        
-			            </div>
-						
-						<br>
-							<h1 class="fs-2" th:text="'Hotel ' + ${paquete.hospedaje.nombre}"></h1>
-							<p class="text-secondary" th:text="${paquete.hospedaje.ubicacion}"></p>
-							<p class="text-secondary" th:text=" 'Personas: ' + ${paquete.pasajeros}"></p>
-							<p class="text-secondary" th:text=" 'Habitaciones: ' + ${paquete.habitaciones}"></p>
-						</div>
-						<div class="d-flex flex-column text-center">
-							<ul style="list-style-type: none;" class="fw-bold">
-								<li class="fw-bold fs-3 text-success"
-									style="float: left; margin-right: 20px; padding: 0 4px;">S/
-								</li>
-								<li class="fw-bold fs-3 text-success"
-									style="float: left; margin-right: 20px; padding: 0 4px;"
-									th:text="${paquete.precio}">
-								</li>
-							</ul>
-							
+				<div class="mt-2">
+				<br>
+				<div>
+	              <img style="width: 300px; height: 200px; display: block;" class="rounded form-control-file mt-2" 
+					   th:src="@{/hoteles/{img} (img=${paquete.hospedaje.imagen})}" alt="Generic placeholder image">        
+	            </div>
+				
+				<br>
+					<h1 class="fs-2" th:text="'Hotel ' + ${paquete.hospedaje.nombre}"></h1>
+					<p class="fw-bold text-secondary fs-6" th:text="${paquete.hospedaje.ubicacion}"></p>
+					<p class="fw-bold text-secondary fs-6" th:text=" 'Personas: ' + ${paquete.pasajeros}"></p>
+					<p class="fw-bold text-secondary fs-6" th:text=" 'Habitaciones: ' + ${paquete.habitaciones}"></p>
+				</div>
+				<div class="d-flex flex-column text-center">
+					<ul style="list-style-type: none;" class="fw-bold">
+						<li class="fw-bold fs-3 text-success"
+							style="float: left; margin-right: 20px; padding: 0 4px;">S/
+						</li>
+						<li class="fw-bold fs-3 text-success"
+							style="float: left; margin-right: 20px; padding: 0 4px;"
+							th:text="${paquete.precio}">
+						</li>
+					</ul>
+					
 <!-- 							<a th:href="@{/nuevo_paquete_hospedaje/{id} (id=${t.id}) }"class="btn btn-warning">Seleccionar Hotel</a> -->
 <!--  							<a th:href="@{/verPaqueteHV/{id} (id=${pq.id}) }" class="btn btn-warning">Seleccionar Paquete</a>  -->
-							<button type="submit" class="btn btn-warning">Seleccionar Paquete</button>
-						</div>
+					<button type="submit" class="btn btn-warning">Seleccionar Paquete</button>
+				</div>
 
             </div>
             <style>

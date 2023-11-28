@@ -119,10 +119,10 @@
                             <th>Orígen</th>
                             <th>Destino</th>
                             <th>Aerolínea</th>
-                            <th>Partida</th>
-                            <th>Regreso</th>
+                            <th>Vuelo Ida</th>
+                            <th>Vuelo Regreso</th>
                             <th>Precio</th>
-                            <th>Opciones</th>
+                            <th>Opciones</th>         
                           </tr>
                         </thead>
                         <tbody>
@@ -132,8 +132,19 @@
                             <td class="text-nowrap align-middle" th:text="${v.origen}"></td>
                             <td class="text-nowrap align-middle" th:text="${v.destino}"></td>
                             <td class="text-nowrap align-middle" th:text="${v.aerolinea}"></td>
-                            <td class="text-nowrap align-middle" th:text="${v.fechaPartida}"></td>
-                            <td class="text-nowrap align-middle" th:text="${v.fechaRegreso}"></td>
+                            
+                            <td class="text-nowrap align-middle">
+							  <span th:text="${v.fechaPartida + ' (' + v.horaPartida + ') '}"></span>
+							  <br/>
+							  <span th:text="${v.fechaPartida2 + ' (' + v.horaPartida2 + ') '}"></span>
+							</td>
+							
+							<td class="text-nowrap align-middle">
+							  <span th:text="${v.fechaRegreso + ' (' + v.horaRegreso + ') '}"></span>
+							  <br/>
+							  <span th:text="${v.fechaRegreso2 + ' (' + v.horaRegreso2 + ') '}"></span>
+							</td>
+                            
                             <td class="text-nowrap align-middle" th:text="${v.precio}"></td>
                             
                             <td class="d-flex">
@@ -206,21 +217,20 @@
                   <div class="py-1">
 
                     <form class="form" th:action="@{/vueloRegistro}" method="post" th:object="${vueloObject}" enctype="multipart/form-data">
+                      <div th:if="${msgg != null}" class="alert alert-warning" th:text="${msgg}" role="alert"></div>
                       <div class="row">
                         <div class="col">
                           <div class="row">
                             <div class="col">
                               <div class="form-group">
                                 <label for="origen">Origen</label>
-                                <input class="form-control"  id="origen" type="text"  th:field="*{origen}" />
+                                <input class="form-control"  id="origen" type="text"  th:field="*{origen}" required/>
                               </div>
                             </div>
-                          </div>
-                          <div class="row">
                             <div class="col">
                               <div class="form-group">
                                 <label for="destino">Destino</label>
-                                <input class="form-control"  id="destino" type="text"  th:field="*{destino}" />
+                                <input class="form-control"  id="destino" type="text"  th:field="*{destino}" required/>
                               </div>
                             </div>
                           </div>
@@ -228,41 +238,91 @@
                             <div class="col">
                               <div class="form-group">
                                 <label for="aerolinea">Aerolínea</label>
-                                <input class="form-control"  id="aerolinea" type="text"  th:field="*{aerolinea}" />
+                                <input class="form-control"  id="aerolinea" type="text"  th:field="*{aerolinea}" required/>
                               </div>
                             </div>
-                          </div>
-                          <div class="row">
                             <div class="col">
                               <div class="form-group">
                                 <label for="pasajeros">Pasajeros</label>
-                                <input class="form-control"  id="pasajeros" type="text"  th:field="*{pasajeros}" />
+                                <input class="form-control"  id="pasajeros" type="number" min="0" th:field="*{pasajeros}" required/>
                               </div>
                             </div>
                           </div>
-                          <div class="row">
-                            <div class="col">
-                              <div class="form-group">
-                                <label  for="fecha">Fecha de Partida</label>
-<!--                                 <input class="form-control"  id="fecha" type="text" th:value="${fechaFormateada}" /> -->
-                                <input class="form-control"  id="fecha" type="date"  th:field="*{fechaPartida}" />
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col">
-                              <div class="form-group">
-                                <label  for="fecha">Fecha de Regreso</label>
-<!--                                 <input class="form-control"  id="fecha" type="text" th:value="${fechaFormateada}" /> -->
-                                <input class="form-control"  id="fecha" type="date"  th:field="*{fechaRegreso}" />
-                              </div>
-                            </div>
-                          </div>
+                          
+                          <div class="card">
+                          <h5 class="card-title">Vuelo de Ida</h5>
+						    <div class="card-body">
+						        <div class="row">
+						            <div class="col">
+						                <div class="form-group">
+						                    <label for="fecha">Fecha de Partida</label>
+						                    <input class="form-control" id="fechaPartida" type="date" th:field="*{fechaPartida}" required/>
+						                </div>
+						            </div>
+						            <div class="col">
+						                <div class="form-group">
+						                    <label for="horaPartida">Hora de Partida</label>
+						                    <input class="form-control" id="horaPartida" type="time" th:field="*{horaPartida}" required/>
+						                </div>
+						            </div>
+						        </div>
+						        <div class="row">
+								    <div class="col">
+								        <div class="form-group">
+								            <label for="fecha">Fecha de LLegada</label>
+								            <input class="form-control" id="fechaPartida2" type="date" th:field="*{fechaPartida2}" required/>
+								        </div>
+								    </div>
+								    <div class="col">
+								        <div class="form-group">
+								            <label for="horaPartida">Hora de Llegada</label>
+								            <input class="form-control" id="horaPartida2" type="time" th:field="*{horaPartida2}" required/>
+								        </div>
+								    </div>
+								</div>
+						    </div>
+						  </div>
+						  
+						  
+						  <div class="card">
+                          <h5 class="card-title">Vuelo de Regreso</h5>
+						    <div class="card-body">
+						        <div class="row">
+						            <div class="col">
+						                <div class="form-group">
+						                    <label for="fecha">Fecha de Partida</label>
+						                    <input class="form-control"  id="fechaRegreso" type="date"  th:field="*{fechaRegreso}" required/>
+						                </div>
+						            </div>
+						            <div class="col">
+						                <div class="form-group">
+						                    <label for="horaPartida">Hora de Partida</label>
+						                    <input class="form-control" id="horaRegreso" type="time" th:field="*{horaRegreso}" required/>
+						                </div>
+						            </div>
+						        </div>
+						        <div class="row">
+								    <div class="col">
+								        <div class="form-group">
+								            <label for="fecha">Fecha de LLegada</label>
+								            <input class="form-control" id="fechaRegreso2" type="date" th:field="*{fechaRegreso2}" required/>
+								        </div>
+								    </div>
+								    <div class="col">
+								        <div class="form-group">
+								            <label for="horaPartida">Hora de Llegada</label>
+								            <input class="form-control" id="horaRegreso2" type="time" th:field="*{horaRegreso2}" required/>
+								        </div>
+								    </div>
+								</div>
+						    </div>
+						  </div>
+                          
                           <div class="row">
                             <div class="col">
                               <div class="form-group">
                                 <label  for="precio">Precio</label>
-                                <input class="form-control"  id="precio" type="number" step=0.01  th:field="*{precio}" />
+                                <input class="form-control"  id="precio" type="number" step=0.01 min="0" th:field="*{precio}" required/>
                               </div>
                             </div>
                           </div>
@@ -270,7 +330,7 @@
                             <div class="col">
                               <div class="form-group">
                                 <label  for="archivoImagen">Imagen</label>
-                                <input class="form-control-file"  id="archivoImagen" name="archivoImagen" type="file"/>
+                                <input class="form-control-file"  id="archivoImagen" name="archivoImagen" type="file" required/>
                               </div>
                             </div>
                           </div>
@@ -339,8 +399,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
+
+<script>
+    $(document).ready(function() {
+        var modal = new URLSearchParams(window.location.search).get('modal');
+        if (modal === 'true') {
+            $('#user-form-modal').modal('show');
+        }
+    });
+</script>
 	
-	
+
 	
 	<script type="text/javascript">    
 	    

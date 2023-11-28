@@ -133,7 +133,7 @@
 		
 		
 			<form class="form-right " th:action="@{/editar_usuario_3}" method="post" th:object="${user_1}">
-				<div th:if="${msg != null}" class="alert alert-success" th:text="${msg}" role="alert"></div>	
+				<div th:if="${msg_datos != null}" class="alert alert-warning" th:text="${msg_datos}" role="alert"></div>	
 				<div class="row">
 					<div class="form-group">
                 		<input type="hidden" th:field="*{id}" />
@@ -162,6 +162,7 @@
 			
 			
 			<form class="form-right " th:action="@{/editar_usuario_email}" method="post" th:object="${user_2}">
+					<div th:if="${msg_email != null}" class="alert alert-warning" th:text="${msg_email}" role="alert"></div>
 					<div class="form-group">
                 		<input type="hidden" th:field="*{id}" />
                     </div>
@@ -188,7 +189,7 @@
 			
 			
 			<form class="form-right " th:action="@{/editar_usuario_password}" method="post" th:object="${user_3}">
-					<div th:if="${msg_pass != null}" class="alert alert-success" th:text="${msg_pass}" role="alert"></div>
+					<div th:if="${msg_pass != null}" class="alert alert-warning" th:text="${msg_pass}" role="alert"></div>
 					<div class="form-group">
                 		<input type="hidden" th:field="*{id}" />
                     </div>
@@ -219,7 +220,7 @@
 				<p></p>
 				<br>
 				<div class="form-field">
-					<button id="boton_editar" type="submit" class="btn btn-custom">Editar Campos</button>
+					<button id="boton_editar" type="submit" class="btn btn-custom">Editar Datos</button>
 				</div>
 				
 				<br>

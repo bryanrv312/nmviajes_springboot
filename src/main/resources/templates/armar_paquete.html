@@ -233,7 +233,7 @@
 			  
               <div>
 <!--                 <p class="text-secondary fs-6">6:30 - 7:51</p> -->
-				<p th:text="${v.fechaPartida}" class="text-secondary fs-6"></p>
+				<p th:text="${v.fechaPartida} + '  ( ' + ${v.horaPartida} + ' ) '" class="fw-bold text-secondary fs-6"></p>
 <!-- 				<p th:text="${#dates.format(v.fechaPartida, 'dd-MM-yyyy')}" class="text-secondary fs-6"></p>	 -->
                 <ul style="list-style-type: none;" class="fw-bold">
                   <li class="fw-bold fs-3 text-success" style="float: left; margin-left:-35px; margin-right: 20px;
@@ -254,7 +254,7 @@
                 <br>
 
 <!--                 <p class="text-secondary fs-6">7:08 - 8:536</p> -->
-                <p th:text="${v.fechaRegreso}" class="text-secondary fs-6"></p>
+                <p th:text="${v.fechaRegreso} + ' ( ' + ${v.horaRegreso} + ') '" class="fw-bold text-secondary fs-6"></p>
 <!-- 				<p th:text="${#dates.format(v.fechaRegreso, 'dd-MM-yyyy')}"class="text-secondary fs-6"></p> -->
                 <ul style="list-style-type: none;" class="fw-bold">
                   <li class="fw-bold fs-3 text-success" style="float: left; margin-left:-35px; margin-right: 20px;

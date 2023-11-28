@@ -101,7 +101,7 @@
           </div>
 
 		  <div class="row flex-lg-nowrap">
-            <div class="col mb-3">
+            <div class="col mb-4">
               <div class="e-panel card">
                 <div class="card-body">
                   <div class="e-table">
@@ -114,7 +114,8 @@
                             <th>Aerolinea</th>
                             <th>Origen</th>
                             <th>Destino</th>
-                            <th>Fecha</th>
+                            <th>Vuelo Ida</th>
+                            <th>Vuelo Regreso</th>
                             <th>Hotel</th>
                             <th>Ubicacion Hotel</th>
                             <th>Opciones</th>
@@ -127,10 +128,22 @@
                           	<td class="text-nowrap align-middle" th:text="${pq.vuelo.aerolinea}"></td>
                           	<td class="text-nowrap align-middle" th:text="${pq.vuelo.origen}"></td>
                           	<td class="text-nowrap align-middle" th:text="${pq.vuelo.destino}"></td>
-                          	<td class="text-nowrap align-middle" th:text="${pq.vuelo.fechaPartida}"></td>   
+                          	
+                          	<td class="text-nowrap align-middle">
+                          	  <span th:text="${pq.vuelo.fechaPartida + ' (' + pq.vuelo.horaPartida + ') '}"></span>
+							  <br/>
+							  <span th:text="${pq.vuelo.fechaPartida2 + ' (' + pq.vuelo.horaPartida2 + ') '}"></span>
+                          	</td>
+                          	
+                          	<td class="text-nowrap align-middle">
+                          	  <span th:text="${pq.vuelo.fechaRegreso + ' (' + pq.vuelo.horaRegreso + ') '}"></span>
+							  <br/>
+							  <span th:text="${pq.vuelo.fechaRegreso2 + ' (' + pq.vuelo.horaRegreso2 + ') '}"></span>
+                          	</td> 
+                          	
                             <td class="text-nowrap align-middle" th:text="${pq.hospedaje.nombre}"></td>
-                            <td class="text-nowrap align-middle" th:text="${pq.hospedaje.ubicacion}"></td>
-                            <td class="d-flex">
+                            <td class="align-middle" th:text="${pq.hospedaje.ubicacion}" style="width: 500px;"></td>
+                            <td class="text-nowrap align-middle ">
 								<a th:href="@{'/paquete/editar'+'/'+ ${pq.id}}"
 								   onclick="return confirm('¿Estas seguro de editar el paquete?')" class="btn btn-warning btn-sm" 
 								role="button" title="Editar paquete."
@@ -193,15 +206,15 @@
 	                  <span aria-hidden="true">×</span>
 	                </button>
 	              </div>
-	              <div class="modal-body">
+	              <div class="modal-body mx-auto" style="width:770px">
 	                <div class="py-1">
 	                  <form class="form" th:action="@{/paqueteRegistro}" method="post" th:object="${paqueteObject}">
 	                    <div class="row">
 	                      <div class="col">
 	                      
 		                      <div class="campo_origen m-1" >
-				                 <label >Vuelo: </label>
-								 <select th:field="*{vuelo.id}" class="form-select" id="vueloo" aria-label="Default select example">
+				                 <label class="fw-bold" >Vuelo: </label>
+								 <select th:field="*{vuelo.id}" class="form-select" id="vueloo" aria-label="Default select example" required>
 								 	<option th:value="${null}" selected >Seleccione un vuelo</option>
 				                    <option th:each="v:${listaVuelo}" 
 											th:value="${v.id}"
@@ -210,41 +223,92 @@
 				                 </select>
 				               </div>
 				               
-				               <!-- Agrega una etiqueta de "Más información" -->
-							<div>
-							    <label>Más información:</label>
-							    <span th:if="${selectedOption != null}">
-							        Origen: <span th:text="${selectedOption.nombre}"></span><br />
-							        Destino: <span th:text="${selectedOption.descripcion}"></span><br />
-							    </span>
-							</div>
-				                
-<!-- 					           <div class="row"> -->
-<!-- 		                          <div class="col"> -->
-<!-- 		                            <div class="form-group"> -->
-<!-- 		                              <label>Origen</label> -->
-<!-- 		                              <input class="form-control" id="origen" type="text"/> -->
-<!-- 		                            </div> -->
-<!-- 		                          </div> -->
-<!-- 		                        </div> -->
-		                        
-<!-- 		                        <div class="row"> -->
-<!-- 		                          <div class="col"> -->
-<!-- 		                            <div class="form-group"> -->
-<!-- 		                              <label>Destino</label> -->
-<!-- 		                              <input class="form-control" id="destino" type="text"/> -->
-<!-- 		                            </div> -->
-<!-- 		                          </div> -->
-<!-- 		                        </div> -->
+				               <div id="datosVuelo" style="display:none;">
+					               <div class="row">
+									    <div class="col-md-6">
+									        <div class="card">
+									            <h5 class="card-title">Vuelo de Ida</h5>
+									            <div class="card-body">
+									                <div class="row">
+											            <div class="col">
+											                <div class="form-group">
+											                    <label>Fecha de Partida</label>
+											                    <input class="form-control" id="fechaPartida" type="date" disabled/>
+											                </div>
+											            </div>
+											            <div class="col">
+											                <div class="form-group">
+											                    <label for="horaPartida">Hora de Partida</label>
+											                    <input class="form-control" id="horaPartida" type="time" disabled/>
+											                </div>
+											            </div>
+											        </div>
+											        <div class="row">
+													    <div class="col">
+													        <div class="form-group">
+													            <label for="fecha">Fecha de LLegada</label>
+													            <input class="form-control" id="fechaPartida2" type="date" disabled/>
+													        </div>
+													    </div>
+													    <div class="col">
+													        <div class="form-group">
+													            <label for="horaPartida">Hora de Llegada</label>
+													            <input class="form-control" id="horaPartida2" type="time" disabled/>
+													        </div>
+													    </div>
+													</div>
+									            </div>
+									        </div>
+									    </div>
+									    
+									    <div class="col-md-6">
+									        <div class="card">
+									            <h5 class="card-title">Vuelo de Regreso</h5>
+									            <div class="card-body">
+									                <div class="row">
+											            <div class="col">
+											                <div class="form-group">
+											                    <label for="fecha">Fecha de Partida</label>
+											                    <input class="form-control"  id="fechaRegreso" type="date" disabled/>
+											                </div>
+											            </div>
+											            <div class="col">
+											                <div class="form-group">
+											                    <label for="horaPartida">Hora de Partida</label>
+											                    <input class="form-control" id="horaRegreso" type="time" disabled/>
+											                </div>
+											            </div>
+											        </div>
+											        <div class="row">
+													    <div class="col">
+													        <div class="form-group">
+													            <label for="fecha">Fecha de LLegada</label>
+													            <input class="form-control" id="fechaRegreso2" type="date" disabled/>
+													        </div>
+													    </div>
+													    <div class="col">
+													        <div class="form-group">
+													            <label for="horaPartida">Hora de Llegada</label>
+													            <input class="form-control" id="horaRegreso2" type="time" disabled/>
+													        </div>
+													    </div>
+													</div>
+									            </div>
+									        </div>
+									    </div>
+								   </div>
+							   </div>
+				               
+
 				                
 				                <div class="campo_origen m-1" >
-				                  <label >Hotel: </label>
-								 <select th:field="*{hospedaje.id}" class="form-select" id="hotels" aria-label="Default select example">
+				                  <label class="fw-bold" >Hotel: </label>
+								 <select th:field="*{hospedaje.id}" class="form-select" id="hotels" aria-label="Default select example" required>
 								 	<option th:value="${null}" selected >Seleccione un Hotel</option>
-				                    <option th:each="h:${listaHospedaje}" 
-											th:value="${h.id}"
-	        								th:text="${h.nombre + ', ' + h.ubicacion}">
-									</option>
+<!-- 				                    <option th:each="h:${listaHospedaje}"  -->
+<!-- 											th:value="${h.id}" -->
+<!-- 	        								th:text="${h.nombre + ', ' + h.ubicacion}"> -->
+<!-- 									</option> -->
 				                  </select>
 				                </div>
 		              
@@ -252,8 +316,8 @@
 							<div class="row">
 	                          <div class="col">
 	                            <div class="form-group">
-	                              <label>Personas</label>
-	                              <input class="form-control" type="number" step="1" th:field="*{pasajeros}" />
+	                              <label class="fw-bold" >Personas</label>
+	                              <input class="form-control" type="number" step="1" min="0" th:field="*{pasajeros}" required/>
 	                            </div>
 	                          </div>
 	                        </div>
@@ -261,8 +325,8 @@
 	                        <div class="row">
 	                          <div class="col">
 	                            <div class="form-group">
-	                              <label>Habitaciones</label>
-	                              <input class="form-control" type="number" step="1" th:field="*{habitaciones}" />
+	                              <label class="fw-bold" >Habitaciones</label>
+	                              <input class="form-control" type="number" step="1" min="0" th:field="*{habitaciones}" required/>
 	                            </div>
 	                          </div>
 	                        </div>
@@ -270,8 +334,8 @@
 	                        <div class="row">
 	                          <div class="col">
 	                            <div class="form-group">
-	                              <label>Detalles</label>
-	                              <input class="form-control" type="text"  th:field="*{detalles}" />
+	                              <label class="fw-bold" >Detalles</label>
+	                              <input class="form-control" type="text"  th:field="*{detalles}" required/>
 	                            </div>
 	                          </div>
 	                        </div>
@@ -279,8 +343,8 @@
 	                        <div class="row">
 	                          <div class="col">
 	                            <div class="form-group">
-	                              <label>Precio</label>
-	                              <input class="form-control" id="precio" type="number" step=0.1 th:field="*{precio}" />
+	                              <label class="fw-bold" >Precio</label>
+	                              <input class="form-control" id="precio" type="number" step=0.1 min="0" th:field="*{precio}" required/>
 	                            </div>
 	                          </div>
 	                        </div>
@@ -331,6 +395,60 @@
 	
 	
 	
+	
+	<script>
+	  $(document).ready(function() {
+	    $('#vueloo').change(function() {
+	      var id_vuelo = $(this).val();
+	      $.ajax({
+	        url: '/vuelo_detalle/' + id_vuelo,
+	        type: 'GET',
+	        dataType: 'json',
+	        success: function(data) {
+	          $('#fechaPartida').val(data.fechaPartida);
+	          $('#fechaPartida2').val(data.fechaPartida2);
+	          $('#horaPartida').val(data.horaPartida);
+	          $('#horaPartida2').val(data.horaPartida2);
+	          $('#fechaRegreso').val(data.fechaRegreso);
+	          $('#horaRegreso').val(data.horaRegreso);
+	          $('#fechaRegreso2').val(data.fechaRegreso2);
+	          $('#horaRegreso2').val(data.horaRegreso2);
+	          $('#datosVuelo').show();
+	        }
+	      });
+	    });
+	  });
+	</script>
+	
+	<script>
+	  $(document).ready(function() {
+	    $('#vueloo').change(function() {
+	      var id_vuelo_destino = $(this).val();
+	      //alert(id_vuelo_destino);
+	      $.ajax({
+	        url: '/hoteles_select_filtro/' + id_vuelo_destino,
+	        type: 'GET',
+	        dataType: 'json',
+	        success: function(data) {//se ejecutara si la solicitud fue exitosa, data contine la respuesta en formato json
+	          var html = ''; //usará para construir el HTML que se insertará en un elemento del DOM.
+	          var len = data.length; //Obtiene la longitud del array JSON data.(lista de hoteles filtrados)
+	          
+	          if(len == 0){
+	        	  html = '<option value="">No hay hoteles disponibles en la ciudad de destino.</option>';
+	          }else{
+		          for (var i = 0; i < len; i++) {//recorre la lista(data) y crea un option con cada elemento en el select
+		            html += '<option value="' + data[i].id + '">' + data[i].nombre + ', ' + data[i].ubicacion + '</option>';
+		          }
+	          }
+	          
+	          $('#hotels').html(html);//al select le paso ese html generado con la lista de <options>
+	        }
+	      });
+	    });
+	  });
+	</script>
+	
+	
 	<script type="text/javascript">    
 	    
 	    $(document).ready(function(){
@@ -367,63 +485,7 @@
 	    });
     </script>
     
-    <script>
-//     	var listaHospedaje = [[${listaHospedaje}]];
-// 	    var vueloSelect = document.getElementById("vueloo");
-// 	    var hotelSelect = document.getElementById("hotels");
-	
-// 	    vueloSelect.addEventListener("change", function () {
-// 	        var destinoSeleccionado = vueloSelect.options[vueloSelect.selectedIndex].textContent.split('-')[1].split(',')[0].trim();
-// 			alert(destinoSeleccionado);
-// 	        // Limpia el desplegable de hoteles
-	        
-// 	        while (hotelSelect.options.length > 1) {
-// 	            hotelSelect.remove(1);
-// 	        }
-// 	        alert("limpie")
-	
-// 	        var listaSize = [[${#lists.size(listaHospedaje)}]];
-// 	        alert(listaSize);
-	        
-	        //var listaHospedaje = [[${listaHospedaje}]];
-	        
-	        //var primi = [[${listaHospedaje[0]}]];
-	        
-	     	// Agrega las opciones de hoteles correspondientes al destino seleccionado
-// 	        for (var i = 0; i < listaSize; i++) {
-// 	            var hotel = listaHospedaje[i];
-// 	            alert(hotel);
-// 	            if (hotel.ubicacion === destinoSeleccionado) {
-// 	                var option = document.createElement("option");
-// 	                option.value = hotel.id;
-// 	                option.textContent = hotel.nombre + ', ' + hotel.ubicacion;
-// 	                hotelSelect.appendChild(option);
-// 	            }
-// 	        }
-	    });
-	</script>
-	
-	<script>
-	    var opcionesSelect = document.getElementById('vueloo');
-	    alert("papu");
-	    var selectedOption = null;
-		
-	    alert(opcionesSelect);
-	    opcionesSelect.addEventListener("change", function () {
-	        var selectedIndex = opcionesSelect.selectedIndex;
-	        if (selectedIndex >= 0) {
-	            selectedOption = ${listaVuelo[selectedIndex]}; // Obtiene el vuelo seleccionado desde la lista
-	            alert(selectedOption);
-	        } else {
-	            selectedOption = null;
-	        }
-	
-	        // Actualiza la información detallada
-	        document.querySelector("span[th:text='${selectedOption.origen}']").textContent = selectedOption.origen;
-	        document.querySelector("span[th:text='${selectedOption.destino}']").textContent = selectedOption.destino;
-	        //document.querySelector("span[th:text='${selectedOption.marca}']").textContent = selectedOption.marca;
-	    });
-	</script>
+
 
 </body>
 </html>

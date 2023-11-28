@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"> 
-f.org">
 
 <head>
 <meta charset="UTF-8" />
@@ -82,22 +81,8 @@ f.org">
 
 	<div class="container">
 		<div class="row flex-lg-nowrap">
-			<div class="col-12 col-lg-auto mb-3" style="width: 200px">
-				<div class="card p-3">
-					<div class="e-navlist e-navlist--active-bg">
-						<ul class="nav">
-							<li class="nav-item"><a class="nav-link px-2 active"
-								href="#"><i class="fa fa-fw fa-bar-chart mr-1"></i><span>...</span></a>
-							</li>
-							<li class="nav-item"><a class="nav-link px-2" href="#"
-								target="__blank"><i class="fa fa-fw fa-th mr-1"></i><span>...</span></a>
-							</li>
-							<li class="nav-item"><a class="nav-link px-2" href="#"
-								target="__blank"><i class="fa fa-fw fa-cog mr-1"></i><span>...</span></a>
-							</li>
-						</ul>
-					</div>
-				</div>
+			<div class="col-12 col-lg-auto mb-3" style="width: 350px">
+				
 			</div>
 
 			<!-- Comienza mantenedor. -->
@@ -109,13 +94,14 @@ f.org">
 					</ul>
 				</div>
 
-				<div class="row flex-lg-nowrap">
+				<div class="row flex-lg-nowrap" style="max-width: 800px;">
 					<div class="col mb-3">
 						<div class="e-panel card">
 							<div class="card-header bg-danger text-white py-3">
-			                	<h4 class="font-weight-bolder">Editar Vuelo </h4>
+			                	<h4 class="font-weight-bolder fw-bold">Editar Vuelo </h4>
 			                </div>
 							<div class="card-body">
+								<div th:if="${msgg != null}" class="alert alert-warning" th:text="${msgg}" role="alert"></div>
 								<form class="form" th:action="@{/vueloRegistroEditado}" method="post" th:object="${vueloEdit}" enctype="multipart/form-data">
 									<input type="hidden" th:field="*{id}" th:value="${vueloEdit.id}">
 									<input type="hidden" th:field="*{imagen}" th:value="${vueloEdit.imagen}">
@@ -123,66 +109,110 @@ f.org">
 										<div class="col">
 
 											<div class="row">
-												<div class="col">
-													<div class="form-group">
-														<label for="origen">Origen</label> <input
-															class="form-control" id="origen" type="text"
-															th:field="*{origen}" />
-													</div>
-												</div>
-											</div>
+					                            <div class="col">
+					                              <div class="form-group">
+					                                <label for="origen">Origen</label>
+					                                <input class="form-control"  id="origen" type="text"  th:field="*{origen}" />
+					                              </div>
+					                            </div>
+					                            <div class="col">
+					                              <div class="form-group">
+					                                <label for="destino">Destino</label>
+					                                <input class="form-control"  id="destino" type="text"  th:field="*{destino}" />
+					                              </div>
+					                            </div>
+					                        </div>
+					                        
 											<div class="row">
-												<div class="col">
-													<div class="form-group">
-														<label for="destino">Destino</label> <input
-															class="form-control" id="destino" type="text"
-															th:field="*{destino}" />
+					                            <div class="col">
+					                              <div class="form-group">
+					                                <label for="aerolinea">Aerolínea</label>
+					                                <input class="form-control"  id="aerolinea" type="text"  th:field="*{aerolinea}" />
+					                              </div>
+					                            </div>
+					                            <div class="col">
+					                              <div class="form-group">
+					                                <label for="pasajeros">Pasajeros</label>
+					                                <input class="form-control"  id="pasajeros" type="number"  min="0" th:field="*{pasajeros}" />
+					                              </div>
+					                            </div>
+					                        </div>
+					                        
+											
+											<div class="card">
+					                          <h4 class="card-title fw-bold">Vuelo de Ida</h4>
+											    <div class="card-body">
+											        <div class="row">
+											            <div class="col">
+											                <div class="form-group">
+											                    <label for="fecha">Fecha de Partida</label>
+											                    <input class="form-control" id="fechaPartida" type="date" th:field="*{fechaPartida}" />
+											                </div>
+											            </div>
+											            <div class="col">
+											                <div class="form-group">
+											                    <label for="horaPartida">Hora de Partida</label>
+											                    <input class="form-control" id="horaPartida" type="time" th:field="*{horaPartida}" />
+											                </div>
+											            </div>
+											        </div>
+											        <div class="row">
+													    <div class="col">
+													        <div class="form-group">
+													            <label for="fecha">Fecha de LLegada</label>
+													            <input class="form-control" id="fechaPartida2" type="date" th:field="*{fechaPartida2}" />
+													        </div>
+													    </div>
+													    <div class="col">
+													        <div class="form-group">
+													            <label for="horaPartida">Hora de Llegada</label>
+													            <input class="form-control" id="horaPartida2" type="time" th:field="*{horaPartida2}" />
+													        </div>
+													    </div>
 													</div>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col">
-													<div class="form-group">
-														<label for="aerolinea">Aerolínea</label> <input
-															class="form-control" id="aerolinea" type="text"
-															th:field="*{aerolinea}" />
+											    </div>
+											  </div>
+											  
+											  
+											  <div class="card">
+					                          <h4 class="card-title fw-bold">Vuelo de Regreso</h4>
+											    <div class="card-body">
+											        <div class="row">
+											            <div class="col">
+											                <div class="form-group">
+											                    <label for="fecha">Fecha de Partida</label>
+											                    <input class="form-control"  id="fechaRegreso" type="date"  th:field="*{fechaRegreso}" />
+											                </div>
+											            </div>
+											            <div class="col">
+											                <div class="form-group">
+											                    <label for="horaPartida">Hora de Partida</label>
+											                    <input class="form-control" id="horaRegreso" type="time" th:field="*{horaRegreso}" />
+											                </div>
+											            </div>
+											        </div>
+											        <div class="row">
+													    <div class="col">
+													        <div class="form-group">
+													            <label for="fecha">Fecha de LLegada</label>
+													            <input class="form-control" id="fechaRegreso2" type="date" th:field="*{fechaRegreso2}" />
+													        </div>
+													    </div>
+													    <div class="col">
+													        <div class="form-group">
+													            <label for="horaPartida">Hora de Llegada</label>
+													            <input class="form-control" id="horaRegreso2" type="time" th:field="*{horaRegreso2}" />
+													        </div>
+													    </div>
 													</div>
-												</div>
+											    </div>
 											</div>
-											<div class="row">
-												<div class="col">
-													<div class="form-group">
-														<label for="pasajeros">Pasajeros</label> <input
-															class="form-control" id="pasajeros" type="number"
-															th:field="*{pasajeros}" />
-													</div>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col">
-													<div class="form-group">
-														<label for="fecha">Fecha de Partida</label>
-														<!--                             <input class="form-control"  id="fecha" type="date"  th:value="${fechaFormateada}" /> -->
-														<input class="form-control" id="fecha" type="date"
-															th:field="*{fechaPartida}" required />
-													</div>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col">
-													<div class="form-group">
-														<label for="fecha">Fecha de Regreso</label>
-														<!--                             <input class="form-control"  id="fecha" type="date"  th:value="${fechaFormateada}" /> -->
-														<input class="form-control" id="fecha" type="date"
-															th:field="*{fechaRegreso}" required />
-													</div>
-												</div>
-											</div>
+											
 											<div class="row">
 												<div class="col">
 													<div class="form-group">
 														<label for="precio">Precio</label> <input
-															class="form-control" id="precio" type="number" step=0.01
+															class="form-control" id="precio" type="number" min="0" step=0.01
 															th:field="*{precio}" />
 													</div>
 												</div>
@@ -210,7 +240,7 @@ f.org">
 									</div>
 									<div class="row">
 										<div class="col d-flex justify-content-end">
-											<button class="btn btn-danger" type="submit">Edtar</button>
+											<button class="btn btn-danger" type="submit">Editar vuelo</button>
 										</div>
 									</div>
 								</form>
