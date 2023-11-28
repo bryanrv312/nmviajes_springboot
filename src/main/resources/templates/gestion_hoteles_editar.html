@@ -72,24 +72,9 @@
 
   <div class="container">
     <div class="row flex-lg-nowrap">
-      <div class="col-12 col-lg-auto mb-3" style="width: 200px">
-        <div class="card p-3">
-          <div class="e-navlist e-navlist--active-bg">
-            <ul class="nav">
-              <li class="nav-item">
-                <a class="nav-link px-2 active" href="#"><i class="fa fa-fw fa-bar-chart mr-1"></i><span>...</span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link px-2" href="#" target="__blank"><i
-                    class="fa fa-fw fa-th mr-1"></i><span>...</span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link px-2" href="#" target="__blank"><i
-                    class="fa fa-fw fa-cog mr-1"></i><span>...</span></a>
-              </li>
-            </ul>
-          </div>
-        </div>
+    
+      <div class="col-12 col-lg-auto mb-3" style="width: 350px">
+        
       </div>
 
 
@@ -104,7 +89,7 @@
         </div>
 		
 		
-        <div class="row flex-lg-nowrap">
+        <div class="row flex-lg-nowrap" style="max-width: 800px;">
         
           <div class="col mb-3">
             <div class="e-panel card">
@@ -122,7 +107,7 @@
                         <div class="col">
                           <div class="form-group">
                             <label>Nombre</label>
-                            <input class="form-control" type="text" th:field="*{nombre}" />
+                            <input class="form-control" type="text" th:field="*{nombre}" required/>
                           </div>
                         </div>
                       </div>
@@ -130,7 +115,7 @@
                         <div class="col">
                           <div class="form-group">
                             <label>Dirección</label>
-                            <input class="form-control" type="text" th:field="*{ubicacion}" />
+                            <input class="form-control" type="text" th:field="*{ubicacion}" required/>
                           </div>
                         </div>
                       </div>
@@ -138,7 +123,7 @@
                         <div class="col">
                           <div class="form-group">
                             <label># Habitaciones</label>
-                            <input class="form-control" type="number" step=1 th:field="*{habitaciones}" oninput="validarEntero(this)"/>
+                            <input class="form-control" type="number" step=1 min="0" th:field="*{habitaciones}" oninput="validarEntero(this)" required/>
                           </div>
                         </div>
                       </div>
@@ -146,7 +131,7 @@
                         <div class="col">
                           <div class="form-group">
                             <label># Personas</label>
-                            <input class="form-control" type="number" step=1 th:field="*{personas}" oninput="validarEntero(this)"/>
+                            <input class="form-control" type="number" step=1 min="0" th:field="*{personas}" oninput="validarEntero(this)" required/>
                             
                           </div>
                         </div>
@@ -155,7 +140,7 @@
                         <div class="col">
                           <div class="form-group">
                             <label>Precio</label>
-                            <input class="form-control" id="precio" type="number" step=0.1 th:field="*{precio}" />
+                            <input class="form-control" id="precio" type="number" min="0" step=0.1 th:field="*{precio}" required/>
                           </div>
                         </div>
                       </div>
@@ -172,7 +157,7 @@
                           <div class="form-group">
                             <label  for="imagen">Imagen - Hotel</label>
                             <img style="max-width: 300px; height: 200px; display: block;" class="rounded form-control-file" 
-                            	 th:src="@{/hoteles/{img} (img=${hospedaje_edit.imagen})  }" alt="Generic placeholder image">
+                            	 th:src="@{/hoteles/{img} (img=${hospedaje_edit.imagen})  }" alt="Generic placeholder image" required>
                           </div>
                         </div>
                       </div>
@@ -183,7 +168,7 @@
                   <div class="row">
                     <div class="col d-flex justify-content-end">
                       <button class="btn btn-danger" type="submit">
-                        Editar
+                        Editar Hotel
                       </button>
                     </div>
                   </div>

@@ -127,10 +127,18 @@ public class ControladorRegistroUsuarios {
 	}
 	
 	@PostMapping("/editar_usuario_3")
-	public String editar_usaurio_3(@ModelAttribute("user_1") Usuario usu, Model model) {
+	public String editar_usaurio_3(@ModelAttribute("user_1") Usuario usu, Model model, RedirectAttributes flash) {
 		System.err.println(usu.getId());
 		System.err.println(usu.getUsername());
 		System.err.println(usu.getEmail());	
+		
+		Usuario usu_actual = usuarioServicio.buscarUsuarioPorId(usu.getId());
+		
+		if(usu_actual.getUsername().equals(usu.getUsername())) {
+			System.err.println("actual=nuevo");
+			flash.addFlashAttribute("msg_datos", "El nuevo usuario debe ser difente al actual.");
+		    return "redirect:/settings";
+		}
 		
 		if(usu.getEmail() != null) {
 			usuarioServicio.guardarEditado(usu);
@@ -146,7 +154,18 @@ public class ControladorRegistroUsuarios {
 	public String editar_solo_correo(@ModelAttribute("user_2") Usuario usu, Model model, RedirectAttributes flash) {
 		System.err.println(usu.getId());
 		System.err.println(usu.getUsername());
-		System.err.println(usu.getEmail());	
+		System.err.println(usu.getEmail());//el correo q esta en el campo correo del form
+		
+		Usuario usu_actual = usuarioServicio.buscarUsuarioPorId(usu.getId());
+		
+		System.err.println("correo_Actual: " + usu_actual.getEmail());
+		System.err.println("correo_Nuevo: " + usu.getEmail());
+		
+		if(usu_actual.getEmail().equals(usu.getEmail())) {
+			System.err.println("Actual == Nuevo");
+		    flash.addFlashAttribute("msg_email", "El correo nuevo no puede ser igual a la actual.");
+		    return "redirect:/settings";
+		}
 		
 		if(usu.getEmail() != null) {
 			
@@ -191,6 +210,12 @@ public class ControladorRegistroUsuarios {
 		
 		Usuario usua = usuarioServicio.buscarUsuarioPorId(usu.getId());
 		System.err.println("pass:" + usua.getPassword());
+		
+		if (nuevo.equals(actual)) {
+		    System.err.println("Actual == Nuevo");
+		    flash.addFlashAttribute("msg_pass", "La contraseña nueva no puede ser igual a la actual.");
+		    return "redirect:/settings";
+		}
 		
 		if(passwordEncoder.matches(actual, usua.getPassword())) {//en caso de q SI coincidan las pass
 			System.err.println("correcto coincide las contraseñas");

@@ -91,7 +91,7 @@
               </li>
               <li class="nav-item">
                 <a
-                  class="text-light fw-bold nav-link"
+                  class="text-nowrap text-light fw-bold nav-link"
                   href="/armar_paquete"
                   >Arma tu Viaje</a>
               </li>
@@ -124,11 +124,11 @@
               </li>
                
             <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
-              <a class="text-light fw-bold nav-link" href="/gestion_usuarios">Gestion Admin</a>
+              <a class="text-nowrap text-light fw-bold nav-link" href="/gestion_usuarios">Gestion Admin</a>
             </li>
             
             <li class="nav-item" sec:authorize="hasRole('ROLE_USER')">
-              <a class="text-light fw-bold nav-link" href="/order">Ver Orden</a>
+              <a class="text-nowrap text-light fw-bold nav-link" href="/order">Ver orden</a>
             </li>
             
             <li class="nav-item" sec:authorize="hasRole('ROLE_USER')">

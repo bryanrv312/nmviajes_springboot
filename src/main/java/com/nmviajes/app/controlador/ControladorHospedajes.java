@@ -11,11 +11,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -23,6 +25,7 @@ import com.nmviajes.app.entidad.Hospedaje;
 import com.nmviajes.app.entidad.PaqueteTuristico;
 import com.nmviajes.app.entidad.Vuelo;
 import com.nmviajes.app.modelo.HospedajeDTO;
+import com.nmviajes.app.servicio.DetallePagoDTOImple;
 import com.nmviajes.app.servicio.HospedajeServicioImpl;
 import com.nmviajes.app.servicio.PaqueteTuristicoServicioImpl;
 import com.nmviajes.app.servicio.VueloServicioImpl;
@@ -41,9 +44,15 @@ public class ControladorHospedajes {
     @Autowired
     private VueloServicioImpl serviceVuelo;
     
+    @Autowired
+    private DetallePagoDTOImple serviceDetalles;
+    
     
     @GetMapping("/armar_hoteles")
     public String armar_hoteles(Model model) {
+    	
+    	String destino_final = serviceDetalles.getDf();
+    	System.err.println("Destino en armar hoteles: " + destino_final);
     	
     	List<Hospedaje> lista_hoteles = servicio.listarHospedaje();
     	List<Vuelo> lista_vuelos = serviceVuelo.listarVuelo();
@@ -199,7 +208,23 @@ public class ControladorHospedajes {
 	
 	
 	@PostMapping("/paqueteRegistroEditado")
-	public String registrarPaqueteEditado(@ModelAttribute("paqueteObject") PaqueteTuristico paquete, RedirectAttributes flash){
+	public String registrarPaqueteEditado(@ModelAttribute("paqueteObject") PaqueteTuristico paquete, 
+											RedirectAttributes flash, BindingResult result){
+		System.err.println("entre");
+		System.err.println(paquete);
+		
+		if (paquete.getHospedaje() == null || paquete.getHospedaje().getId() == null) {
+	        result.rejectValue("hospedaje", "error.paquete", "El campo de hospedaje no puede estar vacío.");
+	        return "redirect:/gestion_paqueteTuristico";
+	    }
+		
+		/*if(paquete.getHospedaje().getId() == null) {
+			result.rejectValue("hospedaje", "error.paquete", "El campo de hospedaje no puede estar vacío.");
+			System.err.println("El campo de hospedaje no puede estar vacío.");
+			return "redirect:/gestion_paqueteTuristico";
+		}*/
+		
+		System.err.println(paquete);
 		servicePaquete.guardarEditado(paquete);
 		flash.addFlashAttribute("msg","Paquete editado correctamente !!");
 		return "redirect:/gestion_paqueteTuristico";
@@ -212,6 +237,13 @@ public class ControladorHospedajes {
 		flash.addFlashAttribute("msg","Paquete Eliminado correctamente !!");
 		return "redirect:/gestion_paqueteTuristico";
 	}
+	
+	
+	/*@GetMapping("/hoteles/{origen}")
+	@ResponseBody
+	public List<Hospedaje> getHotelesByOrigen(@PathVariable String origen) {
+	    return hospedajeRepository.findByOrigen(origen);
+	}*/
 	
 	
 	//Excel

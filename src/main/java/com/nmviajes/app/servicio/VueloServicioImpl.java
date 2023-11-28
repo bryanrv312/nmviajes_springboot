@@ -2,15 +2,23 @@ package com.nmviajes.app.servicio;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.data.domain.Example;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -68,7 +76,8 @@ public class VueloServicioImpl {
 	//EXPORTAR EXCEL
   	public ByteArrayInputStream exportAllVuelos() throws Exception {
   			
-		String[] columns = {"id", "Origen", "Destino", "Aerolinea", "Fecha partida", "Fecha regreso", "Pasajeros", "Precio"};
+		String[] columns = {"id", "Origen", "Destino", "Aerolinea", "Fecha_hora_salida(ida)", "Fecha_hora_llegada(ida)", 
+				"Fecha_hora_salida(regreso)", "Fecha_hora_llegada(regreso)", "Pasajeros", "Precio"};
 		
 		//creando nuevo libro
 		Workbook workbook = new HSSFWorkbook();
@@ -76,18 +85,62 @@ public class VueloServicioImpl {
 		
 		
 		Sheet sheet = workbook.createSheet("Vuelos");//creamos una nueva hoja llamada Clientes
-		Row row = sheet.createRow(0);//creamos registro en posicion 0
 		
+		Row row_titulo = sheet.createRow(0);
+		Cell cell_titulo = row_titulo.createCell(0);
+		cell_titulo.setCellValue("REPORTE DE VUELOS");
+		
+		Row row_user = sheet.createRow(1);
+		Cell cell_user = row_user.createCell(0);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String username = auth.getName();
+		cell_user.setCellValue("Descargado por: " + username);
+		
+		Row row_fecha_hora = sheet.createRow(2);
+		Cell cell_fecha_hora = row_fecha_hora.createCell(0);
+		LocalDateTime now = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+	    String formattedDateTime = now.format(formatter);
+	    cell_fecha_hora.setCellValue("Fecha y hora: " + formattedDateTime);
+	    
+	    
+	    CellStyle style_columns = workbook.createCellStyle();
+	    Font font_columns = workbook.createFont();
+	    font_columns.setBold(true);
+	    
+	 // Crear un estilo de celda y establecer negrita
+	    CellStyle style = workbook.createCellStyle();
+	    Font font = workbook.createFont();
+	    font.setBold(true);
+	    font.setFontHeightInPoints((short) 14); // Tamaño de la fuente
+	    style.setFont(font);
+	    style.setAlignment(HorizontalAlignment.CENTER);
+	    style.setVerticalAlignment(VerticalAlignment.CENTER);
+
+	    // Aplicar el estilo
+	    cell_fecha_hora.setCellStyle(style);
+	    cell_user.setCellStyle(style);
+	    cell_titulo.setCellStyle(style);
+	    
+	    // Combinar las celdas
+	    sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, columns.length - 1));
+	    sheet.addMergedRegion(new CellRangeAddress(1, 1, 0, columns.length - 1));
+	    sheet.addMergedRegion(new CellRangeAddress(2, 2, 0, columns.length - 1));
+	    sheet.addMergedRegion(new CellRangeAddress(3, 3, 0, columns.length - 1));
+		
+		
+		Row row = sheet.createRow(4);//creamos registro en posicion 4
 		//creando celdas para encabezado
 		for(int i=0; i<columns.length; i++) {
 			Cell cell = row.createCell(i);
+			cell.setCellStyle(style_columns);
 			cell.setCellValue(columns[i]);
 			// Ajustar el ancho de la columna automáticamente
 		    sheet.autoSizeColumn(i);
 		}
 		
 		List<Vuelo> lista_vuelo = vueloRepo.findAll();
-		int initRow = 1;//fila inicial
+		int initRow = 5;//fila inicial
 		
 		for (Vuelo vu : lista_vuelo) {
 			row = sheet.createRow(initRow);
@@ -96,14 +149,24 @@ public class VueloServicioImpl {
 			row.createCell(2).setCellValue(vu.getDestino());
 			row.createCell(3).setCellValue(vu.getAerolinea());
 			
-			Cell fechaPartidaCell = row.createCell(4);
-			fechaPartidaCell.setCellValue(vu.getFechaPartida().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+			Cell fechaHoraSalida_Ida_Cell = row.createCell(4);
+			fechaHoraSalida_Ida_Cell.setCellValue(vu.getFechaPartida().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + "(" +
+									      vu.getHoraPartida().format(DateTimeFormatter.ofPattern("HH:mm"))+ ")");
 			
-			Cell fechaRegresoCell = row.createCell(5);
-		    fechaRegresoCell.setCellValue(vu.getFechaRegreso().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-		    
-			row.createCell(6).setCellValue(vu.getPasajeros());
-			row.createCell(7).setCellValue(vu.getPrecio());
+			Cell fechaHoraLlegada_Ida_Cell = row.createCell(5);
+			fechaHoraLlegada_Ida_Cell.setCellValue( vu.getFechaPartida2().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + "(" +
+										  vu.getHoraPartida2().format(DateTimeFormatter.ofPattern("HH:mm"))+ ")");
+			
+			Cell fechaHoraSalida_Regreso_Cell = row.createCell(6);
+			fechaHoraSalida_Regreso_Cell.setCellValue(vu.getFechaRegreso().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + "(" +
+									      vu.getHoraRegreso().format(DateTimeFormatter.ofPattern("HH:mm"))+ ")");
+			
+			Cell fechaHoraLlegada_Regreso_Cell = row.createCell(7);
+			fechaHoraLlegada_Regreso_Cell.setCellValue(vu.getFechaRegreso2().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + "(" +
+									      vu.getHoraRegreso2().format(DateTimeFormatter.ofPattern("HH:mm"))+ ")");
+					    
+			row.createCell(8).setCellValue(vu.getPasajeros());
+			row.createCell(9).setCellValue(vu.getPrecio());
 			
 			// Ajustar el ancho de la columna automáticamente para todas las celdas de esta fila
 		    for (int i = 0; i < columns.length; i++) {

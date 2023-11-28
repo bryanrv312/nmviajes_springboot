@@ -67,29 +67,14 @@
 
   <div class="container">
     <div class="row flex-lg-nowrap">
-      <div class="col-12 col-lg-auto mb-3" style="width: 200px">
-        <div class="card p-3">
-          <div class="e-navlist e-navlist--active-bg">
-            <ul class="nav">
-              <li class="nav-item">
-                <a class="nav-link px-2 active" href="#"><i class="fa fa-fw fa-bar-chart mr-1"></i><span>...</span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link px-2" href="#" target="__blank"><i
-                    class="fa fa-fw fa-th mr-1"></i><span>...</span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link px-2" href="#" target="__blank"><i
-                    class="fa fa-fw fa-cog mr-1"></i><span>...</span></a>
-              </li>
-            </ul>
-          </div>
-        </div>
+      <div class="col-12 col-lg-auto mb-3" style="width: 350px">
+        
       </div>
 
 
       <!-- Comienza mantenedor. -->
       <div class="col">
+      <br> 
         <div class="e-tabs mb-3 px-3">
           <ul class="nav nav-tabs">
             <li class="nav-item">
@@ -99,22 +84,23 @@
         </div>
         
         
-        <div class="row flex-lg-nowrap">
+        <div class="row flex-lg-nowrap" style="width: 800px;">
         
           <div class="col mb-3">
             <div class="e-panel card">
               <div class="card-header bg-danger text-white py-3">
-                  <h4 class="font-weight-bolder">Editar Paquete Turístico </h4>
+                  <h4 class="font-weight-bolder fw-bold">Editar Paquete Turístico </h4>
               </div>
-              <div class="card-body">
+              <div class="modal-body mx-auto" style="width: 700px;">
                 <form class="form" th:action="@{/paqueteRegistroEditado}" method="post" th:object="${paqueteObject}">
                  <input type="hidden" th:field="*{id}" th:value="${paqueteObject.id}">
                   <div class="row">
                     <div class="col">
+                    <br>
                     
                      <div class="campo_origen m-1" >
-		                 <label >Vuelo: </label>
-						 <select th:field="*{vuelo.id}" class="form-select" id="vueloo" aria-label="Default select example">
+		                 <label class="fw-bold" >Vuelo: </label>
+						 <select th:field="*{vuelo.id}" class="form-select" id="vueloo" aria-label="Default select example" required>
 						 	<option th:value="${null}" selected >Seleccione un vuelo</option>
 		                    <option th:each="v:${listaVuelo}" 
 									th:value="${v.id}"
@@ -123,46 +109,108 @@
 		                 </select>
 	               	  </div>
 	               	  
+	               	  
+<!-- 	               	  <div id="datosVuelo" style="display:none; "> -->
+					               <div class="row">
+									    <div class="col-md-6">
+									        <div class="card">
+									            <h5 class="card-title">Vuelo de Ida</h5>
+									            <div class="card-body">
+									                <div class="row">
+											            <div class="col">
+											                <div class="form-group">
+											                    <label>Fecha de Partida</label>
+											                    <input class="form-control" id="fechaPartida" type="text" th:field="*{vuelo.fechaPartida}" disabled/>
+											                </div>
+											            </div>
+											            <div class="col">
+											                <div class="form-group">
+											                    <label for="horaPartida">Hora de Partida</label>
+											                    <input class="form-control" id="horaPartida" type="text" th:field="*{vuelo.horaPartida}" disabled/>
+											                </div>
+											            </div>
+											        </div>
+											        <div class="row">
+													    <div class="col">
+													        <div class="form-group">
+													            <label for="fecha">Fecha de LLegada</label>
+													            <input class="form-control" id="fechaPartida2" th:field="*{vuelo.fechaPartida2}" type="text" disabled/>
+													        </div>
+													    </div>
+													    <div class="col">
+													        <div class="form-group">
+													            <label for="horaPartida">Hora de Llegada</label>
+													            <input class="form-control" id="horaPartida2" th:field="*{vuelo.horaPartida2}" type="text" disabled/>
+													        </div>
+													    </div>
+													</div>
+									            </div>
+									        </div>
+									    </div>
+									    
+									    <div class="col-md-6">
+									        <div class="card">
+									            <h5 class="card-title">Vuelo de Regreso</h5>
+									            <div class="card-body">
+									                <div class="row">
+											            <div class="col">
+											                <div class="form-group">
+											                    <label for="fecha">Fecha de Partida</label>
+											                    <input class="form-control"  id="fechaRegreso" th:field="*{vuelo.fechaRegreso}" type="text" disabled/>
+											                </div>
+											            </div>
+											            <div class="col">
+											                <div class="form-group">
+											                    <label for="horaPartida">Hora de Partida</label>
+											                    <input class="form-control" id="horaRegreso" th:field="*{vuelo.horaRegreso}" type="text" disabled/>
+											                </div>
+											            </div>
+											        </div>
+											        <div class="row">
+													    <div class="col">
+													        <div class="form-group">
+													            <label for="fecha">Fecha de LLegada</label>
+													            <input class="form-control" id="fechaRegreso2" th:field="*{vuelo.fechaRegreso2}" type="text" disabled/>
+													        </div>
+													    </div>
+													    <div class="col">
+													        <div class="form-group">
+													            <label for="horaPartida">Hora de Llegada</label>
+													            <input class="form-control" id="horaRegreso2" th:field="*{vuelo.horaRegreso2}" type="text" disabled/>
+													        </div>
+													    </div>
+													</div>
+									            </div>
+									        </div>
+									    </div>
+								   </div>
+<!-- 							   </div> -->
+	               	  
+	               	  
 	               	  <div class="campo_origen m-1" >
-	                  <label >Hotel: </label>
-					  <select th:field="*{hospedaje.id}" class="form-select" id="hotels" aria-label="Default select example">
+	                  <label class="fw-bold" >Hotel: </label>
+					  <select th:field="*{hospedaje.id}" class="form-select" id="hotels" aria-label="Default select example" required>
 						 	<option th:value="${null}" selected >Seleccione un Hotel</option>
 		                    <option th:each="h:${listaHospedaje}" 
 									th:value="${h.id}"
-	      								th:text="${h.nombre + ', ' + h.ubicacion}">
+	      							th:text="${h.nombre + ', ' + h.ubicacion}">
 							</option>
 	                   </select>
 	                  </div>
-                    
-<!--                       <div class="row"> -->
-<!--                         <div class="col"> -->
-<!--                           <div class="form-group"> -->
-<!--                             <label>Nombre</label> -->
-<!--                             <input class="form-control" type="text" th:field="*{vuelo.origen}" /> -->
-<!--                           </div> -->
-<!--                         </div> -->
-<!--                       </div> -->
-<!--                       <div class="row"> -->
-<!--                         <div class="col"> -->
-<!--                           <div class="form-group"> -->
-<!--                             <label>Dirección</label> -->
-<!--                             <input class="form-control" type="text" th:field="*{hospedaje.ubicacion}" /> -->
-<!--                           </div> -->
-<!--                         </div> -->
-<!--                       </div> -->
+
                       <div class="row">
                         <div class="col">
                           <div class="form-group">
-                            <label># Habitaciones</label>
-                            <input class="form-control" type="number" step=1 th:field="*{habitaciones}" oninput="validarEntero(this)"/>
+                            <label class="fw-bold"> Habitaciones</label>
+                            <input class="form-control" type="number" step=1 min="0" th:field="*{habitaciones}" oninput="validarEntero(this)" required/>
                           </div>
                         </div>
                       </div>
                       <div class="row">
                         <div class="col">
                           <div class="form-group">
-                            <label># Personas</label>
-                            <input class="form-control" type="number" step=1 th:field="*{pasajeros}" oninput="validarEntero(this)"/>
+                            <label class="fw-bold"> Personas</label>
+                            <input class="form-control" type="number" step=1 min="0" th:field="*{pasajeros}" oninput="validarEntero(this)" required/>
                             
                           </div>
                         </div>
@@ -171,23 +219,23 @@
                       <div class="row">
                         <div class="col">
                           <div class="form-group">
-                            <label>Precio</label>
-                            <input class="form-control" id="precio" type="number" step=0.1 th:field="*{precio}" />
+                            <label class="fw-bold" >Precio</label>
+                            <input class="form-control" id="precio" type="number" min="0" step=0.1 th:field="*{precio}" required/>
                           </div>
                         </div>
                       </div>
                       <div class="row">
 					    <div class="col mt-3 md-6">
 					        <div class="form-group">
-					            <label for="imagen">Imagen - Destino</label>
-					            <img style="max-width: 300px; height: 200px; display: block;" class="rounded form-control-file" 
+					            <label class="fw-bold" for="imagen">Imagen - Destino</label>
+					            <img style="max-width: 300px; height: 200px; display: block;" id="imagenVuelo2" class="rounded form-control-file" 
 					                th:src="@{/logos/{img} (img=${paqueteObject.vuelo.imagen})}" alt="Generic placeholder image">
 					        </div>
 					    </div>
 					    <div class="col mt-3 md-6">
 					        <div class="form-group">
-					            <label for="imagen">Imagen - Hotel</label>
-					            <img style="max-width: 300px; height: 200px; display: block;" class="rounded form-control-file" 
+					            <label class="fw-bold" for="imagen">Imagen - Hotel</label>
+					            <img style="max-width: 300px; height: 200px; display: block;" id="imagenHotels" class="rounded form-control-file" 
 					                th:src="@{/hoteles/{img} (img=${paqueteObject.hospedaje.imagen})}" alt="Generic placeholder image">
 					        </div>
 					    </div>
@@ -197,6 +245,7 @@
                       
                     </div>
                   </div>
+                  <br>
                   <div class="row">
                     <div class="col d-flex justify-content-end">
                       <button class="btn btn-danger" type="submit">
@@ -204,6 +253,7 @@
                       </button>
                     </div>
                   </div>
+                  <br>
                 </form>
               </div>
             </div>
@@ -254,6 +304,82 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 
 </body>
+
+
+	<script>
+	  $(document).ready(function() {
+	    $('#vueloo').change(function() {
+	      var id_vuelo = $(this).val();
+	      $.ajax({
+	        url: '/vuelo_detalle/' + id_vuelo,
+	        type: 'GET',
+	        dataType: 'json',
+	        success: function(data) {
+	          $('#fechaPartida').val(data.fechaPartida);
+	          $('#fechaPartida2').val(data.fechaPartida2);
+	          $('#horaPartida').val(data.horaPartida);
+	          $('#horaPartida2').val(data.horaPartida2);
+	          $('#fechaRegreso').val(data.fechaRegreso);
+	          $('#horaRegreso').val(data.horaRegreso);
+	          $('#fechaRegreso2').val(data.fechaRegreso2);
+	          $('#horaRegreso2').val(data.horaRegreso2);
+	          //$('#imagenVuelo2').val(data.imagen);
+	          $('#imagenVuelo2').attr('src', '/logos/' + data.imagen);
+	          //$('#datosVuelo').show();
+	        }
+	      });
+	    });
+	  });
+	</script>
+	
+	<script>
+	  $(document).ready(function() {
+	    $('#vueloo').change(function() {
+	      var id_vuelo_destino = $(this).val();
+	      //alert(id_vuelo_destino);
+	      $.ajax({
+	        url: '/hoteles_select_filtro/' + id_vuelo_destino,
+	        type: 'GET',
+	        dataType: 'json',        //data es el array que objengo de esa url
+	        success: function(data) {//se ejecutara si la solicitud fue exitosa, data contine la respuesta en formato json
+	          var html = ''; //usará para construir el HTML que se insertará en un elemento del DOM.
+	          var len = data.length; //Obtiene la longitud del array JSON data.(lista de hoteles filtrados)
+	          //var data_img;
+	          
+	          if(len == 0){
+	        	  html = '<option value="">No hay hoteles disponibles en la ciudad de destino.</option>';
+	          }
+	          
+	          for (var i = 0; i < len; i++) {//recorre la lista(data) y crea un option con cada elemento en el select
+	            html += '<option value="' + data[i].id + '">' + data[i].nombre + ', ' + data[i].ubicacion + '</option>';
+	            //data_img += data[i].imagen;
+	          }
+	          
+	          $('#hotels').html(html);//al select le paso ese html generado con la lista de <options>
+	          //alert(data_img);
+	          //$('#imagenHotels').attr('src', '/hoteles/' + data_img);		
+	        }
+	      });
+	    });
+	    
+	    //ESTO SE MODIFICO EN EL SCRIPT ANTERIOR Y SE JUNTO CON EL ANIDADO DE VUELO-HOTEL
+// 	    $('#hotels').change(function() {
+// 		      var id_hotels = $(this).val();
+// 		      $.ajax({
+// 		        url: '/hotels_detalle/' + id_hotels,
+// 		        type: 'GET',
+// 		        dataType: 'json',
+// 		        success: function(data) {
+// 		          $('#imagenHotels').attr('src', '/hoteles/' + data.imagen);
+// 		        }
+// 		      });
+// 		    });
+	    
+	  });
+	</script>
+	
+
+	
 
 	<script>
 	    function validarEntero(input) {

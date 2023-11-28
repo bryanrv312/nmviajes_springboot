@@ -3,6 +3,7 @@ package com.nmviajes.app.controlador;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -41,6 +42,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -55,6 +57,7 @@ import com.nmviajes.app.entidad.Vuelo;
 import com.nmviajes.app.modelo.DetallePagoDTO;
 import com.nmviajes.app.modelo.UsuarioRegistroDTO;
 import com.nmviajes.app.modelo.VueloDTO;
+import com.nmviajes.app.repositorio.HospedajeRepo;
 import com.nmviajes.app.servicio.DetallePagoDTOImple;
 import com.nmviajes.app.servicio.HospedajeServicioImpl;
 import com.nmviajes.app.servicio.PagoServicioImpl;
@@ -125,6 +128,9 @@ public class ControladorVuelo {
 
 	@Autowired
 	private HospedajeServicioImpl hservicio;
+	
+	@Autowired
+	private HospedajeRepo hospedaje_repo;
 
 	@Autowired
 	private GenerarReportes jasperReportService;
@@ -141,6 +147,13 @@ public class ControladorVuelo {
 
 	private double totalorder = 0;
 	
+	String destinoFinal = "";//filtrar hoteles por destino(automatico)
+	
+	public String getDestinoFinal() {
+		String destino_final = this.destinoFinal;
+		detallePagoDTOImple.addDf(destino_final);
+		return destino_final;
+	}
 	
 	//funcion que persiste el List detalles
 	public List<DetallePagoDTO> getDetalles() {
@@ -212,6 +225,34 @@ public class ControladorVuelo {
 	}
 	
 	
+	/*SELECT DEPENDIENTE DE VUELO EN PAQUETES*/
+	@GetMapping("/hoteles_select_filtro/{id_vuelo_destino}")
+	@ResponseBody
+	public List<Hospedaje> getHotelesByOrigen(@PathVariable("id_vuelo_destino") Long id_vuelo) {
+		//System.err.println("ORIGEN:" + id_vuelo);
+		Vuelo vuelo = servicio.buscarUsuarioPorId(id_vuelo);
+		//System.err.println(vuelo);
+		
+	    return hservicio.buscarHotelesPorUbicacion(vuelo.getDestino()); //eso sera el data, en el success del jquery
+	}
+	
+	@GetMapping("/vuelo_detalle/{id_vuelo}")
+	@ResponseBody
+	public Vuelo getVueloDetalle(@PathVariable("id_vuelo") Long id_vuelo) {
+		Vuelo vuelo = servicio.buscarUsuarioPorId(id_vuelo);
+	    return vuelo; //eso sera el data, en el success del jquery
+	}
+	
+	@GetMapping("/hotels_detalle/{id_hotel}")
+	@ResponseBody
+	public Hospedaje getHotelsDetalle(@PathVariable("id_hotel") Long id_hotel) {
+		Hospedaje hospedaje = hservicio.buscarUsuarioPorId(id_hotel);
+		System.err.println(hospedaje);
+	    return hospedaje; //eso sera el data, en el success del jquery
+	}
+	
+	
+	
 	@PostMapping("/search_4")
 	public String busquedaPaquete(@ModelAttribute("search_paquete") PaqueteTuristico paquete, Model model) {
 		System.out.println("paquete fecha partida: " + paquete.getVuelo().getOrigen());
@@ -237,24 +278,7 @@ public class ControladorVuelo {
 	        // No se proporcionaron criterios de búsqueda válidos
 	        model.addAttribute("listaPaquete", Collections.emptyList());
 	    }
-		
-		
-		/*
-		List<PaqueteTuristico> listaPaquetes = servicePaquete.buscarPorOrigen(paquete.getVuelo().getOrigen());
-		System.out.println("hola paquete" + listaPaquetes);
-		*/
-		
-		/*Example<PaqueteTuristico> example = Example.of(paquete);
-		System.out.println("example: " + example);
-		List<PaqueteTuristico> listaPaquetes = servicePaquete.buscarByExample_pq(example);
-		System.out.println("hola paquete" + listaPaquetes);
-		for(PaqueteTuristico pq: listaPaquetes) {
-			System.out.println("id del paquete: " + pq.getId());
-	        System.out.println("origen del paquete: " + pq.getVuelo().getOrigen());
-		}*/
-		
-		//model.addAttribute("listaPaquete", listaPaquetes);
-		
+
 		return "paquete";
 	}
 	
@@ -306,10 +330,124 @@ public class ControladorVuelo {
 		return "redirect:/gestion_vuelos";
 	}*/	
 	
+	public static boolean validarFechas(LocalDate fechaPartida, LocalDate fechaPartida2, LocalDate fechaRegreso,
+			LocalDate fechaRegreso2, LocalTime horaPartida, LocalTime horaPartida2, LocalTime horaRegreso, LocalTime horaRegreso2) {
+		// Validaciones
+		if (fechaPartida.isAfter(fechaPartida2)) {
+			System.out.println("La fecha de partida debe ser anterior a la fecha de llegada del vuelo de ida.");
+			return false;
+		}
+
+		if (fechaRegreso.isAfter(fechaRegreso2)) {
+			System.out.println("La fecha de partida debe ser anterior a la fecha de llegada del vuelo de regreso.");
+			return false;
+		}
+
+		if (fechaPartida2.isAfter(fechaRegreso)) {
+			System.out.println(
+					"La fecha de llegada del vuelo de ida debe ser anterior a la fecha de partida del vuelo de regreso.");
+			return false;
+		}
+
+		if (fechaRegreso.isAfter(fechaRegreso2)) {
+			System.out.println(
+					"La fecha de llegada del vuelo de regreso debe ser anterior a la fecha de llegada del vuelo de regreso.");
+			return false;
+		}
+		
+		if (fechaPartida.equals(fechaPartida2) && horaPartida.isAfter(horaPartida2)) {
+            System.out.println("La hora de partida debe ser anterior a la hora de llegada del vuelo de ida.");
+            return false;
+        }
+		
+		if (fechaRegreso.equals(fechaRegreso2) && horaRegreso.isAfter(horaRegreso2)) {
+            System.out.println("La hora de partida debe ser anterior a la hora de llegada del vuelo de regreso.");
+            
+            return false;
+        }
+
+		// Si todas las validaciones pasan, devuelve true
+		return true;
+	}
+	
 	@Secured("ROLE_ADMIN")
 	@PostMapping("/vueloRegistro")
 	public String registrarVuelo(@ModelAttribute("vueloObject") Vuelo vu, RedirectAttributes flash, 
-								 @RequestParam("archivoImagen") MultipartFile multiPart) {		
+								 @RequestParam("archivoImagen") MultipartFile multiPart, Model modelo) {
+		
+		System.err.println("entre");
+		System.err.println(vu);
+		
+		LocalDate fecha_partida = vu.getFechaPartida();
+		LocalDate fecha_partida2 = vu.getFechaPartida2();
+		LocalDate fecha_regreso = vu.getFechaRegreso();
+		LocalDate fecha_regreso2 = vu.getFechaRegreso2();
+		
+		LocalTime hora_partida = vu.getHoraPartida();
+		LocalTime hora_partida2 = vu.getHoraPartida2();
+		LocalTime hora_regreso= vu.getHoraRegreso();
+		LocalTime hora_regreso2 = vu.getHoraRegreso2();
+		
+		/*boolean validacionExitosa = validarFechas(fecha_partida, fecha_partida2, fecha_regreso, fecha_regreso2,
+				hora_partida, hora_partida2, hora_regreso, hora_regreso2);*/
+		
+		
+		// Puedes usar el resultado para decidir qué hacer en tu aplicación
+        /*if (validacionExitosa) {
+            System.out.println("Las fechas son válidas.");
+        } else {
+            System.out.println("Las fechas no son válidas. Realiza alguna acción necesaria.");
+            System.err.println("Pipipipipi !!!");
+			flash.addFlashAttribute("msgg","Las fechas no son validas !!! ");
+		 	return "redirect:/gestion_vuelos?modal=true";
+        }*/
+		
+		if (fecha_partida.isAfter(fecha_partida2)) {
+			System.out.println("La fecha de partida debe ser anterior a la fecha de llegada del vuelo de ida.");
+			flash.addFlashAttribute("msgg","La fecha de partida debe ser anterior a la fecha de llegada del vuelo de ida.");
+		 	return "redirect:/gestion_vuelos?modal=true";
+		}
+
+		if (fecha_regreso.isAfter(fecha_regreso2)) {
+			System.out.println("La fecha de partida debe ser anterior a la fecha de llegada del vuelo de regreso.");
+			flash.addFlashAttribute("msgg","La fecha de partida debe ser anterior a la fecha de llegada del vuelo de regreso. ");
+		 	return "redirect:/gestion_vuelos?modal=true";
+		}
+
+		if (fecha_partida2.isAfter(fecha_regreso)) {
+			System.out.println("La fecha de llegada del vuelo de ida debe ser anterior a la fecha de partida del vuelo de regreso.");
+			flash.addFlashAttribute("msgg","La fecha de llegada del vuelo de ida debe ser anterior a la fecha de partida del vuelo de regreso.");
+		 	return "redirect:/gestion_vuelos?modal=true";
+		}
+
+		if (fecha_regreso.isAfter(fecha_regreso2)) {
+			System.out.println("La fecha de llegada del vuelo de regreso debe ser anterior a la fecha de llegada del vuelo de regreso.");
+			flash.addFlashAttribute("msgg","La fecha de llegada del vuelo de regreso debe ser anterior a la fecha de llegada del vuelo de regreso.");
+		 	return "redirect:/gestion_vuelos?modal=true";
+		}
+		
+		if (fecha_partida.equals(fecha_partida2) && hora_partida.isAfter(hora_partida2)) {
+            System.out.println("La hora de partida debe ser anterior a la hora de llegada del vuelo de ida.");
+            flash.addFlashAttribute("msgg","La hora de partida debe ser anterior a la hora de llegada del vuelo de ida.");
+		 	return "redirect:/gestion_vuelos?modal=true";
+        }
+		
+		if (fecha_regreso.equals(fecha_regreso2) && hora_regreso.isAfter(hora_regreso2)) {
+            System.out.println("La hora de partida debe ser anterior a la hora de llegada del vuelo de regreso.");
+            flash.addFlashAttribute("msgg","La hora de partida debe ser anterior a la hora de llegada del vuelo de regreso.");
+		 	return "redirect:/gestion_vuelos?modal=true";
+        }
+		
+        
+        System.err.println("sali del if-else");
+		
+		
+		/*if(fecha_partida.compareTo(fecha_regreso) > 0) {
+			System.err.println("Pipipipipi !!!");
+			flash.addFlashAttribute("msgg","la fecha partida debe ser menor a la de regreso");
+		 	return "redirect:/gestion_vuelos?modal=true";	
+		}*/
+				
 		
 		if (!multiPart.isEmpty()) {
 			String ruta = "c:/nmviajes/img-vuelos/";
@@ -334,8 +472,57 @@ public class ControladorVuelo {
 	
 	@Secured("ROLE_ADMIN")
 	@PostMapping("/vueloRegistroEditado")
-	public String registrarVueloEditado(@ModelAttribute("vueloEdit") Vuelo vu, RedirectAttributes flash, 
+	public String registrarVueloEditado(@ModelAttribute("vueloEdit") Vuelo vu, RedirectAttributes flash, Model modelo, 
 			 							@RequestParam("archivoImagen") MultipartFile multiPart) {
+		
+		LocalDate fecha_partida = vu.getFechaPartida();
+		LocalDate fecha_partida2 = vu.getFechaPartida2();
+		LocalDate fecha_regreso = vu.getFechaRegreso();
+		LocalDate fecha_regreso2 = vu.getFechaRegreso2();
+		
+		LocalTime hora_partida = vu.getHoraPartida();
+		LocalTime hora_partida2 = vu.getHoraPartida2();
+		LocalTime hora_regreso= vu.getHoraRegreso();
+		LocalTime hora_regreso2 = vu.getHoraRegreso2();
+		
+		if (fecha_partida.isAfter(fecha_partida2)) {
+			System.out.println("La fecha de partida debe ser anterior a la fecha de llegada del vuelo de ida.");
+			//flash.addFlashAttribute("msgg","La fecha de partida debe ser anterior a la fecha de llegada del vuelo de ida.");
+			modelo.addAttribute("msgg","La fecha de partida debe ser anterior a la fecha de llegada del vuelo de ida.");
+			return "gestion_vuelos_editar";
+		 	//return "redirect:/gestion_vuelos?modal=true";
+		}
+
+		if (fecha_regreso.isAfter(fecha_regreso2)) {
+			System.out.println("La fecha de partida debe ser anterior a la fecha de llegada del vuelo de regreso.");
+			modelo.addAttribute("msgg","La fecha de partida debe ser anterior a la fecha de llegada del vuelo de regreso. ");
+			return "gestion_vuelos_editar";
+		}
+
+		if (fecha_partida2.isAfter(fecha_regreso)) {
+			System.out.println("La fecha de llegada del vuelo de ida debe ser anterior a la fecha de partida del vuelo de regreso.");
+			modelo.addAttribute("msgg","La fecha de llegada del vuelo de ida debe ser anterior a la fecha de partida del vuelo de regreso.");
+			return "gestion_vuelos_editar";
+		}
+
+		if (fecha_regreso.isAfter(fecha_regreso2)) {
+			System.out.println("La fecha de llegada del vuelo de regreso debe ser anterior a la fecha de llegada del vuelo de regreso.");
+			modelo.addAttribute("msgg","La fecha de llegada del vuelo de regreso debe ser anterior a la fecha de llegada del vuelo de regreso.");
+			return "gestion_vuelos_editar";
+		}
+		
+		if (fecha_partida.equals(fecha_partida2) && hora_partida.isAfter(hora_partida2)) {
+            System.out.println("La hora de partida debe ser anterior a la hora de llegada del vuelo de ida.");
+            modelo.addAttribute("msgg","La hora de partida debe ser anterior a la hora de llegada del vuelo de ida.");
+            return "gestion_vuelos_editar";
+        }
+		
+		if (fecha_regreso.equals(fecha_regreso2) && hora_regreso.isAfter(hora_regreso2)) {
+            System.out.println("La hora de partida debe ser anterior a la hora de llegada del vuelo de regreso.");
+            modelo.addAttribute("msgg","La hora de partida debe ser anterior a la hora de llegada del vuelo de regreso.");
+            return "gestion_vuelos_editar";
+        }
+		
 		
 		if (!multiPart.isEmpty()) {
 			String ruta = "c:/nmviajes/img-vuelos/";
@@ -401,6 +588,8 @@ public class ControladorVuelo {
 	@Secured({ "ROLE_USER", "ROLE_ADMIN" })
 	@PostMapping("/cart")
 	public String verCart(@RequestParam Long id, @RequestParam Integer cantidad, Model model) {
+		
+		System.err.println("DESTINO FINAL:" + getDestinoFinal());
 
 		DetallePagoDTO detallePagoDTO = new DetallePagoDTO();
 		Vuelo vuelo = new Vuelo();
@@ -438,20 +627,29 @@ public class ControladorVuelo {
 		if(getDetalles().isEmpty()) {
 			model.addAttribute("mensaje", "Orden vacía");
 		}else {
-			for (DetallePagoDTO i : getDetalles()) {
-				capturar += i.getTotal();
-				e.setNombre(i.getNombre() + " "); // e se le agrega el nombre de lo que escogio
+			for (DetallePagoDTO item : getDetalles()) {
+				capturar += item.getTotal();
+				e.setNombre(item.getNombre() + " "); // e se le agrega el nombre de lo que escogio
 			}
 
 			e.setTotal(capturar);// e solo tendria el nombre y el total
+			
+			
 
 			System.out.println("----------------- foreach detalles ----------");
 			for (DetallePagoDTO dpago : getDetalles()) {
 				System.out.println(dpago);
+				String[] partes = dpago.getNombre().split(" ");
+				String ciudadDestino = partes[1];
+				System.err.println(ciudadDestino);
+				destinoFinal = ciudadDestino;
 			}
+			
+			
 			
 			//detallePagoDTOImple.saveOrden(e, usuario);
 			//System.out.println("-------------" + e.getTotal());
+			
 		}
 		
 		model.addAttribute("usuario", usuario);
@@ -523,6 +721,7 @@ public class ControladorVuelo {
 		System.out.println("Limpiando orden");
 		total = 0;
 		detalles.clear();
+		destinoFinal = "";
 
 		attributes.addFlashAttribute("msg", "Su Pago se realizo Exitosamente, se envio los detalles a su correo");
 		return "redirect:/";
@@ -535,6 +734,7 @@ public class ControladorVuelo {
 
 		total = 0;
 		detalles.clear();
+		destinoFinal = "";
 
 		attributes.addFlashAttribute("mensaje", "items eliminados");
 		return "redirect:/order";
