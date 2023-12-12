@@ -210,7 +210,7 @@
                           <div class="col">
                             <div class="form-group">
                               <label>Nombre</label>
-                              <input class="form-control" type="text" th:field="*{nombre}" />
+                              <input class="form-control" type="text" th:field="*{nombre}" required/>
                             </div>
                           </div>
                         </div>
@@ -218,7 +218,7 @@
                           <div class="col">
                             <div class="form-group">
                               <label>Dirección</label>
-                              <input class="form-control" type="text" th:field="*{ubicacion}" />
+                              <input class="form-control" type="text" th:field="*{ubicacion}" required/>
                             </div>
                           </div>
                         </div>
@@ -226,7 +226,7 @@
                           <div class="col">
                             <div class="form-group">
                               <label>Número de Habitaciones</label>
-                              <input class="form-control" type="number" step="1" th:field="*{habitaciones}" />
+                              <input class="form-control" type="number" step="1" th:field="*{habitaciones}" required/>
                             </div>
                           </div>
                         </div>
@@ -234,7 +234,7 @@
                           <div class="col">
                             <div class="form-group">
                               <label>Número de Personas</label>
-                              <input class="form-control" type="number" step="1" th:field="*{personas}" />
+                              <input class="form-control" type="number" step="1" th:field="*{personas}" required/>
                             </div>
                           </div>
                         </div>
@@ -242,7 +242,7 @@
                           <div class="col">
                             <div class="form-group">
                               <label>Precio</label>
-                              <input class="form-control" id="precio" type="number" step=0.1 th:field="*{precio}" />
+                              <input class="form-control" id="precio" type="number" step=0.1 th:field="*{precio}" required/>
                             </div>
                           </div>
                         </div>
@@ -250,7 +250,7 @@
                           <div class="col">
                             <div class="form-group">
                               <label  for="archivoImagen">Imagen</label>
-                              <input class="form-control-file"  id="archivoImagen" name="archivoImagen" type="file"/>
+                              <input class="form-control-file"  id="archivoImagen" name="archivoImagen" type="file" required/>
                             </div>
                           </div>
                         </div>
